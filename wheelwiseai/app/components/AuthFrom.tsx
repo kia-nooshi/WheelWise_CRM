@@ -1,8 +1,14 @@
 'use client';
 
+// Import Form Elements
 import Input from "@/app/components/Forms/Input";
 import Button from "@/app/components/Forms/Button";
+import AuthSocialButton from "@/app/components/Forms/AuthSocialButton";
 
+// Import React Icons
+
+
+// Import React Forms
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
@@ -68,6 +74,18 @@ const AuthForm = () => {
 
                     <Button disabled={isLoading} fullWidth type="submit">{variant === 'LOGIN' ? 'Sign in' : 'Register'}</Button>
 
+                    <div className="mt-6">
+                        <div className="relative">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-gray-200"></div>
+                            </div>
+                            <div className="relative flex justify-center text-sm">
+                                <span className="bg-white px-2 text-gray-500">Or continue with</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <AuthSocialButton/>
                 </form>
 
             </div>
