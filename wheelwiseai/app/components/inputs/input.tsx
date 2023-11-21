@@ -14,7 +14,7 @@ interface InputProps {
     type?: string,
     required?: boolean,
     register: UseFormRegister<FieldValues>,
-    error:FieldErrors,
+    error?:FieldErrors,
     disabled?:boolean;
 }
 
@@ -36,9 +36,22 @@ const Input: React.FC<InputProps> = ({
                         leading-6
                         font-medium
                         text-gray-500
-                    ">
+                    "
+                    
+                    htmlFor={id}
+
+                    >
                         {lable}
                     </label>
+                    <div className="mt-2">
+                        <input 
+                        id={id}
+                        type={type}
+                        autoComplete={id}
+                        disabled={disabled}
+                        { ... register(id, {required}) }
+                        className="form-input"/>
+                    </div>
                 </div>
         );
     }
