@@ -3,6 +3,7 @@
 import Input from "@/app/components/inputs/input";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
 type Variant = "LOGIN" | "REGISTER";
 
 
@@ -59,7 +60,8 @@ const AuthForm = () => {
 
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
 
-                    <Input />
+                <Input lable="Test1" id="Test1" />
+                <Input lable="Test2" id="Test2" />
 
                 </form>
 
