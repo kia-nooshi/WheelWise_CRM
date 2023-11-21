@@ -1,19 +1,38 @@
 'use client';
 
+
+
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+//
+// WheelWise CRM 
+// Authentication Form
+// By Danin Namiranian
+//
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////// Import Files //////////
+
 // Import Form Elements
 import Input from "@/app/components/Forms/Input";
 import Button from "@/app/components/Forms/Button";
 import AuthSocialButton from "@/app/components/Forms/AuthSocialButton";
 
 // Import React Icons
-
+import { BsGithub , BsGoogle } from "react-icons/bs"
 
 // Import React Forms
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-type Variant = "LOGIN" | "REGISTER";
+///////////////////////// React Form Functions //////////
 
+type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
     
@@ -59,6 +78,9 @@ const AuthForm = () => {
         }
     }
 
+    
+///////////////////////// Form HTML //////////
+
     return(
 
         // Login element here
@@ -85,7 +107,11 @@ const AuthForm = () => {
                         </div>
                     </div>
 
-                    <AuthSocialButton/>
+                    <div className="mt-6 flex gap-2 w-full">
+                    <AuthSocialButton icon={BsGithub} onClick={() => {}}/>
+                    <AuthSocialButton icon={BsGoogle} onClick={() => {}}/>
+                    </div>
+                    
                 </form>
 
             </div>
