@@ -1,7 +1,6 @@
 'use client'
 
 import clsx from 'clsx';
-import React from 'react';
 import { 
     FieldErrors, 
     FieldValues, 
@@ -14,7 +13,7 @@ interface InputProps {
     type?: string,
     required?: boolean,
     register: UseFormRegister<FieldValues>,
-    error?:FieldErrors,
+    errors:FieldErrors,
     disabled?:boolean;
 }
 
@@ -24,7 +23,7 @@ const Input: React.FC<InputProps> = ({
     type,
     required,
     register,
-    error,
+    errors,
     disabled
 }) => {
         return ( 
@@ -37,9 +36,7 @@ const Input: React.FC<InputProps> = ({
                         font-medium
                         text-gray-500
                     "
-                    
                     htmlFor={id}
-
                     >
                         {lable}
                     </label>
@@ -50,7 +47,26 @@ const Input: React.FC<InputProps> = ({
                         autoComplete={id}
                         disabled={disabled}
                         { ... register(id, {required}) }
-                        className="form-input"/>
+                        className={clsx(`
+                            form-input 
+                            block 
+                            w-full 
+                            rounded-md 
+                            border-0 
+                            py-1.5
+                            text-gray-900
+                            shadow-sm 
+                            ring-1 
+                            ring-inset 
+                            ring-gray-300
+                            placeholder:text-gray-400
+                            focus:ring-2
+                            focus:ring-inset 
+                            focus:ring-sky_600 
+                            sm:text-sm 
+                            sm:leading-6`,
+                            errors[id] && "focus:ring-rose-500",
+                            disabled && "opacity-50 corsor-default")}/>
                     </div>
                 </div>
         );

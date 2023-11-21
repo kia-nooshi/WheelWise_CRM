@@ -60,9 +60,7 @@ const AuthForm = () => {
 
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
 
-                <Input id="email" lable="Email" register={register} />
-                <Input id="email" lable="Email" register={register} />
-                <Input id="email" lable="Email" register={register} />
+                <Input id="email" lable="Email" register={register} errors={errors} />
 
 
                 </form>
