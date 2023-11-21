@@ -29,7 +29,16 @@ const Input: React.FC<InputProps> = ({
 }) => {
         return ( 
                 <div>
-                    <label>{lable}</label>
+                    <label 
+                    className="
+                        block
+                        text-sm
+                        leading-6
+                        font-medium
+                        text-gray-500
+                    ">
+                        {lable}
+                    </label>
                 </div>
         );
     }
