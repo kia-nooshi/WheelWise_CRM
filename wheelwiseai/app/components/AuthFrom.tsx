@@ -1,8 +1,6 @@
 'use client';
 
 
-
-
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 //
@@ -12,8 +10,6 @@
 //
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
-
-
 
 
 ///////////////////////// Import Files //////////
@@ -108,8 +104,13 @@ const AuthForm = () => {
                     </div>
 
                     <div className="mt-6 flex gap-2 w-full">
-                    <AuthSocialButton icon={BsGithub} onClick={() => {}}/>
-                    <AuthSocialButton icon={BsGoogle} onClick={() => {}}/>
+                        <AuthSocialButton icon={BsGithub} onClick={() => {}}/>
+                        <AuthSocialButton icon={BsGoogle} onClick={() => {}}/>
+                    </div>
+
+                    <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
+                        <div>{variant === 'LOGIN' ? "New to the WheelWise" : "Already have an account"}</div>
+                        <div onClick={toggleVariant} className="underline cursor-pointer">{variant === 'LOGIN' ? "Create an account" : "Login"}</div>
                     </div>
                     
                 </form>
