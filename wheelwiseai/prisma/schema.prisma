@@ -9,3 +9,24 @@ datasource db {
   provider = "mongodb"
   url      = env("mongodb+srv://WheelWiseAi:y41nC3vk7ZELPejP@cluster0.zvxxhe6.mongodb.net/")
 }
+
+////////////////////
+model user{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String?
+  email String? @unique
+  emailVerified DateTime?
+  image String?
+  hashedPassword String?
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  conversationIds String[] @db.ObjectId
+  conversations Conversation[] @relation(fileds: [conversationIds], references: [id])
+
+  seenMessageIds String[] @db.ObjectId
+  seenMessages Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
+
+  accounts Account[]
+  messages Message[]
+}
