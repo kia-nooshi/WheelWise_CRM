@@ -22,7 +22,7 @@ model User{
   updateAt DateTime @updatedAt
 
   conversationIds String[] @db.ObjectId
-  conversations Conversation[] @relation(fileds: [conversationIds], references: [id])
+  conversations Conversation[] @relation(fields: [conversationIds], references: [id])
 
   seenMessageIds String[] @db.ObjectId
   seenMessages Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
@@ -51,6 +51,7 @@ model Account {
 }
 
 model Conversation {
+   
     id String @id @default(auto()) @map("_id") @db.ObjectId
     createAt DateTime @default(now())
     lastMessageAt DateTime @default(now())
@@ -64,3 +65,20 @@ model Conversation {
     user User[] @relation(fields: [userIds], references: [id])
 }
 
+model Message{
+
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  body String?
+  image String?
+  createAt DateTime @default(now())
+
+  seenIds String[] @db.ObjectId
+  seen User[] @relation("Seen", fields: [seenIds], references: [id])
+
+  conversationIds String @db.ObjectId
+  conversation Conversation @relation(fields: [conversationIds], references: [id], onDelete : Cascade)
+
+  senderIds String @db.ObjectId
+  sender User @relation(fields: [senderIds], references: [id], onDelete : Cascade)
+
+}
