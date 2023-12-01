@@ -11,7 +11,7 @@ datasource db {
 }
 
 ////////////////////
-model user{
+model User{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String?
   email String? @unique
@@ -44,4 +44,23 @@ model Account {
   scope String?
   id_token String? @db.String
   session_state String ?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider,providerAccountId])
 }
+
+model Conversation {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    createAt DateTime @default(now())
+    lastMessageAt DateTime @default(now())
+    name String?
+    isGroup Boolean?
+
+    masseageIds String[] @db.ObjectId
+    message Message[]
+
+    userIds String[] @db.ObjectId
+    user User[] @relation(fields: [userIds], references: [id])
+}
+
