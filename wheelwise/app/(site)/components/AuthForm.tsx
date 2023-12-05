@@ -25,6 +25,7 @@ import { BsGithub , BsGoogle } from "react-icons/bs";
 // Import React Forms
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
 
 ///////////////////////// React Form Functions //////////
 
@@ -66,7 +67,7 @@ const AuthForm = () => {
 
         if ( variant === 'REGISTER') 
         {
-            // Ill add the register later here
+            axios.post('/api/register', data)
         }
 
         if ( variant === 'LOGIN')
