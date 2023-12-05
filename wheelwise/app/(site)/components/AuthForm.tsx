@@ -18,25 +18,31 @@
 import Input from "@/app/components/inputs/Input";
 import Button from "@/app/components/Button";
 import AuthSocialButton from "./AuthSocialButton";
-
-// Import React Icons
 import { BsGithub , BsGoogle } from "react-icons/bs";
-
-// Import React Forms
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 ///////////////////////// React Form Functions //////////
 
 type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
-    
+    const session = useSession();
+    const router = useRouter();
     const [variant, setVariant] = useState<Variant>('LOGIN');
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (session?.status === 'authenticated') {
+            toast.success('Authenticated!');
+            router.push('/users');
+        }
+    }, [session?.status, router]);
+
     const toggleVariant = useCallback(() => {
 
         if (variant === 'LOGIN'){
@@ -97,7 +103,7 @@ const AuthForm = () => {
     const socialAction = (action: string) => {
 
         setIsLoading(true);
-        toast.error('Social Login Comming Soon!');
+        toast.error('SocialAuth comming soon!');
         /*
         signIn(action, { redirect: false })
           .then((callback) => {
