@@ -27,6 +27,7 @@ import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 ///////////////////////// React Form Functions //////////
 
@@ -73,10 +74,43 @@ const AuthForm = () => {
             .finally(() => setIsLoading(false))
         }
 
-        if ( variant === 'LOGIN')
-        {
-            // Ill add the login here later
+        if (variant === 'LOGIN') {
+            signIn('credentials', {
+              ...data,
+              redirect: false
+            })
+            .then((callback) => {
+              if (callback?.error) {
+                toast.error('Invalid credentials!');
+              }
+
+              if (callback?.ok) {
+                toast.success('login success');
+              }
+
+            })
+            .finally(() => setIsLoading(false))
         }
+
+    }
+
+    const socialAction = (action: string) => {
+
+        setIsLoading(true);
+        toast.error('Social Login Comming Soon!');
+        /*
+        signIn(action, { redirect: false })
+          .then((callback) => {
+            if (callback?.error) {
+              toast.error('Invalid credentials!');
+            }
+    
+            if (callback?.ok) {
+              router.push('/conversations')
+            }
+          })
+          .finally(() => setIsLoading(false));
+        */
     }
 
     
@@ -109,8 +143,8 @@ const AuthForm = () => {
                     </div>
 
                     <div className="mt-6 flex gap-2 w-full">
-                        <AuthSocialButton icon={BsGithub} onClick={() => {}}/>
-                        <AuthSocialButton icon={BsGoogle} onClick={() => {}}/>
+                        <AuthSocialButton icon={BsGithub} onClick={() => socialAction('github')}/>
+                        <AuthSocialButton icon={BsGoogle} onClick={() => socialAction('google')}/>
                     </div>
 
                     <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
