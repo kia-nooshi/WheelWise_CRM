@@ -1,4 +1,4 @@
-import AuthForm from "./components/AuthFrom";
+import AuthForm from "@/app/(site)/components/AuthFrom";
 
 
 export default function Home() {
@@ -8,8 +8,6 @@ export default function Home() {
     // Auth
     // Danin Na - Added my Part here
     //
-
-
 
     <div className="
     flex

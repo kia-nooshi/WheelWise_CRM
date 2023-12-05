@@ -15,12 +15,12 @@
 ///////////////////////// Import Files //////////
 
 // Import Form Elements
-import Input from "@/app/components/Forms/Input";
-import Button from "@/app/components/Forms/Button";
-import AuthSocialButton from "@/app/components/Forms/AuthSocialButton";
+import Input from "@/app/components/inputs/Input";
+import Button from "@/app/components/Button";
+import AuthSocialButton from "./AuthSocialButton";
 
 // Import React Icons
-import { BsGithub , BsGoogle } from "react-icons/bs"
+import { BsGithub , BsGoogle } from "react-icons/bs";
 
 // Import React Forms
 import { useCallback, useState } from "react";
@@ -61,6 +61,7 @@ const AuthForm = () => {
     // Function - submit the data
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
+
         setIsLoading(true);
 
         if ( variant === 'REGISTER') 
@@ -68,7 +69,7 @@ const AuthForm = () => {
             // Ill add the register later here
         }
 
-        if (variant === 'LOGIN')
+        if ( variant === 'LOGIN')
         {
             // Ill add the login here later
         }
@@ -86,9 +87,9 @@ const AuthForm = () => {
 
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
 
-                    {variant ==='REGISTER' && (<Input id="name" lable="Name" register={register} errors={errors} />) }
-                    <Input id="email" lable="Email" register={register} errors={errors} />
-                    <Input id="password" lable="Password" register={register} errors={errors} />
+                    {variant ==='REGISTER' && (<Input id="name" label="Name" register={register} errors={errors} />) }
+                    <Input id="email" label="Email" register={register} errors={errors} />
+                    <Input id="password" label="Password"  register={register} errors={errors} />
 
                     <Button disabled={isLoading} fullWidth type="submit">{variant === 'LOGIN' ? 'Sign in' : 'Register'}</Button>
 
