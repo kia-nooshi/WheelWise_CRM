@@ -14,8 +14,10 @@ interface ConversationBoxProps {
 }
 
 const ConversationBox: React.FC<ConversationBoxProps> = ({
-
+    data,
+    selected
 }) => {
+    
     return (
         <div>
             Conversation Box!
