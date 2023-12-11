@@ -1,9 +1,6 @@
 'use client';
 
-import { 
-  HiPaperAirplane, 
-  HiPhoto
-} from "react-icons/hi2";
+import { HiPaperAirplane, HiPhoto} from "react-icons/hi2";
 import MessageInput from "./MessageInput";
 import { 
   FieldValues, 
@@ -62,7 +59,7 @@ const Form = () => {
       <CldUploadButton 
         options={{ maxFiles: 1 }} 
         onUpload={handleUpload} 
-        uploadPreset="pgc9ehd5"
+        uploadPreset="epe2vqp8"
       >
         <HiPhoto size={30} className="text-sky-500" />
       </CldUploadButton>
