@@ -1,36 +1,9 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Key Updates in WheelWise CRM 2.0
 
-## Getting Started
+-  **Transition from Page Router to App Router**: In version 2.0, we have moved from using the traditional Page Router to the more advanced **App Router**. This shift allows for more dynamic and efficient routing mechanisms, enhancing the overall user experience.
 
-First, run the development server:
+-  **Introduction of 'useServer' in Next.js**: We have integrated the **'useServer'** feature, a new and exciting addition in Next.js. This feature enables more powerful server-side functionalities and optimizes our API interactions, providing a more robust backend architecture.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-  **Enhanced AI-Driven Interactions**: Building on our AI capabilities, version 2.0 introduces more sophisticated algorithms and models to ensure smarter and more natural conversations with potential car buyers.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+These updates signify our commitment to leveraging the latest advancements in web technology to deliver a top-notch CRM experience.
