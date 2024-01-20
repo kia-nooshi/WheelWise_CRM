@@ -1,9 +1,33 @@
-## Key Updates in WheelWise CRM 2.0
+# WheelWise CRM 2.0
 
--  **Transition from Page Router to App Router**: In version 2.0, we have moved from using the traditional Page Router to the more advanced **App Router**. This shift allows for more dynamic and efficient routing mechanisms, enhancing the overall user experience.
+## Key Updates
 
--  **Introduction of 'useServer' in Next.js**: We have integrated the **'useServer'** feature, a new and exciting addition in Next.js. This feature enables more powerful server-side functionalities and optimizes our API interactions, providing a more robust backend architecture.
+### Transition to App Router
 
--  **Enhanced AI-Driven Interactions**: Building on our AI capabilities, version 2.0 introduces more sophisticated algorithms and models to ensure smarter and more natural conversations with potential car buyers.
+-  **Description**: In version 2.0, we transitioned from the traditional Page Router to the more advanced App Router, enhancing routing efficiency and user experience.
 
-These updates signify our commitment to leveraging the latest advancements in web technology to deliver a top-notch CRM experience.
+### Introduction of 'useServer' in Next.js
+
+-  **Description**: Integration of 'useServer', a new feature in Next.js, enables powerful server-side functionalities and optimizes API interactions.
+
+### Enhanced AI-Driven Interactions
+
+-  **Description**: Version 2.0 introduces sophisticated algorithms and models for smarter and more natural conversations with potential car buyers.
+
+## Tools and Libraries
+
+### Next.js
+
+-  **Version**: 14.1.0
+-  **Description**: Next.js is a popular React framework that enables functionality such as server-side rendering and generating static websites for React-based web applications.
+-  **Installation**: `npx create-next-app@latest`
+-  **Running the App**: `npm run dev`
+
+### [Add Another Library or Tool]
+
+-  **Version**: [Version Number]
+-  **Description**: [Brief description of what this tool/library is and what it does]
+-  **Installation**: [Installation command or steps]
+-  **Running the App/Using the Tool**: [Command or steps to run the app or use the tool]
+
+> Feel free to add more tools and libraries following the above format.
