@@ -1,5 +1,7 @@
-import { BackButton, Header, Social } from '@/import/comps-auth'
-import { Card, CardContent, CardFooter, CardHeader } from '@/import/comps-ui'
+import { Header } from '@/components/auth/header'
+import { BackButton } from '@/components/auth/back-Button'
+import { Social } from '@/components/auth/social'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { ReactNode } from 'react'
 
 //

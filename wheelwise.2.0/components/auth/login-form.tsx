@@ -5,19 +5,19 @@ import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-import { CardWrapper } from '@/import/comps-auth'
+import { CardWrapper } from '@/components/auth/card-wrapper'
 import {
-   Button,
    Form,
    FormControl,
    FormField,
    FormItem,
    FormLabel,
    FormMessage,
-   Input,
-} from '@/import/comps-ui'
-import { LoginSchema } from '@/import/schemas'
-import { Login } from '@/import/server'
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { LoginSchema } from '@/lib/schemas'
+import { Login } from '@/lib/server/auth'
 
 //
 // IMPORT END

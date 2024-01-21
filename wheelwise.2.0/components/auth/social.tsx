@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '@/import/comps-ui'
-import { FaGithub, FcGoogle } from '@/import/icons'
+import { Button } from '@/components/ui/button'
+import { FaGithub, FcGoogle } from '@/lib/icons'
 
 //
 // IMPORT END

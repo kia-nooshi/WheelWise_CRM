@@ -1,7 +1,0 @@
-export { CardWrapper } from '@/components/auth/card-wrapper'
-export { Header } from '@/components/auth/header'
-export { LoginButton } from '@/components/auth/login-button'
-export { LoginForm } from '@/components/auth/login-form'
-export { RegisterForm } from '@/components/auth/register-form'
-export { Social } from '@/components/auth/social'
-export { BackButton } from '@/components/auth/back-Button'
