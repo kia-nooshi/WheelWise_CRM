@@ -17,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { LoginSchema } from '@/lib/schemas'
-import { Login } from '@/lib/server/auth'
+import { Login } from '@/lib/server/'
 
 //
 // IMPORT END
@@ -78,7 +78,7 @@ export const LoginForm = () => {
                   />
                   <FormField
                      control={form.control}
-                     name='passwords'
+                     name='password'
                      render={({ field }) => (
                         <FormItem>
                            <FormLabel>password</FormLabel>

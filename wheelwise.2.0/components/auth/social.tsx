@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { FaGithub, FcGoogle } from '@/lib/icons'
+import { IconGithub, IconGoogle } from '@/lib/icons'
 
 //
 // IMPORT END
@@ -16,7 +16,7 @@ export const Social = () => {
             variant='outline'
             onClick={() => {}}
          >
-            <FcGoogle className='h-5 w-5' />
+            <IconGoogle className='h-5 w-5' />
          </Button>
          <Button
             size='lg'
@@ -24,7 +24,7 @@ export const Social = () => {
             variant='outline'
             onClick={() => {}}
          >
-            <FaGithub className='h-5 w-5' />
+            <IconGithub className='h-5 w-5' />
          </Button>
       </div>
    )

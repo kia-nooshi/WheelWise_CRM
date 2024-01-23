@@ -17,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { RegisterSchema } from '@/lib/schemas'
-import { Register } from '@/lib/server/auth'
+import Register from '@/lib/server/auth/register'
 
 //
 // IMPORT END

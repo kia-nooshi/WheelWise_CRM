@@ -1,12 +1,12 @@
 'use server'
 
 import { RegisterSchema } from '@/lib/schemas'
-import prisma from '@/lib/server/prisma'
+import { prisma } from '@/lib/server/'
 import bcrypt from 'bcryptjs'
 import { z } from 'zod'
-import { getUserByEmail } from '../utils/auth/user'
+import { getUserByEmail } from '@/lib/util'
 
-export const Register = async (values: z.infer<typeof RegisterSchema>) => {
+const Register = async (values: z.infer<typeof RegisterSchema>) => {
    const validation = RegisterSchema.safeParse(values)
 
    if (!validation.success) {
@@ -16,22 +16,16 @@ export const Register = async (values: z.infer<typeof RegisterSchema>) => {
    const { email, password, name } = validation.data
    const hashedpass = await bcrypt.hash(password, 10)
 
-   const existinguser = await getUserByEmail(email)
+   const existingUser = await getUserByEmail(email)
 
-   if (existinguser) {
-      return { error: 'email exist' }
+   if (existingUser) {
+      console.log('hellyessa')
    }
-
-   await prisma.user.create({
-      data: {
-         name,
-         email,
-         password: hashedpass,
-      },
-   })
 
    // TODO : export tost notification
    // TODO : seend email verification later
 
    return { success: 'Login Authenticated !' }
 }
+
+export default Register
