@@ -17,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { SchemaRegister } from '@/lib/schema'
-import Register from '@/lib/server/auth/register'
+import { ActionRegister } from '@/lib/server'
 
 //
 // IMPORT END
@@ -42,7 +42,7 @@ export const RegisterForm = () => {
       setSuccess('')
 
       startTransion(() => {
-         Register(valeus).then((data) => {
+         ActionRegister(valeus).then((data) => {
             setError(data.error)
             setSuccess(data.success)
          })

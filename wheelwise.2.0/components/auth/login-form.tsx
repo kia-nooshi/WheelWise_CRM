@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { LoginSchema } from '@/lib/schema'
+import { SchemaLogin } from '@/lib/schema'
 import { Login } from '@/lib/server/'
 
 //
@@ -28,15 +28,15 @@ export const LoginForm = () => {
    const [success, setSuccess] = useState<string | undefined>('')
    const [isPending, startTransion] = useTransition()
 
-   const form = useForm<z.infer<typeof LoginSchema>>({
-      resolver: zodResolver(LoginSchema),
+   const form = useForm<z.infer<typeof SchemaLogin>>({
+      resolver: zodResolver(SchemaLogin),
       defaultValues: {
          email: '',
          password: '',
       },
    })
 
-   const onSubmit = (valeus: z.infer<typeof LoginSchema>) => {
+   const onSubmit = (valeus: z.infer<typeof SchemaLogin>) => {
       setError('')
       setSuccess('')
 

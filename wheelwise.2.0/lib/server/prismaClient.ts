@@ -27,7 +27,7 @@ declare global {
 // Singleton pattern: Use existing prisma client if available, else create new.
 const prisma = globalThis.prisma ?? prismaClientSingleton()
 
-export default prisma
+export { prisma }
 
 // In non-production environments, attach the prisma client to global object.
 if (process.env.NODE_ENV !== 'production') globalThis.prisma = prisma

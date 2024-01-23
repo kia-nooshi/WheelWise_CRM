@@ -15,7 +15,8 @@ import { z } from 'zod'
  * @returns A success or error message based on validation result.
  */
 
-const Login = async (values: z.infer<typeof SchemaLogin>) => {
+const ActionLogin = async (values: z.infer<typeof SchemaLogin>) => {
+   console.log('Action Login')
    const validation = SchemaLogin.safeParse(values)
 
    if (!validation.success) {
@@ -25,4 +26,4 @@ const Login = async (values: z.infer<typeof SchemaLogin>) => {
    return { success: 'Login Authenticated !' }
 }
 
-export default Login
+export { ActionLogin }
