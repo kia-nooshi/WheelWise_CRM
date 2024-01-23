@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { IconGithub, IconGoogle } from '@/lib/icons'
+import { IconGithub, IconGoogle } from '@/lib/icon'
 
 //
 // IMPORT END

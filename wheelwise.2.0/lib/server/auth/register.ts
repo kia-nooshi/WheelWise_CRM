@@ -1,13 +1,13 @@
 'use server'
 
-import { RegisterSchema } from '@/lib/schemas'
+import { SchemaRegister } from '@/lib/schema'
 import { prisma } from '@/lib/server/'
 import bcrypt from 'bcryptjs'
 import { z } from 'zod'
 import { getUserByEmail } from '@/lib/util'
 
-const Register = async (values: z.infer<typeof RegisterSchema>) => {
-   const validation = RegisterSchema.safeParse(values)
+const Register = async (values: z.infer<typeof SchemaRegister>) => {
+   const validation = SchemaRegister.safeParse(values)
 
    if (!validation.success) {
       return { error: 'Invalid Fields!' }

@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { FontPoppin } from '@/lib/fonts/'
+import { FontPoppin } from '@/lib/font/'
 import { ReactNode } from 'react'
 
 //

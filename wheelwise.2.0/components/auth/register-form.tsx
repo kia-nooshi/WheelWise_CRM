@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { RegisterSchema } from '@/lib/schemas'
+import { SchemaRegister } from '@/lib/schema'
 import Register from '@/lib/server/auth/register'
 
 //
@@ -28,8 +28,8 @@ export const RegisterForm = () => {
    const [success, setSuccess] = useState<string | undefined>('')
    const [isPending, startTransion] = useTransition()
 
-   const form = useForm<z.infer<typeof RegisterSchema>>({
-      resolver: zodResolver(RegisterSchema),
+   const form = useForm<z.infer<typeof SchemaRegister>>({
+      resolver: zodResolver(SchemaRegister),
       defaultValues: {
          email: '',
          password: '',
@@ -37,7 +37,7 @@ export const RegisterForm = () => {
       },
    })
 
-   const onSubmit = (valeus: z.infer<typeof RegisterSchema>) => {
+   const onSubmit = (valeus: z.infer<typeof SchemaRegister>) => {
       setError('')
       setSuccess('')
 

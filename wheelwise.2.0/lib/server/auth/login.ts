@@ -6,7 +6,7 @@
 
 'use server'
 
-import { LoginSchema } from '@/lib/schemas'
+import { SchemaLogin } from '@/lib/schema'
 import { z } from 'zod'
 
 /**
@@ -15,8 +15,8 @@ import { z } from 'zod'
  * @returns A success or error message based on validation result.
  */
 
-const Login = async (values: z.infer<typeof LoginSchema>) => {
-   const validation = LoginSchema.safeParse(values)
+const Login = async (values: z.infer<typeof SchemaLogin>) => {
+   const validation = SchemaLogin.safeParse(values)
 
    if (!validation.success) {
       return { error: 'Invalid Fields!' }

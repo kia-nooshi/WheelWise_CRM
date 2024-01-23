@@ -1,0 +1,1 @@
+export { FontPoppin } from './fonts'

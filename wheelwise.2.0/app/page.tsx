@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { LoginButton } from '@/components/auth/login-button'
-import { FontPoppin } from '@/lib/fonts'
+import { FontPoppin } from '@/lib/font'
 import Image from 'next/image'
 
 export default function Home() {
