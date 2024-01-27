@@ -2,27 +2,27 @@
 
 ## Key Updates
 
-### 1. Upgrading to Next.js 14.1.0
+### Upgrading to Next.js 14.1.0
 
 -  **Description**: Upgrade from Next.js 13 to 14.1.0, incorporating the latest features and optimizations.
 
-### 2. React 18 Integration
+### React 18 Integration
 
 -  **Description**: Integration of React 18, enhancing performance and capabilities.
 
-### 3. Transition to App Router
+### Transition to App Router
 
 -  **Description**: Shift from traditional Page Router to App Router in Next.js, improving routing efficiency.
 
-### 4. Introduction of 'useServer' in Next.js
+### Introduction of 'useServer' in Next.js
 
 -  **Description**: Incorporation of 'useServer' feature for server-side functionalities and API optimization.
 
-### 5. Switching to Clerk for Authentication
+### Switching to Clerk for Authentication
 
 -  **Description**: Transition to Clerk for more robust and secure authentication processes.
 
-### 6. Enhanced AI-Driven Interactions
+### Enhanced AI-Driven Interactions
 
 -  **Description**: Advanced algorithms and models for improved interactions with car buyers.
 
