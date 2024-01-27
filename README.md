@@ -26,7 +26,17 @@
 
 -  **Description**: Advanced algorithms and models for improved interactions with car buyers.
 
-## Tools and Libraries
+## Troubleshooting
+
+-  **Clock Skew Detected**: Run `sudo apt install ntpdate && sudo ntpdate pool.ntp.org`
+
+## Test Accounts for Login
+
+-  **User 1**: Emily Johnson - `E.Johnson@WheelWise.com` | Pass: `WW124578963#`
+-  **User 2**: Michael Smith - `M.Smith@WheelWise.com` | Pass: `WW124578963#`
+-  **User 3**: Sofia Martinez - `S.Martinez@WheelWise.com` | Pass: `WW124578963#`
+
+# Tools and Libraries
 
 ### Next.js
 
@@ -79,13 +89,3 @@
 -  **Installation**: `npm install tailwindcss@^2.2.1 postcss autoprefixer`
 -  **Setup**: [Tailwind CSS Setup Guide](https://tailwindcss.com/docs/installation)
 -  **Documentation**: [Tailwind CSS Docs](https://tailwindcss.com/docs)
-
-## Troubleshooting
-
--  **Clock Skew Detected**: Run `sudo apt install ntpdate && sudo ntpdate pool.ntp.org`
-
-## Test Accounts for Login
-
--  **User 1**: Emily Johnson - `E.Johnson@WheelWise.com` | Pass: `WW124578963#`
--  **User 2**: Michael Smith - `M.Smith@WheelWise.com` | Pass: `WW124578963#`
--  **User 3**: Sofia Martinez - `S.Martinez@WheelWise.com` | Pass: `WW124578963#`
