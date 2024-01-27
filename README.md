@@ -1,82 +1,91 @@
-# WheelWise CRM 2.0.0
+# WheelWise CRM 2.0.0 Release Notes
 
 ## Key Updates
 
-### Upgrading to Next.js 14.1.0
+### 1. Upgrading to Next.js 14.1.0
 
--  **Description**: In this version, we have upgraded from Next.js 13 to Next.js 14.1.0, bringing in the latest features and optimizations.
+-  **Description**: Upgrade from Next.js 13 to 14.1.0, incorporating the latest features and optimizations.
 
-### React 18 Integration
+### 2. React 18 Integration
 
--  **Description**: React 18 is now integrated into WheelWise CRM 2.0.0, offering improved performance and enhanced capabilities.
+-  **Description**: Integration of React 18, enhancing performance and capabilities.
 
-### Transition to App Router
+### 3. Transition to App Router
 
--  **Description**: We have moved from the traditional Page Router to the App Router in our new Next.js environment, enhancing routing efficiency and user experience.
+-  **Description**: Shift from traditional Page Router to App Router in Next.js, improving routing efficiency.
 
-### Introduction of 'useServer' in Next.js
+### 4. Introduction of 'useServer' in Next.js
 
--  **Description**: 'useServer', a new feature in Next.js, is now integrated, enabling powerful server-side functionalities and optimizing API interactions.
+-  **Description**: Incorporation of 'useServer' feature for server-side functionalities and API optimization.
 
-### Switching to Clerk for Authentication
+### 5. Switching to Clerk for Authentication
 
--  **Description**: Transitioning to Clerk from Next Auth for our authentication needs, providing a more robust and secure authentication process.
+-  **Description**: Transition to Clerk for more robust and secure authentication processes.
 
-### Enhanced AI-Driven Interactions
+### 6. Enhanced AI-Driven Interactions
 
--  **Description**: Version 2.0.0 introduces sophisticated algorithms and models for smarter and more natural conversations with potential car buyers.
+-  **Description**: Advanced algorithms and models for improved interactions with car buyers.
 
 ## Tools and Libraries
 
 ### Next.js
 
 -  **Version**: 14.1.0
--  **Description**: Next.js is a popular React framework that enables functionality such as server-side rendering and generating static websites for React-based web applications.
+-  **Description**: A React framework for server-side rendering and static website generation.
 -  **Installation**: `npx create-next-app@latest`
 -  **Running the App**: `npm run dev`
--  **Documentation**: [Next.js Documentation](https://nextjs.org/docs)
+-  **Documentation**: [Next.js Docs](https://nextjs.org/docs)
 
 ### React
 
 -  **Version**: ^18
--  **Description**: React is a declarative, efficient, and flexible JavaScript library for building user interfaces. It lets you compose complex UIs from small and isolated pieces of code called “components”.
+-  **Description**: A JavaScript library for building user interfaces with UI components.
 -  **Installation**: `npm install react@^18 react-dom@^18`
--  **Running the App**: Typically used in combination with a bundler like Webpack and a compiler like Babel.
--  **Documentation**: [React Documentation](https://reactjs.org/docs)
+-  **Documentation**: [React Docs](https://reactjs.org/docs)
 
 ### Clerk
 
 -  **Version**: ^4.29.5
--  **Description**: Clerk provides secure and easy-to-use authentication services. It's designed to integrate seamlessly with Next.js projects.
+-  **Description**: Secure, easy-to-use authentication services for Next.js.
 -  **Installation**: `npm install @clerk/nextjs`
--  **Documentation**: [Clerk Documentation](https://docs.clerk.dev)
+-  **Documentation**: [Clerk Docs](https://docs.clerk.dev)
 
 ### Radix UI
 
 -  **Version**: 1.3.0
--  **Description**: Radix UI offers a set of low-level UI primitives for building high-quality, accessible design systems and web apps.
+-  **Description**: Low-level UI primitives for building design systems and apps.
 -  **Installation**: `npm install @radix-ui/react@1.3.0`
--  **Documentation**: [Radix UI Documentation](https://www.radix-ui.com)
+-  **Documentation**: [Radix UI Docs](https://www.radix-ui.com)
 
 ### Shadcn UI
 
 -  **Version**: 1.4.1
--  **Description**: Shadcn UI is a modern React UI library, providing a wide range of customizable and ready-to-use components.
+-  **Description**: A modern React UI library with customizable components.
 -  **Installation**: `npx shadcn-ui@latest init`
--  **Setup**: Follow the [official setup guide](https://ui.shadcn.com/docs/installation/next) to integrate Shadcn UI with your Next.js project.
--  **Documentation**: [Shadcn UI Documentation](https://ui.shadcn.com/docs)
+-  **Setup**: [Shadcn UI Setup Guide](https://ui.shadcn.com/docs/installation/next)
+-  **Documentation**: [Shadcn UI Docs](https://ui.shadcn.com/docs)
 
 ### clsx
 
 -  **Version**: ^2.1.0
--  **Description**: A tiny utility for constructing className strings conditionally. It's particularly useful when working with dynamic classes in React components.
+-  **Description**: Utility for constructing conditional className strings in React.
 -  **Installation**: `npm install clsx@^2.1.0`
--  **Documentation**: [clsx GitHub Repository](https://github.com/lukeed/clsx)
+-  **Documentation**: [clsx GitHub](https://github.com/lukeed/clsx)
 
 ### Tailwind CSS
 
 -  **Version**: ^2.2.1
--  **Description**: Tailwind CSS is a utility-first CSS framework for rapidly building custom designs. It provides low-level utility classes that help you build complex designs without leaving your HTML.
+-  **Description**: A utility-first CSS framework for rapid custom design building.
 -  **Installation**: `npm install tailwindcss@^2.2.1 postcss autoprefixer`
--  **Setup**: Follow the [official setup guide](https://tailwindcss.com/docs/installation) to integrate Tailwind CSS with your project.
--  **Documentation**: [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+-  **Setup**: [Tailwind CSS Setup Guide](https://tailwindcss.com/docs/installation)
+-  **Documentation**: [Tailwind CSS Docs](https://tailwindcss.com/docs)
+
+## Troubleshooting
+
+-  **Clock Skew Detected**: Run `sudo apt install ntpdate && sudo ntpdate pool.ntp.org`
+
+## Test Accounts for Login
+
+-  **User 1**: Emily Johnson - `E.Johnson@WheelWise.com` | Pass: `WW124578963#`
+-  **User 2**: Michael Smith - `M.Smith@WheelWise.com` | Pass: `WW124578963#`
+-  **User 3**: Sofia Martinez - `S.Martinez@WheelWise.com` | Pass: `WW124578963#`
