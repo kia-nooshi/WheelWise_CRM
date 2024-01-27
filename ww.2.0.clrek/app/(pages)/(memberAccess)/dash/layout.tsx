@@ -7,7 +7,7 @@ interface Props {
 function layout({ children }: Props) {
    return (
       <div>
-         <div className='flex flex-col items-center justify-center relative h-screen'>
+         <div className='p-56 flex flex-col items-center justify-center relative h-screen w-full'>
             {children}
          </div>
       </div>

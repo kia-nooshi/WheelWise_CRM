@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import Link from 'next/link'
 
-export function NavControl() {
+export const NavControlUser = () => {
    return (
       <DropdownMenu>
          <DropdownMenuTrigger asChild>

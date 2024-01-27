@@ -3,7 +3,7 @@ import { FontPoppin } from '@/lib/font'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 
-function Logo() {
+export const NavLogo = () => {
    return (
       <Link
          href='./'
@@ -15,5 +15,3 @@ function Logo() {
       </Link>
    )
 }
-
-export default Logo

@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import Link from 'next/link'
 
-export function NavControl() {
+export const NavControlHome = () => {
    return (
       <DropdownMenu>
          <DropdownMenuTrigger asChild>
@@ -33,42 +33,37 @@ export function NavControl() {
                   <Link href='./sign-up'>Register an account</Link>
                   <DropdownMenuShortcut>⌘ R</DropdownMenuShortcut>
                </DropdownMenuItem>
-               <DropdownMenuItem>
-                  Settings
-                  <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-               </DropdownMenuItem>
-               <DropdownMenuItem>
-                  Keyboard shortcuts
-                  <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-               </DropdownMenuItem>
             </DropdownMenuGroup>
+
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-               <DropdownMenuItem>Team</DropdownMenuItem>
                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+                  <DropdownMenuSubTrigger>
+                     Need Support ?
+                  </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                      <DropdownMenuSubContent>
-                        <DropdownMenuItem>Email</DropdownMenuItem>
-                        <DropdownMenuItem>Message</DropdownMenuItem>
+                        <DropdownMenuItem disabled>Contact Us</DropdownMenuItem>
+                        <DropdownMenuItem disabled>
+                           Help Center
+                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>More...</DropdownMenuItem>
+                        <DropdownMenuItem disabled>
+                           Chat With Us
+                        </DropdownMenuItem>
                      </DropdownMenuSubContent>
                   </DropdownMenuPortal>
                </DropdownMenuSub>
-               <DropdownMenuItem>
-                  New Team
-                  <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>GitHub</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
             <DropdownMenuItem disabled>API</DropdownMenuItem>
+            <DropdownMenuItem disabled>Pricing</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-               Log out
-               <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+               <Link href='https://github.com/UCR-Senior-Design/WheelWise_CRM/'>
+                  GitHub
+               </Link>
+               <DropdownMenuShortcut>⌘ G</DropdownMenuShortcut>
             </DropdownMenuItem>
          </DropdownMenuContent>
       </DropdownMenu>
