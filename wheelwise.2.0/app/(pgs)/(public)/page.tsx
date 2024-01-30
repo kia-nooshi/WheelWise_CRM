@@ -1,10 +1,11 @@
+import FlexCenter from '@/components/ui/flex-center'
 import { FontPoppin } from '@/lib/font'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 export default function Home() {
    return (
-      <div className='flex flex-col items-center'>
+      <FlexCenter>
          <Image alt='logo' width='200' height='300' src='/images/logo.png' />
          <span className='m-10'>
             <h1 className={cn('text-5xl mb-5', FontPoppin.className)}>
@@ -22,6 +23,6 @@ export default function Home() {
             Features with WheelWise CRM 2.0 <br /> Empowering Smarter, Faster,
             and More Efficient Car Sales
          </p>
-      </div>
+      </FlexCenter>
    )
 }

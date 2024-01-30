@@ -3,14 +3,11 @@ import React, { ReactNode } from 'react'
 interface Props {
    children: ReactNode
 }
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 function layout({ children }: Props) {
    return (
-      <div>
-         <div className='p-56 flex flex-col items-center justify-center relative h-screen w-full'>
-            {children}
-         </div>
-      </div>
+      <ScrollArea className='h-full w-full pl-52 pr-52'>{children}</ScrollArea>
    )
 }
 

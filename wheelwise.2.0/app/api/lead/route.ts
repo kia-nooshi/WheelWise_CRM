@@ -1,36 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import prisma from '@/prisma/client'
+import { revalidatePath } from 'next/cache'
 
 const SchemaLead = z.object({
    firstName: z.string().min(2),
    lastName: z.string().min(2),
    email: z.string().optional(),
    phone: z.string().optional(),
-   organizationId: z.string().optional(),
+   organization: z.string().optional(),
 })
 
 export async function POST(request: NextRequest) {
+   console.log('👌👌👌 ssssssssssssssssssssssssssssssssssssssss')
+
    const body = await request.json()
    const validation = SchemaLead.safeParse(body)
 
-   if (!validation.success) {
-      return NextResponse.json(validation.error.errors)
-   }
+   if (!validation.success)
+      return NextResponse.json(validation.error.errors, { status: 400 })
 
-   console.log('☑️ body : ', body)
-   console.log('☑️ validation : ', validation)
-   console.log('☑️ validation.success: ', validation.success)
-
-   /*
-   const newLead = await prisma.lead.create({
+   const createdLead = await prisma.lead.create({
       data: {
-         firstName: body.fistName,
+         firstName: body.firstName,
          lastName: body.lastName,
-         organization: '222222',
+         phone: body.phone,
+         email: body.email,
+         Organization: {
+            connect: {
+               id: body.organization,
+            },
+         },
       },
    })
-   */
 
-   return NextResponse.json(body)
+   revalidatePath('/dash/lead')
+
+   return NextResponse.json(createdLead)
 }
