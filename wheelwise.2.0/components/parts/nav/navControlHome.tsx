@@ -22,7 +22,7 @@ export const NavControlHome = () => {
             <Button variant='outline'>Get Started Here</Button>
          </DropdownMenuTrigger>
          <DropdownMenuContent className='w-56'>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>Your Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                <DropdownMenuItem>

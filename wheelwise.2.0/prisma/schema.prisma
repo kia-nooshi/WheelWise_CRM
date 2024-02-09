@@ -37,7 +37,7 @@ model Lead {
   createdAt DateTime  @default(now())
   updatedAy DateTime  @updatedAt
 
-  conversations Conversation[]
+  conversation Conversation?
 
   @@unique([organizationId, phone])
   @@unique([organizationId, email])
@@ -56,6 +56,8 @@ model Conversation {
   messages  Message[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@unique([leadId]) // Enforces that a Lead can only have one Conversation
 }
 
 model Message {
