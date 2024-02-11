@@ -1,8 +1,9 @@
+import { FlexColC } from '@/components/ui/'
 import Image from 'next/image'
 
 export default function Home() {
    return (
-      <div>
+      <FlexColC>
          <Image alt='logo' width='200' height='300' src='/images/logo.png' />
          <span className='m-10'>
             <h1 className='text-5xl mb-5'>
@@ -20,6 +21,6 @@ export default function Home() {
             Features with WheelWise CRM 2.0 <br /> Empowering Smarter, Faster,
             and More Efficient Car Sales
          </p>
-      </div>
+      </FlexColC>
    )
 }
