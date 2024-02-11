@@ -1,17 +1,19 @@
 import { FlexColC } from '@/components/ui/'
+import { FontPoppin } from '@/lib/style/font'
+import { tm } from '@/lib/utils'
 import Image from 'next/image'
 
 export default function Home() {
    return (
-      <FlexColC>
+      <FlexColC className='text-center'>
          <Image alt='logo' width='200' height='300' src='/images/logo.png' />
          <span className='m-10'>
-            <h1 className='text-5xl mb-5'>
+            <h1 className={tm('text-5xl', FontPoppin.className)}>
                <span className='text-blue-700'>Wheel</span>
                <span className='text-violet-700'>Wise</span> CRM is finally
                here!
             </h1>
-            <h2 className='text-3xl'>
+            <h2 className={tm('text-3xl', FontPoppin.className)}>
                Revolutionizing Car Sales with Advanced AI
             </h2>
          </span>
