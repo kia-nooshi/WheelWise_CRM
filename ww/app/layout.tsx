@@ -1,7 +1,9 @@
+import { ClerkProvider, RadixProvider } from '@/lib/provider'
+import { FontInter } from '@/lib/style/font'
+import '@radix-ui/themes/styles.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { ClerkProvider } from '@/lib/provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,8 +19,10 @@ export default function RootLayout({
 }>) {
    return (
       <html lang='en'>
-         <body className={inter.className}>
-            <ClerkProvider>{children}</ClerkProvider>
+         <body className={FontInter.className}>
+            <ClerkProvider>
+               <RadixProvider appearance='dark'>{children}</RadixProvider>
+            </ClerkProvider>
          </body>
       </html>
    )

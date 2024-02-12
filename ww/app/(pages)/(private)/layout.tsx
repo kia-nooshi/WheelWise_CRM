@@ -7,7 +7,7 @@ type P = {
    children: React.ReactNode
 }
 
-const PublicLayout = ({ children }: P) => {
+const PrivateLayout = ({ children }: P) => {
    return (
       <FlexColC className='h-screen w-full overflow-hidden'>
          <SignedIn>
@@ -25,4 +25,4 @@ const PublicLayout = ({ children }: P) => {
    )
 }
 
-export default PublicLayout
+export default PrivateLayout
