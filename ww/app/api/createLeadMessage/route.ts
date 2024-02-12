@@ -10,6 +10,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import prisma from '@/prisma/client'
 import { revalidatePath } from 'next/cache'
+import { GenerateAiResponse } from '@/lib/function/controller/ai'
+import { organizations } from '@clerk/nextjs/api'
 
 const S = z.object({
    // ! here
@@ -71,6 +73,26 @@ export async function POST(request: NextRequest) {
             fromLead: true,
          },
       })
+
+      const messageDetails = {
+         organizationID: body.organization,
+         leadID: lead.id,
+         newMessage: body.message,
+      }
+
+      const { respond, ThreadId } = await GenerateAiResponse(messageDetails)
+
+      console.log('4️⃣  Generating AI Response')
+
+      const saved = await prisma.message.create({
+         data: {
+            conversationId: conversationId,
+            content: respond,
+            fromLead: false,
+         },
+      })
+
+      console.log('5️⃣  Respond save: ', saved)
 
       return NextResponse.json(lead)
    } catch (error) {
