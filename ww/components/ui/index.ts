@@ -1,4 +1,4 @@
-import { FlexColC } from './FlexColC'
-import { FlexRowC } from './FlexRowC'
+import { FlexColC } from './flexColC'
+import { FlexRowC } from './flexRowC'
 
 export { FlexColC, FlexRowC }

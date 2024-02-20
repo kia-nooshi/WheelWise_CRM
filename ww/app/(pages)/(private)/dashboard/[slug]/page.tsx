@@ -1,15 +1,15 @@
-import React from 'react'
-import prisma from '@/prisma/client'
-import { getUserExternalID_ClerkSS } from '@/lib/function'
-import { Callout, Card, IconButton, Text } from '@radix-ui/themes'
-import { IconBase } from 'react-icons'
+import { Auth } from '@/lib/function'
 import { tm } from '@/lib/utils'
+import prisma from '@/prisma/client'
+import { Card, Text } from '@radix-ui/themes'
+import LeadRefresh from './leadRefresh'
+import Link from 'next/link'
 
 const LeadPage = async ({ params }: { params: { slug: string } }) => {
    const leadId = params.slug
-   const userExternId = await getUserExternalID_ClerkSS()
+   const userExternId = await Auth.externalId()
 
-   if (!userExternId) {
+   if (!userExternId.data) {
       throw new Error(
          'Clerk - User Authentication failed - Developer Code : 9999'
       )
@@ -17,7 +17,7 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
 
    const organization = await prisma.user.findUnique({
       where: {
-         externalId: userExternId,
+         externalId: userExternId.data,
       },
       select: {
          organization: true,
@@ -41,76 +41,90 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
    })
 
    return (
-      <>
-         <Card variant='classic' className='mb-5 w-full'>
-            <Text as='div' size='2' weight='bold' className='pb-5'>
-               Debugging
-            </Text>
-            <Text
-               as='div'
-               color='gray'
-               size='2'
-               className='flex flex-col gap-4'
-            >
-               <span>✅ Orgenization ID : {organizationId}</span>
-               <span>✅ Admin Extern ID : {userExternId}</span>
-               <span>✅ Lead ID : {lead?.id}</span>
-            </Text>
-         </Card>
+      <div>
+         <LeadRefresh />
 
-         <Card className='mb-5 w-full'>
-            <Text as='div' size='2' weight='bold' className='pb-5'>
-               Lead Information
-            </Text>
-            <Text
-               as='div'
-               color='gray'
-               size='2'
-               className='flex flex-col gap-4'
-            >
-               <span>
-                  <b>Fist Name :</b> {lead?.firstName}
-               </span>
-               <span>
-                  <b>Last Name :</b> {lead?.lastName}
-               </span>
-               <span>
-                  <b>Phone :</b> {lead?.phone}
-               </span>
-               <span>
-                  <b>email :</b> {lead?.email}
-               </span>
-               <span>
-                  <b>Fist Name :</b> {lead?.firstName}
-               </span>
-            </Text>
-         </Card>
+         <Link href='/dashboard' className='m-5'>
+            back
+         </Link>
+         <div className='mt-5 flex flex-row gap-5'>
+            <div className='flex flex-col w-1/2'>
+               <Card variant='classic' className='mb-5 w-full'>
+                  <Text as='div' size='2' weight='bold' className='pb-5'>
+                     Debugging
+                  </Text>
+                  <Text
+                     as='div'
+                     color='gray'
+                     size='2'
+                     className='flex flex-col gap-4'
+                  >
+                     <span>✅ Orgenization ID : {organizationId}</span>
+                     <span>✅ Admin Extern ID : {userExternId.data}</span>
+                     <span>✅ Lead ID : {lead?.id}</span>
+                     <span>✉️ Coversaion ID : {lead?.conversation?.id}</span>
+                     <span>
+                        ✉️ Ai Thread ID : {lead?.conversation?.threadId}
+                     </span>
+                  </Text>
+               </Card>
 
-         <Card variant='surface' className='w-full'>
-            <Text as='div' size='2' weight='bold' className='m-5'>
-               Chat History
-            </Text>
-            <Text as='div' color='gray' size='2'>
-               {lead?.conversation?.messages.map((msg) => (
-                  <div key={msg.id} className='flex flex-row my-2'>
-                     <div
-                        className={tm(
-                           'w-68 rounded-md p-2 ',
-                           msg.fromLead && 'bg-sky-600',
-                           !msg.fromLead && 'bg-lime-800'
-                        )}
-                     >
-                        {msg.content}
-                        <br />
-                        <span className='text-xs text-gray-300'>
-                           {msg.createdAt.toDateString()}
-                        </span>
+               <Card className='mb-5 w-full'>
+                  <Text as='div' size='2' weight='bold' className='pb-5'>
+                     Lead Information
+                  </Text>
+                  <Text
+                     as='div'
+                     color='gray'
+                     size='2'
+                     className='flex flex-col gap-4'
+                  >
+                     <span>
+                        <b>Fist Name :</b> {lead?.firstName}
+                     </span>
+                     <span>
+                        <b>Last Name :</b> {lead?.lastName}
+                     </span>
+                     <span>
+                        <b>Phone :</b> {lead?.phone}
+                     </span>
+                     <span>
+                        <b>email :</b> {lead?.email}
+                     </span>
+                     <span>
+                        <b>Fist Name :</b> {lead?.firstName}
+                     </span>
+                  </Text>
+               </Card>
+            </div>
+
+            <Card variant='surface' className=''>
+               <Text as='div' size='2' weight='bold' className='m-5'>
+                  Chat History
+               </Text>
+               <Text as='div' color='gray' size='1'>
+                  {lead?.conversation?.messages.map((msg) => (
+                     <div key={msg.id} className='flex flex-col gap-10'>
+                        <div
+                           className={tm(
+                              'rounded-md p-5 my-2 shadow-sm w-2/3',
+                              msg.fromLead && ' ml-auto bg-blue-500 text-white',
+                              !msg.fromLead &&
+                                 'mr-auto bg-gray-200 text-gray-800'
+                           )}
+                        >
+                           {msg.content}
+                           <br />
+                           <span className='text-xs text-gray-500'>
+                              {msg.createdAt.toDateString()}
+                           </span>
+                        </div>
                      </div>
-                  </div>
-               ))}
-            </Text>
-         </Card>
-      </>
+                  ))}
+               </Text>
+            </Card>
+         </div>
+      </div>
    )
 }
 

@@ -1,28 +1,22 @@
-import { HomeFooter, HomeNav } from '@/components/pt'
-import { FlexColC, FlexRowC } from '@/components/ui'
-import { SignOutButton, SignedIn, SignedOut } from '@clerk/nextjs'
+import { FlexColC, HomeFooter, PrivateNav } from '@/components'
+import { Auth } from '@/lib/function'
+import { ScrollArea } from '@radix-ui/themes'
 import React from 'react'
 
-type P = {
-   children: React.ReactNode
-}
+type P = { children: React.ReactNode }
 
-const PrivateLayout = ({ children }: P) => {
+export default async function PrivateLayout({ children }: P) {
    return (
       <FlexColC className='h-screen w-full overflow-hidden'>
-         <SignedIn>
-            <FlexRowC className='gap-5'>
-               Debug : Your are Singedin : <SignOutButton />
-            </FlexRowC>
-         </SignedIn>
-         <SignedOut>
-            <FlexRowC className='gap-5'>Debug : Your are Singedout</FlexRowC>
-         </SignedOut>
-         <HomeNav />
-         <FlexColC className='h-full'>{children}</FlexColC>
+         <PrivateNav />
+         <ScrollArea
+            type='always'
+            scrollbars='vertical'
+            className='my-28 mb-16 px-52 h-full'
+         >
+            <FlexColC className='h-full'>{children}</FlexColC>
+         </ScrollArea>
          <HomeFooter />
       </FlexColC>
    )
 }
-
-export default PrivateLayout

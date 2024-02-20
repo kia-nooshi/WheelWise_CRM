@@ -1,12 +1,10 @@
 import { FlexColC } from '@/components/ui'
 import { SignIn } from '@clerk/nextjs'
 
-const signInPage = () => {
+export default function signInPage() {
    return (
       <FlexColC>
          <SignIn />
       </FlexColC>
    )
 }
-
-export default signInPage

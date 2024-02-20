@@ -1,9 +1,10 @@
-import { FlexColC } from '@/components/ui/'
+import { FlexColC } from '@/components/'
+import { Toast } from '@/components/ui/toast'
 import { FontPoppin } from '@/lib/style/font'
 import { tm } from '@/lib/utils'
 import Image from 'next/image'
 
-export default function Home() {
+export default async function Home() {
    return (
       <FlexColC className='text-center'>
          <Image alt='logo' width='200' height='300' src='/images/logo.png' />

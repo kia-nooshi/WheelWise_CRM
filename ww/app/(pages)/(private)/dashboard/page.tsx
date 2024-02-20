@@ -1,21 +1,19 @@
-import { isUserReady } from '@/lib/function'
-import { LeadTable } from './lead/leadTable'
+import { Auth, Lead } from '@/lib/function'
+import { LeadTable } from '@/components'
+import { Toast } from '@/components/ui/toast'
+import { Toaster } from 'sonner'
+import { useState } from 'react'
 
 const Dashboard = async () => {
-   try {
-      const user = await isUserReady()
+   const thisUser = await Auth.authReady()
 
-      return (
-         <div>
-            <LeadTable />
-         </div>
-      )
-   } catch (error) {
-      if (error instanceof Error) {
-         console.error('Error:', error.message)
-         return <>🔥 {error.message}</>
-      }
-   }
+   //! Debuging - Delete Later
+   //console.log('\n---------------------\n⚙️  Debugging \n')
+   //console.log('     😊  user:', thisUser.data)
+   //console.log('     ⚠️  error:', thisUser.error)
+   //console.log('\n---------------------\n')
+
+   return <LeadTable />
 }
 
 export default Dashboard

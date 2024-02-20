@@ -51,8 +51,9 @@ enum LeadBadge {
 
 model Conversation {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  lead      Lead      @relation(fields: [leadId], references: [id])
+  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
   leadId    String    @db.ObjectId
+  threadId  String?
   messages  Message[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -62,7 +63,7 @@ model Conversation {
 
 model Message {
   id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   conversationId String       @db.ObjectId
   content        String
   fromLead       Boolean      @default(true)

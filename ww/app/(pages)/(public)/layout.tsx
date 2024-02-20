@@ -1,28 +1,12 @@
-import { HomeFooter, HomeNav } from '@/components/pt'
-import { FlexColC, FlexRowC } from '@/components/ui'
-import { SignOutButton, SignedIn, SignedOut } from '@clerk/nextjs'
-import React from 'react'
+import { FlexColC, HomeFooter, HomeNav } from '@/components'
+import { ReactNode } from 'react'
 
-type P = {
-   children: React.ReactNode
-}
-
-const PublicLayout = ({ children }: P) => {
+export default function PublicLayout({ children }: { children: ReactNode }) {
    return (
       <FlexColC className='h-screen w-full overflow-hidden'>
-         <SignedIn>
-            <FlexRowC className='gap-5'>
-               Debug : Your are Singedin : <SignOutButton />
-            </FlexRowC>
-         </SignedIn>
-         <SignedOut>
-            <FlexRowC className='gap-5'>Debug : Your are Singedout</FlexRowC>
-         </SignedOut>
          <HomeNav />
          <FlexColC className='h-full'>{children}</FlexColC>
          <HomeFooter />
       </FlexColC>
    )
 }
-
-export default PublicLayout
