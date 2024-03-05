@@ -1,6 +1,5 @@
-import { FaArrowRight } from '@/lib/theme/icon'
-import { NavLogo } from './navLogo'
 import { UserButton } from '@clerk/nextjs'
+import { NavLogo } from './navLogo'
 
 export const PrivateNav = () => {
    return (

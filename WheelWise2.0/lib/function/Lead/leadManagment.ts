@@ -1,5 +1,5 @@
 import prisma from '@/prisma/client'
-import Auth from './authManagment'
+import Auth from '../Auth/authManagment'
 import { SchemaLeadCreate, TypeLeadCreate } from '@/lib/schema'
 
 const Lead = {

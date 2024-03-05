@@ -1,5 +1,3 @@
-export { default as Auth } from './authManagment'
-export { default as Lead } from './leadManagment'
-export { default as Chat } from './chatManagmnet'
-
-export * from './leadManagmentss'
+export { default as Auth } from './Auth/authManagment'
+export { default as Lead } from './Lead/leadManagment'
+export { default as Chat } from './Chat/chatManagmnet'

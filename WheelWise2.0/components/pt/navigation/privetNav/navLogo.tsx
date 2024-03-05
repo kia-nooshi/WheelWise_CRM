@@ -1,5 +1,5 @@
 import React from 'react'
-import { FontPoppin } from '@/lib/style/font'
+import { FontPoppin } from '@/lib/theme'
 import { tm } from '@/lib/utils'
 import Link from 'next/link'
 

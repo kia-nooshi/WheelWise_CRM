@@ -1,6 +1,6 @@
 import { FlexColC } from '@/components/'
 import { Toast } from '@/components/ui/toast'
-import { FontPoppin } from '@/lib/style/font'
+import { FontPoppin } from '@/lib/theme'
 import { tm } from '@/lib/utils'
 import Image from 'next/image'
 
