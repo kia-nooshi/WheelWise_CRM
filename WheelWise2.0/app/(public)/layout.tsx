@@ -1,12 +1,12 @@
-import { FlexColC, HomeFooter, HomeNav } from '@/components'
+import { Flex, HomeFooter, HomeNav } from '@/lib/components'
 import { ReactNode } from 'react'
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
    return (
-      <FlexColC className='h-screen w-full overflow-hidden'>
+      <Flex className='h-screen' direction={'column'} align={'center'}>
          <HomeNav />
-         <FlexColC className='h-full'>{children}</FlexColC>
+         {children}
          <HomeFooter />
-      </FlexColC>
+      </Flex>
    )
 }

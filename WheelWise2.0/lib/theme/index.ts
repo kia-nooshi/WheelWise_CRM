@@ -1,5 +1,5 @@
 // Export Font
-export { FontInter, FontPoppin } from './font'
+export * from './font'
 
 // Export Icon
-export { IconTrash, IconPen, IconDot, IconClock, IconArrowRight } from './icon'
+export * from './icon'
