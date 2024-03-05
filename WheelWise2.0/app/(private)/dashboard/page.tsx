@@ -1,8 +1,4 @@
-import { Auth, Lead } from '@/lib/function'
-import { LeadTable } from '@/components'
-import { Toast } from '@/lib/components/ui/toast'
-import { Toaster } from 'sonner'
-import { useState } from 'react'
+import { Auth } from '@/lib/function'
 
 const Dashboard = async () => {
    const thisUser = await Auth.authReady()
@@ -13,7 +9,7 @@ const Dashboard = async () => {
    //console.log('     ⚠️  error:', thisUser.error)
    //console.log('\n---------------------\n')
 
-   return <LeadTable />
+   return <div>sss</div> //<LeadTable />
 }
 
 export default Dashboard

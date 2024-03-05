@@ -1,5 +1,5 @@
 // Export Ui Component
-export * from './ui'
+export * from '@/components/ui'
 
 // Export Ui Component
-export * from './pt'
+export * from '@/components/pt'

@@ -1,8 +1,5 @@
-import { FlexColC, FlexRowC } from '@/components'
-import React from 'react'
-
 const loading = () => {
-   return <FlexColC className='h-full'>Loading ...</FlexColC>
+   return <div className='h-full'>Loading ...</div>
 }
 
 export default loading
