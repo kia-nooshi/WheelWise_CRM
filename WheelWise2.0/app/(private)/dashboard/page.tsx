@@ -1,6 +1,6 @@
 import { Auth, Lead } from '@/lib/function'
 import { LeadTable } from '@/components'
-import { Toast } from '@/components/ui/toast'
+import { Toast } from '@/lib/components/ui/toast'
 import { Toaster } from 'sonner'
 import { useState } from 'react'
 
