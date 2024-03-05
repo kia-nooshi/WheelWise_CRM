@@ -1,6 +1,6 @@
-import { FontInter } from '@/lib'
-import { ClerkProvider, RadixProvider } from '@/lib/provider'
 import '@/lib/theme/css/style.css'
+import { FontInter } from '@/lib/theme'
+import { ClerkProvider, RadixProvider } from '@/lib/provider'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

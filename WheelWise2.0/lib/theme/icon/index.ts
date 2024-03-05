@@ -1,9 +1,5 @@
-export {
-   FaArrowRight,
-   FaGithub as IconGithub,
-   FcGoogle as IconGoogle,
-   IoMdTime as IconClock,
-   FaRegTrashAlt as IconTrash,
-   LuPencil as IconPen,
-   TbDotsVertical as IconDot,
-} from './icons'
+export { FaArrowRight as IconArrowRight } from 'react-icons/fa6'
+export { IoMdTime as IconClock } from 'react-icons/io'
+export { FaRegTrashAlt as IconTrash } from 'react-icons/fa'
+export { LuPencil as IconPen } from 'react-icons/lu'
+export { TbDotsVertical as IconDot } from 'react-icons/tb'
