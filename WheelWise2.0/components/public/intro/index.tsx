@@ -1,10 +1,9 @@
-import { Flex } from '@/lib/components'
-import { FontPoppin } from '@/lib/theme'
+import { CMP, Font } from '@/lib'
 import Image from 'next/image'
 
-export function HomeIntro() {
+export function Intro() {
    return (
-      <Flex
+      <CMP.Ui.Flex
          className='h-full'
          direction={'column'}
          justify={'center'}
@@ -12,7 +11,7 @@ export function HomeIntro() {
       >
          <Image alt='logo' width='200' height='300' src='/images/logo.png' />
          <span className='m-10'>
-            <span className={FontPoppin.className}>
+            <span className={Font.Poppins.className}>
                <h1 className='text-5xl'>
                   <span className='text-blue-700'>Wheel</span>
                   <span className='text-violet-700'>Wise</span> CRM is finally
@@ -28,6 +27,6 @@ export function HomeIntro() {
             Features with WheelWise CRM 2.0 <br /> Empowering Smarter, Faster,
             and More Efficient Car Sales
          </p>
-      </Flex>
+      </CMP.Ui.Flex>
    )
 }

@@ -1,5 +1,5 @@
-import { Signup } from '@/lib/components'
+import { CMP } from '@/lib'
 
 export default function signUpPage() {
-   return <Signup />
+   return <CMP.Auth.Signup />
 }

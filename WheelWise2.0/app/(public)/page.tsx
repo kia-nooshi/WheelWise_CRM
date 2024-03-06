@@ -1,5 +1,6 @@
-import { HomeIntro } from '@/lib/components'
+import { CMP } from '@/lib'
+
 
 export default async function Home() {
-   return <HomeIntro />
+   return <CMP.Public.Intro />
 }

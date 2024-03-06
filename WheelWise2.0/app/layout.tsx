@@ -1,6 +1,5 @@
+import { Font, Provider } from '@/lib'
 import '@/lib/theme/css/style.css'
-import { FontInter } from '@/lib/theme'
-import { ClerkProvider, RadixProvider } from '@/lib/provider'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -16,11 +15,14 @@ export default function RootLayout({
    return (
       <html lang='en'>
          <body>
-            <ClerkProvider>
-               <RadixProvider appearance='dark' className={FontInter.className}>
+            <Provider.Clerk>
+               <Provider.Radix
+                  appearance='dark'
+                  className={Font.Inter.className}
+               >
                   {children}
-               </RadixProvider>
-            </ClerkProvider>
+               </Provider.Radix>
+            </Provider.Clerk>
          </body>
       </html>
    )

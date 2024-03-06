@@ -1,12 +1,12 @@
-import { Flex, HomeFooter, HomeNav } from '@/lib/components'
+import { CMP } from '@/lib'
 import { ReactNode } from 'react'
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
    return (
-      <Flex className='h-screen' direction={'column'} align={'center'}>
-         <HomeNav />
+      <CMP.Ui.Flex className='h-screen' direction={'column'} align={'center'}>
+         <CMP.Public.Nav />
          {children}
-         <HomeFooter />
-      </Flex>
+         <CMP.Public.Footer />
+      </CMP.Ui.Flex>
    )
 }
