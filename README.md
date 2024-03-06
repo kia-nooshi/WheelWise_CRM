@@ -1,91 +1,68 @@
 # WheelWise CRM 2.0.0 Release Notes
 
-## Key Updates
-
-### Upgrading to Next.js 14.1.0
-
--  **Description**: Upgrade from Next.js 13 to 14.1.0, incorporating the latest features and optimizations.
-
-### React 18 Integration
-
--  **Description**: Integration of React 18, enhancing performance and capabilities.
-
-### Transition to App Router
-
--  **Description**: Shift from traditional Page Router to App Router in Next.js, improving routing efficiency.
-
-### Introduction of 'useServer' in Next.js
-
--  **Description**: Incorporation of 'useServer' feature for server-side functionalities and API optimization.
-
-### Switching to Clerk for Authentication
-
--  **Description**: Transition to Clerk for more robust and secure authentication processes.
-
-### Enhanced AI-Driven Interactions
-
--  **Description**: Advanced algorithms and models for improved interactions with car buyers.
+WheelWise CRM 2.0 ushers in a new era of car shopping, transforming traditional challenges into a streamlined, customer-centric experience. By integrating cutting-edge AI technology, WheelWise CRM 2.0 simplifies the interaction between consumers and the car buying process, overcoming the hurdles of inconvenience and high-pressure sales tactics. This platform allows consumers to effortlessly submit inquiries and receive responses in real-time or at a scheduled time, thereby significantly reducing dealers' workloads by consolidating all online marketplaces into one convenient portal. Moreover, it enhances user engagement by retaining consumer preferences for future visits. WheelWise CRM 2.0 adeptly combines automated processes with the option for personalized dealer interactions, ensuring a harmonious balance between efficiency and the human touch, and redefining the car shopping experience.
 
 ## Troubleshooting
 
--  **Clock Skew Detected**: Run `sudo apt install ntpdate && sudo ntpdate pool.ntp.org`
-
-## Test Accounts for Login
-
--  **User 1**: Emily Johnson - `E.Johnson@WheelWise.com` | Pass: `WW124578963#`
--  **User 2**: Michael Smith - `M.Smith@WheelWise.com` | Pass: `WW124578963#`
--  **User 3**: Sofia Martinez - `S.Martinez@WheelWise.com` | Pass: `WW124578963#`
+-  **Clock Skew Detected**: To correct system time discrepancies, execute the command: `sudo apt install ntpdate && sudo ntpdate pool.ntp.org`
 
 # Tools and Libraries
 
 ### Next.js
 
 -  **Version**: 14.1.0
--  **Description**: A React framework for server-side rendering and static website generation.
+-  **Description**: A robust React framework designed for server-side rendering and generating static websites efficiently.
 -  **Installation**: `npx create-next-app@latest`
 -  **Running the App**: `npm run dev`
--  **Documentation**: [Next.js Docs](https://nextjs.org/docs)
+-  **Documentation**: [Explore Next.js Documentation](https://nextjs.org/docs)
 
-### React
+### React and React DOM
 
--  **Version**: ^18
--  **Description**: A JavaScript library for building user interfaces with UI components.
--  **Installation**: `npm install react@^18 react-dom@^18`
--  **Documentation**: [React Docs](https://reactjs.org/docs)
+-  **Version**: 18
+-  **Description**: Premier library for constructing dynamic UIs with reusable, stateful components.
+-  **Installation**: `npm install react@18 react-dom@18`
+-  **Documentation**: [Dive into React Docs](https://reactjs.org/docs)
 
 ### Clerk
 
--  **Version**: ^4.29.5
--  **Description**: Secure, easy-to-use authentication services for Next.js.
--  **Installation**: `npm install @clerk/nextjs`
--  **Documentation**: [Clerk Docs](https://docs.clerk.dev)
+-  **Version**: 4.29.7
+-  **Description**: Provides secure and easy-to-implement authentication services specifically tailored for Next.js applications.
+-  **Installation**: `npm install @clerk/nextjs@4.29.7`
+-  **Documentation**: [Clerk Documentation](https://docs.clerk.dev)
 
 ### Radix UI
 
--  **Version**: 1.3.0
--  **Description**: Low-level UI primitives for building design systems and apps.
--  **Installation**: `npm install @radix-ui/react@1.3.0`
+-  **Version**: 2.0.3 (as @radix-ui/themes)
+-  **Description**: Offers foundational UI components for crafting high-quality design systems and web applications.
+-  **Installation**: `npm install @radix-ui/react@2.0.3`
 -  **Documentation**: [Radix UI Docs](https://www.radix-ui.com)
-
-### Shadcn UI
-
--  **Version**: 1.4.1
--  **Description**: A modern React UI library with customizable components.
--  **Installation**: `npx shadcn-ui@latest init`
--  **Setup**: [Shadcn UI Setup Guide](https://ui.shadcn.com/docs/installation/next)
--  **Documentation**: [Shadcn UI Docs](https://ui.shadcn.com/docs)
-
-### clsx
-
--  **Version**: ^2.1.0
--  **Description**: Utility for constructing conditional className strings in React.
--  **Installation**: `npm install clsx@^2.1.0`
--  **Documentation**: [clsx GitHub](https://github.com/lukeed/clsx)
 
 ### Tailwind CSS
 
--  **Version**: ^2.2.1
--  **Description**: A utility-first CSS framework for rapid custom design building.
--  **Installation**: `npm install tailwindcss@^2.2.1 postcss autoprefixer`
+-  **Version**: 3.3.0
+-  **Description**: A utility-first framework for creating custom designs with speed and efficiency.
+-  **Installation**: `npm install tailwindcss@3.3.0 postcss autoprefixer`
 -  **Setup**: [Tailwind CSS Setup Guide](https://tailwindcss.com/docs/installation)
 -  **Documentation**: [Tailwind CSS Docs](https://tailwindcss.com/docs)
+
+# Additional Libraries and Dependencies
+
+The development of WheelWise CRM 2.0.0 also incorporates a selection of additional libraries and dependencies to enhance functionality and development workflow:
+
+-  Prisma Client (`@prisma/client`): ^5.9.1
+-  Delay (`delay`): ^6.0.0
+-  React Icons (`react-icons`): ^5.0.1
+-  Zod (`zod`): ^3.22.4
+-  Development Tools: Typescript (^5), ESLint (^8), PostCSS (^8), Autoprefixer (^10.0.1), and more, ensuring a robust and efficient development process.
+
+# Developed By
+
+This version was made possible by the collaborative efforts of our development team, leveraging the latest in web technology standards:
+
+-  TypeScript: ^5
+-  Node.js Types: ^20
+-  React and React DOM Types: ^18
+-  Tailwind Merge: ^2.2.1
+-  ESLint Configuration for Next.js: 14.1.0
+
+We are committed to continuous improvement and eagerly anticipate your feedback on WheelWise CRM 2.0.0.
