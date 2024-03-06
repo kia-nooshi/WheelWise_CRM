@@ -1,13 +1,13 @@
-import { CMP } from '@/lib'
+import { C } from '@/components'
 
-export const Navigation = () => {
+export default function Navigation() {
    return (
-      <CMP.Ui.Flex
+      <C.UI.Flex
          className='w-full max-w-3xl m-3 p-2 rounded-lg'
          justify={'between'}
       >
-         <CMP.Shared.Logo />
-         <CMP.Auth.UserProfile />
-      </CMP.Ui.Flex>
+         <C.Shared.Logo />
+         <C.Auth.UserProfile />
+      </C.UI.Flex>
    )
 }

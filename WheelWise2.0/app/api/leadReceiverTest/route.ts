@@ -3,7 +3,7 @@
  * !     NEED BETER ERROR HANDELING
  */
 
-import { Chat, Lead } from '@/lib/function'
+import { Chat, Lead } from '@/components/lib/function'
 import { revalidatePath } from 'next/cache'
 
 import { NextRequest, NextResponse } from 'next/server'

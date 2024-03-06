@@ -1,6 +1,5 @@
-import { CMP } from '@/lib'
-
+import { C } from '@/components'
 
 export default async function Home() {
-   return <CMP.Public.Intro />
+   return <C.Public.Intro />
 }

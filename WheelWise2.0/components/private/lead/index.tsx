@@ -1,17 +1,11 @@
-/**
- * ! DOES NOT FOLLOW GOOD PRACTICE
- * TODO - Make it components base
- * ? should not be here in this folder / Components Folder maybe!
- */
-
-import { Icon } from '@/lib'
-import { Lead } from '@/lib/function'
+import { Lead } from '@/components/lib/function'
 import { Card, Table, Text } from '@radix-ui/themes' // ! Not good Prac
 import Link from 'next/link'
 import { LeadBadge } from './leadBadge'
 import LeadRefresh from './leadRefresh'
+import { C } from '@/components'
 
-export const Leads = async () => {
+export default async function Leads() {
    const leads = await Lead.getAll()
 
    if (!leads.data) return <>Table is empty</>
@@ -57,18 +51,18 @@ export const Leads = async () => {
                      </Table.Cell>
                      <Table.Cell>
                         <div className='flex flex-row items-center gap-2 text-gray-600'>
-                           <Icon.Clock />
+                           <C.UI.Icon name='Time' />
                            {lead.createdAt.toDateString()}
                         </div>
                      </Table.Cell>
                      <Table.Cell>
                         <div className='flex flex-row items-center gap-2 text-gray-600'>
                            <span>
-                              <Icon.Pen />
+                              <C.UI.Icon name='Pen' />
                            </span>
                            <span>D</span>
                            <span>
-                              <Icon.DotsVertical />
+                              <C.UI.Icon name='Dots_Vertical' />
                            </span>
                         </div>
                      </Table.Cell>

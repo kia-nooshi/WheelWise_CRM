@@ -1,13 +1,13 @@
-import { Font } from '@/lib'
+import { C, Ui } from '@/components'
 import Link from 'next/link'
 
-export const Logo = () => {
+export default function Logo() {
    return (
       <Link href='./' className='text-white text-lg'>
-         <span className={Font.Poppins.className}>
+         <Ui.Font name='Poppins'>
             <span className='text-blue-700'>Wheel</span>
             <span className='text-violet-700'>Wise</span>
-         </span>
+         </Ui.Font>
       </Link>
    )
 }

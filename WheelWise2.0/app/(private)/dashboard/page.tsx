@@ -1,5 +1,5 @@
 import { CMP } from '@/lib'
-import { Auth } from '@/lib/function'
+import { Auth } from '@/components/lib/function'
 
 const Dashboard = async () => {
    return <CMP.Private.Leads />

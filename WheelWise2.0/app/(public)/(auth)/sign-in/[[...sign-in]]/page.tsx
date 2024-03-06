@@ -1,5 +1,5 @@
-import { CMP } from '@/lib'
+import { Auth } from '@/components'
 
 export default function signInPage() {
-   return <CMP.Auth.Signin />
+   return <Auth.Signin />
 }

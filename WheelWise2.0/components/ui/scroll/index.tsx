@@ -5,6 +5,6 @@ interface ScrollArea extends React.ComponentProps<typeof ScrollArea> {
    children: React.ReactNode
 }
 
-export function Scroll({ children, ...props }: ScrollArea) {
+export default function Scroll({ children, ...props }: ScrollArea) {
    return <ScrollArea {...props}>{children}</ScrollArea>
 }

@@ -5,6 +5,6 @@ interface FlexProps extends React.ComponentProps<typeof FlexRadix> {
    children?: React.ReactNode
 }
 
-export function Flex({ children, ...props }: FlexProps) {
+export default function Flex({ children, ...props }: FlexProps) {
    return <FlexRadix {...props}>{children}</FlexRadix>
 }

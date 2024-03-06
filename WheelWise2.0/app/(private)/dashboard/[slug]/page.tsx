@@ -1,5 +1,5 @@
 import { Util } from '@/lib'
-import { Auth } from '@/lib/function'
+import { Auth } from '@/components/lib/function'
 import prisma from '@/prisma/client'
 import { Card, Text } from '@radix-ui/themes'
 import Link from 'next/link'
