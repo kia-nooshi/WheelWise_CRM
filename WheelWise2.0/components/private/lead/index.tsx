@@ -4,15 +4,14 @@
  * ? should not be here in this folder / Components Folder maybe!
  */
 
+import { Icon } from '@/lib'
 import { Lead } from '@/lib/function'
-import { IconClock, IconDot, IconPen } from '@/lib/theme/icon'
 import { Card, Table, Text } from '@radix-ui/themes' // ! Not good Prac
 import Link from 'next/link'
 import { LeadBadge } from './leadBadge'
-import { LeadDelete } from './leadDelete'
 import LeadRefresh from './leadRefresh'
 
-export const LeadTable = async () => {
+export const Leads = async () => {
    const leads = await Lead.getAll()
 
    if (!leads.data) return <>Table is empty</>
@@ -58,20 +57,18 @@ export const LeadTable = async () => {
                      </Table.Cell>
                      <Table.Cell>
                         <div className='flex flex-row items-center gap-2 text-gray-600'>
-                           <IconClock />
+                           <Icon.Clock />
                            {lead.createdAt.toDateString()}
                         </div>
                      </Table.Cell>
                      <Table.Cell>
                         <div className='flex flex-row items-center gap-2 text-gray-600'>
                            <span>
-                              <IconPen />
+                              <Icon.Pen />
                            </span>
+                           <span>D</span>
                            <span>
-                              <LeadDelete RemoveId={lead.id} />
-                           </span>
-                           <span>
-                              <IconDot className='text-white' />
+                              <Icon.DotsVertical />
                            </span>
                         </div>
                      </Table.Cell>

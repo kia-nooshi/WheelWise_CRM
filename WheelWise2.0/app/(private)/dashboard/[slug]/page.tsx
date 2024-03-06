@@ -1,9 +1,9 @@
+import { Util } from '@/lib'
 import { Auth } from '@/lib/function'
-import { tm } from '@/lib/utils'
 import prisma from '@/prisma/client'
 import { Card, Text } from '@radix-ui/themes'
-import LeadRefresh from './leadRefresh'
 import Link from 'next/link'
+import LeadRefresh from './leadRefresh'
 
 const LeadPage = async ({ params }: { params: { slug: string } }) => {
    const leadId = params.slug
@@ -106,7 +106,7 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
                   {lead?.conversation?.messages.map((msg) => (
                      <div key={msg.id} className='flex flex-col gap-10'>
                         <div
-                           className={tm(
+                           className={Util.tw.merge(
                               'rounded-md p-5 my-2 shadow-sm w-2/3',
                               msg.fromLead && ' ml-auto bg-blue-500 text-white',
                               !msg.fromLead &&

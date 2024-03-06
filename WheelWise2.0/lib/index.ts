@@ -11,9 +11,14 @@ import { Logo } from '@/components/shared/logo'
 import { Footer } from '@/components/public/footer'
 import { Intro } from '@/components/public/intro'
 import { Navigation } from '@/components/public/navigation'
+//Private
+import { Footer as Footer_Private } from '@/components/private/footer'
+import { Navigation as Navigation_Private } from '@/components/private/navigation'
+import { Leads } from '@/components/private/lead'
 //Auth
 import { Signin } from '@/components/auth/signin'
 import { Signup } from '@/components/auth/signup'
+import { UserProfile } from '@/components/auth/userProfile'
 
 export const CMP = {
    get Ui() {
@@ -46,6 +51,19 @@ export const CMP = {
          },
       }
    },
+   get Private() {
+      return {
+         get Nav() {
+            return Navigation_Private
+         },
+         get Footer() {
+            return Footer_Private
+         },
+         get Leads() {
+            return Leads
+         },
+      }
+   },
    get Auth() {
       return {
          get Signin() {
@@ -53,6 +71,9 @@ export const CMP = {
          },
          get Signup() {
             return Signup
+         },
+         get UserProfile() {
+            return UserProfile
          },
       }
    },
@@ -114,5 +135,18 @@ export const Provider = {
    },
    get Radix() {
       return Theme
+   },
+}
+
+import { twJoin, twMerge } from 'tailwind-merge'
+
+export const Util = {
+   tw: {
+      get join() {
+         return twJoin
+      },
+      get merge() {
+         return twMerge
+      },
    },
 }

@@ -1,5 +1,5 @@
 import { CMP, Icon } from '@/lib'
-import { NavControl } from './navControl'
+import { Controler } from './controler'
 
 export const Navigation = () => {
    return (
@@ -7,7 +7,7 @@ export const Navigation = () => {
          <div className='flex flex-row items-center justify-between gap-5 '>
             <CMP.Shared.Logo />
             <Icon.ArrowRight />
-            <NavControl />
+            <Controler />
          </div>
          <div></div>
       </nav>

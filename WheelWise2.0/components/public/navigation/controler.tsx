@@ -4,7 +4,7 @@ import { DropdownMenu, Button } from '@radix-ui/themes'
 import Link from 'next/link'
 import React from 'react'
 
-export const NavControl = () => {
+export const Controler = () => {
    return (
       <DropdownMenu.Root>
          <DropdownMenu.Trigger>
