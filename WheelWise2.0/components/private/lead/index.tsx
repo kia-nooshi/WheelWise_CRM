@@ -1,4 +1,3 @@
-import { Lead } from '@/components/lib/function'
 import { Card, Table, Text } from '@radix-ui/themes' // ! Not good Prac
 import Link from 'next/link'
 import { LeadBadge } from './leadBadge'

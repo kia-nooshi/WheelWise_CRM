@@ -2,10 +2,10 @@
 // Provider
 // --------------------------------
 
-import { ClerkProvider } from '@clerk/nextjs'
-import { Theme as RadixProvider } from '@radix-ui/themes'
+import { ClerkProvider as Clerk } from '@clerk/nextjs'
+import { Theme as Radix } from '@radix-ui/themes'
 
-export const Provider = { Clerk: ClerkProvider, Radix: RadixProvider }
+export const Provider = { Clerk, Radix }
 
 // --------------------------------
 // Auth
@@ -28,10 +28,22 @@ import { default as Font } from '@/components/ui/font'
 export const Ui = { Flex, Scroll, Icon, Font }
 
 // --------------------------------
-// IMPORT CMP
+// Do
 // --------------------------------
 
-// Auth
+import { twJoin, twMerge } from 'tailwind-merge'
+const Util = { twJoin, twMerge }
+
+import { default as Authen } from '@/components/function/auth'
+import { default as Organ } from '@/components/function/organ'
+import { default as user } from '@/components/function/user'
+import { default as Lead } from '@/components/function/lead'
+
+export const Do = { Auth: Authen, Organ, user, Lead, Util }
+
+// --------------------------------
+// IMPORT CMP
+// --------------------------------
 
 // Private
 import { default as Nav } from '@/components/private/navigation'
@@ -57,19 +69,5 @@ export const C = {
    },
    Shared: {
       Logo,
-   },
-}
-
-import { twJoin, twMerge } from 'tailwind-merge'
-import { CgPacman } from 'react-icons/cg'
-
-export const Util = {
-   tw: {
-      get join() {
-         return twJoin
-      },
-      get merge() {
-         return twMerge
-      },
    },
 }

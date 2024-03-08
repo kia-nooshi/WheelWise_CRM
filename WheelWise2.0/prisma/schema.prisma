@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,37 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Organization {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  users User[]
-  leads Lead[]
-}
-
-model User {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  externalId     String?      @unique
-  organization   Organization @relation(fields: [organizationId], references: [id])
-  organizationId String       @db.ObjectId
-}
-
-model Lead {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  Organization   Organization @relation(fields: [organizationId], references: [id])
-  organizationId String       @db.ObjectId
-
-  firstName String
-  lastName  String
-  phone     String?
-  email     String?
-
-  badge     LeadBadge @default(OPEN)
-  createdAt DateTime  @default(now())
-  updatedAy DateTime  @updatedAt
-
-  conversation Conversation?
-
-  @@unique([organizationId, phone])
-  @@unique([organizationId, email])
+enum UserType {
+  ADMIN
+  MANAGER
 }
 
 enum LeadBadge {
@@ -49,7 +18,35 @@ enum LeadBadge {
   DONE
 }
 
-model Conversation {
+model Organ {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  users User[]
+  leads Lead[]
+}
+
+model User {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId String   @unique @db.String
+  organ   Organ    @relation(fields: [organId], references: [id], onDelete: Cascade)
+  organId String   @db.ObjectId
+  type    UserType
+}
+
+model Lead {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  organ     Organ     @relation(fields: [organId], references: [id], onDelete: Cascade)
+  organId   String    @db.ObjectId
+  firstName String
+  lastName  String
+  phone     String?
+  email     String?   @unique @db.String
+  badge     LeadBadge @default(OPEN)
+  chat      Chat?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Chat {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
   leadId    String    @db.ObjectId
@@ -58,14 +55,16 @@ model Conversation {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
-  @@unique([leadId]) // Enforces that a Lead can only have one Conversation
+  @@unique([leadId])
 }
 
 model Message {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  conversationId String       @db.ObjectId
-  content        String
-  fromLead       Boolean      @default(true)
-  createdAt      DateTime     @default(now())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  chatId    String   @db.ObjectId
+  content   String
+  fromLead  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([chatId])
 }
