@@ -1,54 +1,84 @@
+import { Do } from '@/components'
 import prisma from '@/prisma/client'
 
-interface ApiResponse<T> {
+interface CommonProps {
+   id: string
+   messageId: string
+   chatId: string
+   content: string
+   fromLead: boolean
+   threadId: string | null
+}
+
+interface ReturnData<T> {
    data: T | null
    success: boolean
    message: string
 }
 
-type MessageType = any
-type ConversationType = any
-
-interface CommonProps {
-   conversationId: string
-   content?: string
-   fromLead?: boolean
-   threadId?: string | null
-}
-
-interface PushMessageProps extends Pick<CommonProps, 'conversationId' | 'content' | 'fromLead'> {}
-interface PushThreadIdProps extends Pick<CommonProps, 'conversationId' | 'threadId'> {}
+interface PushMessageProps extends Pick<CommonProps, 'id' | 'content' | 'fromLead'> {}
+interface PopMessageProps extends Pick<CommonProps, 'id'> {}
+interface PushChatProps extends Pick<CommonProps, 'id' | 'threadId'> {}
 
 // ------------------------
 // UTIL - HELPER
 // ------------------------
-function createApiResponse<T>(data: T | null, success: boolean, message: string): ApiResponse<T> {
-   return { data, success, message }
-}
-
-function handleApiError(e: unknown): string {
-   return `⛔ ${e instanceof Error ? e.message : 'Unknown error'}`
-}
 
 async function pushMessage({
-   conversationId,
+   id,
    content,
    fromLead,
-}: PushMessageProps): Promise<ApiResponse<MessageType>> {
+}: PushMessageProps): Promise<ReturnData<PushMessageProps>> {
    try {
       const data = await prisma.message.create({
          data: {
-            conversationId,
             content,
             fromLead,
+            chat: { connect: { id } },
          },
       })
 
-      if (!data) throw new Error('Failed to create message')
+      if (!data) throw new Error('Failed to push message')
 
-      return createApiResponse(data, true, '🆗 messageCreate → Message successfully created')
+      return Do.Util.ReturnData(data, true, 'Message successfully pushed', '🆗 pushMessage')
    } catch (e) {
-      return createApiResponse(null, false, handleApiError(e))
+      return Do.Util.ReturnData(null, false, e, '⛔ pushMessage')
+   }
+}
+
+async function popMessage({ id }: PopMessageProps): Promise<ReturnData<PopMessageProps>> {
+   try {
+      const data = await prisma.message.delete({
+         where: { id },
+      })
+
+      if (!data) throw new Error('Failed to pop message')
+
+      return Do.Util.ReturnData(data, true, 'Message successfully poped', '🆗 popMessage')
+   } catch (e) {
+      return Do.Util.ReturnData(null, false, e, '⛔ popMessage')
+   }
+}
+
+async function pushChat({ id, threadId }: PushChatProps): Promise<ReturnData<PushChatProps>> {
+   try {
+      const chatData: any = {
+         lead: { connect: { id } },
+      }
+
+      if (threadId) {
+         chatData.threadId = threadId
+      }
+
+      const data = await prisma.chat.create({
+         data: chatData,
+      })
+
+      if (!data) throw new Error('Failed to push chat')
+
+      return Do.Util.ReturnData(data, true, 'Chat successfully pushed', '🆗 pushChat')
+   } catch (e) {
+      return Do.Util.ReturnData(null, false, e, '⛔ pushChat')
    }
 }
 
@@ -58,7 +88,7 @@ async function pushThreadId({
 }: {
    conversationId: string
    threadId: string | null
-}): Promise<ApiResponse<ConversationType>> {
+}): Promise<ReturnData<ConversationType>> {
    try {
       const data = await prisma.conversation.update({
          where: { id: conversationId },
@@ -89,7 +119,7 @@ async function getAiResponse({
    conversationId: string
    message: string
    threadId: string | null
-}): Promise<ApiResponse<MessageType>> {
+}): Promise<ReturnData<MessageType>> {
    try {
       const apiUrl = process.env.CHATGPT_API
       if (!apiUrl) throw new Error('CHATGPT_API URL is not defined in .env')
@@ -140,6 +170,7 @@ async function getAiResponse({
    }
 }
 
+/*
 const Chat = {
    sendGHL: async ({
       message,
@@ -167,5 +198,7 @@ const Chat = {
       return null
    },
 }
+*/
 
+const Chat = { pushChat, pushMessage, popMessage }
 export default Chat

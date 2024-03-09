@@ -65,6 +65,4 @@ model Message {
   content   String
   fromLead  Boolean  @default(true)
   createdAt DateTime @default(now())
-
-  @@index([chatId])
 }
