@@ -19,6 +19,7 @@ interface ReturnData<T> {
 interface PushMessageProps extends Pick<CommonProps, 'id' | 'content' | 'fromLead'> {}
 interface PopMessageProps extends Pick<CommonProps, 'id'> {}
 interface PushChatProps extends Pick<CommonProps, 'id' | 'threadId'> {}
+interface PopChatProps extends Pick<CommonProps, 'id'> {}
 
 // ------------------------
 // UTIL - HELPER
@@ -82,32 +83,17 @@ async function pushChat({ id, threadId }: PushChatProps): Promise<ReturnData<Pus
    }
 }
 
-async function pushThreadId({
-   conversationId,
-   threadId,
-}: {
-   conversationId: string
-   threadId: string | null
-}): Promise<ReturnData<ConversationType>> {
+async function popChat({ id }: PopChatProps): Promise<ReturnData<PopChatProps>> {
    try {
-      const data = await prisma.conversation.update({
-         where: { id: conversationId },
-         data: { threadId },
+      const data = await prisma.chat.delete({
+         where: { id },
       })
 
-      if (!data) throw new Error('Failed to update thread ID')
+      if (!data) throw new Error('Failed to pop chat')
 
-      return {
-         data,
-         success: true,
-         message: '🆗 threadIdUpdate → Thread ID successfully updated',
-      }
+      return Do.Util.ReturnData(data, true, 'Chat successfully popped', '🆗 popChat')
    } catch (e) {
-      return {
-         data: null,
-         success: false,
-         message: `⛔ threadIdUpdate → ${e instanceof Error ? e.message : 'Unknown error'}`,
-      }
+      return Do.Util.ReturnData(null, false, e, '⛔ popChat')
    }
 }
 
@@ -200,5 +186,5 @@ const Chat = {
 }
 */
 
-const Chat = { pushChat, pushMessage, popMessage }
+const Chat = { pushChat, pushMessage, popMessage, popChat }
 export default Chat
