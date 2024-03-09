@@ -1,10 +1,9 @@
 import { Do } from '@/components'
 import prisma from '@/prisma/client'
 
+// Interfaces
 interface CommonProps {
    id: string
-   messageId: string
-   chatId: string
    content: string
    fromLead: boolean
    threadId: string | null
@@ -16,15 +15,14 @@ interface ReturnData<T> {
    message: string
 }
 
+// Extending CommonProps for specific use cases
 interface PushMessageProps extends Pick<CommonProps, 'id' | 'content' | 'fromLead'> {}
 interface PopMessageProps extends Pick<CommonProps, 'id'> {}
+interface PushThreadIdProps extends Pick<CommonProps, 'id' | 'threadId'> {}
 interface PushChatProps extends Pick<CommonProps, 'id' | 'threadId'> {}
 interface PopChatProps extends Pick<CommonProps, 'id'> {}
 
-// ------------------------
-// UTIL - HELPER
-// ------------------------
-
+// Utility Functions
 async function pushMessage({
    id,
    content,
@@ -97,6 +95,28 @@ async function popChat({ id }: PopChatProps): Promise<ReturnData<PopChatProps>> 
    }
 }
 
+async function pushThreadId({
+   id,
+   threadId,
+}: PushThreadIdProps): Promise<ReturnData<PushThreadIdProps>> {
+   try {
+      if (!threadId) throw new Error('threadId is required')
+
+      const data = await prisma.chat.update({
+         where: { id },
+         data: { threadId },
+      })
+
+      if (!data) throw new Error('Failed to push threadId')
+
+      return Do.Util.ReturnData(data, true, 'ThreadId successfully pushed', '🆗 pushThreadId')
+   } catch (e) {
+      return Do.Util.ReturnData(null, false, e, '⛔ pushThreadId')
+   }
+}
+
+/*
+
 async function getAiResponse({
    conversationId,
    message,
@@ -156,7 +176,7 @@ async function getAiResponse({
    }
 }
 
-/*
+
 const Chat = {
    sendGHL: async ({
       message,
@@ -186,5 +206,5 @@ const Chat = {
 }
 */
 
-const Chat = { pushChat, pushMessage, popMessage, popChat }
+const Chat = { pushChat, popChat, pushThreadId, pushMessage, popMessage }
 export default Chat
