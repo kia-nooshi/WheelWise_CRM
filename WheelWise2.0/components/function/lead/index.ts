@@ -1,33 +1,24 @@
+import { z } from 'zod'
 import prisma from '@/prisma/client'
-import z from 'zod'
+import { Do } from '@/components'
+import { LeadBadge } from '@prisma/client'
 
-// -------------------------------
-// -------------------------------
-// SCHEMA - TYPE
-// -------------------------------
-// -------------------------------
+interface CommonProps {
+   id: string
+   firstName: string
+   lastName: string
+   phone?: string
+   email?: string
+   badge?: LeadBadge
+}
 
-export const SchemaAddLead = z.object({
-   organizationId: z.string().min(1),
-   firstName: z.string().min(1),
-   lastName: z.string().min(1),
-   phone: z
-      .string()
-      .min(1)
-      .regex(/^\d+$/)
-      .transform((phone) => phone.replace(/[^\d]/g, '')),
-   email: z
-      .string()
-      .optional()
-      .transform((val) => (val === '' ? null : val)),
-})
+interface PushLeadProps
+   extends Pick<CommonProps, 'id' | 'firstName' | 'lastName' | 'phone' | 'email'> {}
 
-type SearchField = 'id' | 'phone' | 'email' | 'firstName' | 'lastName'
-
-interface GetByPropInput {
-   organizationId: string
-   field: SearchField
-   value: string
+interface ReturnData<T> {
+   data: T | null
+   success: boolean
+   message: string
 }
 
 // -------------------------------
@@ -36,6 +27,67 @@ interface GetByPropInput {
 // -------------------------------
 // -------------------------------
 
+// pushLead Function using PushLeadProps
+async function pushLead({
+   id,
+   firstName,
+   lastName,
+   phone,
+   email,
+}: PushLeadProps): Promise<ReturnData<PushLeadProps>> {
+   try {
+      const newData: {
+         firstName: string
+         lastName: string
+         phone?: string
+         email?: string
+         organ: { connect: { id: string } }
+         chat: { create: {} }
+      } = {
+         firstName,
+         lastName,
+         organ: { connect: { id } },
+         chat: { create: {} },
+      }
+
+      // Check if email is unique
+      if (email) {
+         const emailExists = await get({
+            organizationId,
+            field: 'email',
+            value: email,
+         })
+
+         if (emailExists.success) throw new Error(emailExists.message)
+         newData.email = email
+      }
+
+      // Check if phone is unique
+      if (phone) {
+         const phoneExists = await get({
+            organizationId,
+            field: 'phone',
+            value: phone,
+         })
+
+         if (phoneExists.success) throw new Error(phoneExists.message)
+         newData.phone = phone
+      }
+
+      const data = await prisma.lead.create({
+         data: newData,
+         include: { conversation: true },
+      })
+
+      if (!data) throw new Error('Failed to add lead')
+
+      return Do.Util.ReturnData(data, true, 'Lead successfully pushed', '🆗 pushLead')
+   } catch (e) {
+      return Do.Util.ReturnData(null, false, e, '⛔ pushLead')
+   }
+}
+
+/*
 async function getAll({ organizationId }: { organizationId: string }) {
    try {
       const data = await prisma.lead.findMany({
@@ -175,6 +227,7 @@ async function pop({ id }: { id: string }) {
       }
    }
 }
+*/
 
-const Lead = { getAll, get, push, pop }
+const Lead = {}
 export default Lead

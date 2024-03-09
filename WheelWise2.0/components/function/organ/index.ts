@@ -1,24 +1,45 @@
+import { Do } from '@/components'
 import prisma from '@/prisma/client'
 
-async function push() {
+// Interfaces
+interface CommonProps {
+   id: string
+}
+
+interface pushOrganProps extends Pick<CommonProps, 'id'> {}
+interface popOrganProps extends Pick<CommonProps, 'id'> {}
+
+interface ReturnData<T> {
+   data: T | null
+   success: boolean
+   message: string
+}
+
+async function pushOrgan(): Promise<ReturnData<pushOrganProps>> {
    try {
-      const data = await prisma.organization.create({ data: {} })
+      const data = await prisma.organ.create({ data: {} })
 
-      if (!data) throw new Error('Failed to add organization')
+      if (!data) throw new Error('Failed to push organ')
 
-      return {
-         data,
-         success: true,
-         message: '🆗 pushOrgan → Organization successfully added',
-      }
+      return Do.Util.ReturnData(data, true, 'Organ successfully pushed', '🆗 pushOrgan')
    } catch (e) {
-      return {
-         data: null,
-         success: false,
-         message: `⛔ pushOrgan → ${e instanceof Error ? e.message : 'Unknown error'}`,
-      }
+      return Do.Util.ReturnData(null, false, e, '⛔ pushOrgan')
    }
 }
 
-const Organization = { push }
-export default Organization
+async function popOrgan({ id }: popOrganProps): Promise<ReturnData<popOrganProps>> {
+   try {
+      const organ = await prisma.organ.delete({
+         where: { id: id },
+      })
+
+      if (!organ) throw new Error('Failed to pop organ')
+
+      return Do.Util.ReturnData(organ, true, 'Organ successfully popped', '🆗 popOrgan')
+   } catch (e) {
+      return Do.Util.ReturnData(null, false, e, '⛔ popOrgan')
+   }
+}
+
+const Organ = { pushOrgan, popOrgan }
+export default Organ
