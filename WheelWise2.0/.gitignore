@@ -2,6 +2,7 @@
 
 #Testing
 /app/api/testing
+/app/test
 
 # dependencies
 /node_modules

@@ -38,7 +38,7 @@ model Lead {
   organId   String    @db.ObjectId
   firstName String
   lastName  String
-  phone     String?
+  phone     String?   @unique @db.String
   email     String?   @unique @db.String
   badge     LeadBadge @default(OPEN)
   chat      Chat?

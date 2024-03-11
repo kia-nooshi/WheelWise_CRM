@@ -33,7 +33,7 @@ export const Ui = { Flex, Scroll, Icon, Font }
 
 import { twJoin, twMerge } from 'tailwind-merge'
 
-type ApiResponse<T> = {
+type ReturnData<T> = {
    data: T | null
    success: boolean
    message: string
@@ -44,13 +44,13 @@ function ReturnData<T>(
    success: boolean,
    messageOrError: any,
    functionName: string // Include the function name in the parameter
-): ApiResponse<T> {
+): ReturnData<T> {
    let message: string
 
    if (messageOrError instanceof Error) {
       message = `${functionName} → ${messageOrError.message}`
    } else if (typeof messageOrError === 'string') {
-      message = `${functionName} → ${messageOrError}` // Include the function name in regular messages as well
+      message = `${functionName} → ${messageOrError}`
    } else {
       message = `${functionName} → Unknown error`
    }
@@ -58,16 +58,11 @@ function ReturnData<T>(
    return { data, success, message }
 }
 
-// Assuming twJoin, twMerge are already defined elsewhere
 const Util = { twJoin, twMerge, ReturnData }
 
-//import { default as Authen } from '@/components/function/auth'
-import { default as Organ } from '@/components/function/organ'
-//import { default as user } from '@/components/function/user'
-//import { default as Lead } from '@/components/function/lead'
-import { default as Chat } from '@/components/function/chat'
+import { Lead, Organ, Clerk as CC } from '@/components/function/database'
 
-export const Do = { Organ, Chat, Util }
+export const Do = { Clerk: CC, Organ, Lead }
 
 // --------------------------------
 // IMPORT CMP
