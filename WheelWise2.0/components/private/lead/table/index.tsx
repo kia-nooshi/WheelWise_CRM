@@ -1,26 +1,44 @@
-import { Card, Table, Text } from '@radix-ui/themes' // ! Not good Prac
-import Link from 'next/link'
-import { LeadBadge } from './leadBadge'
-import LeadRefresh from './leadRefresh'
-import { C } from '@/components'
+import { Util } from '@/components'
 
 export default async function Leads() {
-   const leads = await Lead.getAll()
+   /*
+   const idd = await Do.Clerk.getClerkId()
+
+   if(idd.data){
+      Do.Organ.
+   }
+
+   const leads = await Do.Lead.getLeads()
 
    if (!leads.data) return <>Table is empty</>
 
    return (
-      <Card variant='surface' className='p-5'>
-         <Text as='div' size='2' weight='bold'>
+      <Card
+         variant='surface'
+         className='p-5'
+      >
+         <Text
+            as='div'
+            size='2'
+            weight='bold'
+         >
             Lead Table
          </Text>
-         <Text as='div' color='gray' size='2' className='p-2'>
+         <Text
+            as='div'
+            color='gray'
+            size='2'
+            className='p-2'
+         >
             🔨 This part is still under development <br />
             🕛 Fillters and Sorting comming soon
             <LeadRefresh />
          </Text>
 
-         <Table.Root variant='surface' className='mt-5'>
+         <Table.Root
+            variant='surface'
+            className='mt-5'
+         >
             <Table.Header>
                <Table.Row>
                   <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
@@ -71,4 +89,8 @@ export default async function Leads() {
          </Table.Root>
       </Card>
    )
+   */
+
+   console.log()
+   return <>{(await Util.Clerk.getClerkId()).data}</>
 }

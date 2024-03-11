@@ -2,10 +2,10 @@
 // Provider
 // --------------------------------
 
-import { ClerkProvider as Clerk } from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Theme as Radix } from '@radix-ui/themes'
 
-export const Provider = { Clerk, Radix }
+export const Provider = { Clerk: ClerkProvider, Radix }
 
 // --------------------------------
 // Auth
@@ -24,62 +24,33 @@ import { default as Flex } from '@/components/ui/flex'
 import { default as Scroll } from '@/components/ui/scroll'
 import { default as Icon } from '@/components/ui/icon'
 import { default as Font } from '@/components/ui/font'
+import { default as Logo } from '@/components/ui/logo'
 
-export const Ui = { Flex, Scroll, Icon, Font }
+export const Ui = { Flex, Scroll, Icon, Font, Logo }
 
 // --------------------------------
 // Do
 // --------------------------------
 
-import { twJoin, twMerge } from 'tailwind-merge'
+import { default as Other } from '@/components/Util/other'
+import { default as Clerk } from '@/components/Util/clerk'
 
-type ReturnData<T> = {
-   data: T | null
-   success: boolean
-   message: string
-}
-
-function ReturnData<T>(
-   data: T | null,
-   success: boolean,
-   messageOrError: any,
-   functionName: string // Include the function name in the parameter
-): ReturnData<T> {
-   let message: string
-
-   if (messageOrError instanceof Error) {
-      message = `${functionName} → ${messageOrError.message}`
-   } else if (typeof messageOrError === 'string') {
-      message = `${functionName} → ${messageOrError}`
-   } else {
-      message = `${functionName} → Unknown error`
-   }
-
-   return { data, success, message }
-}
-
-const Util = { twJoin, twMerge, ReturnData }
-
-import { Lead, Organ, Clerk as CC } from '@/components/function/database'
-
-export const Do = { Clerk: CC, Organ, Lead }
+export const Util = { Other, Clerk }
 
 // --------------------------------
-// IMPORT CMP
+// IMPORT Component
 // --------------------------------
 
 // Private
 import { default as Nav } from '@/components/private/navigation'
 import { default as Footer } from '@/components/private/footer'
-import { default as Leads } from '@/components/private/lead'
+import { default as Leads } from '@/components/private/lead/table'
 // Public
 import { default as Navigation_Pub } from '@/components/public/navigation'
 import { default as Intro_Pub } from '@/components/public/intro'
 import { default as Footer_Pub } from '@/components/public/footer'
-// Shared
-import { default as Logo } from '@/components/shared/logo'
 
-export const C = {
+export const Comp = {
    Public: {
       Nav: Navigation_Pub,
       Intro: Intro_Pub,
@@ -89,8 +60,5 @@ export const C = {
       Nav,
       Footer,
       Leads,
-   },
-   Shared: {
-      Logo,
    },
 }

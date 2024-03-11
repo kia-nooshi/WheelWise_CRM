@@ -1,4 +1,4 @@
-import { C, Ui } from '@/components'
+import { Auth, Ui } from '@/components'
 
 export default function Navigation() {
    return (
@@ -6,8 +6,8 @@ export default function Navigation() {
          className='w-full max-w-3xl m-3 p-2 rounded-lg'
          justify={'between'}
       >
-         <C.Shared.Logo />
-         <C.Auth.UserProfile />
+         <Ui.Logo />
+         <Auth.UserProfile />
       </Ui.Flex>
    )
 }

@@ -1,8 +1,7 @@
-import { CMP } from '@/lib'
-import { Auth } from '@/components/lib/function'
+import { Comp } from '@/components'
 
 const Dashboard = async () => {
-   return <CMP.Private.Leads />
+   return <Comp.Private.Leads />
 }
 
 export default Dashboard

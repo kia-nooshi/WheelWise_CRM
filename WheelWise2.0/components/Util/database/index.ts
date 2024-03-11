@@ -1,5 +1,5 @@
+import { Util } from '@/components'
 import prisma from '@/prisma/client'
-import { auth } from '@clerk/nextjs'
 
 // Helper Function
 
@@ -9,41 +9,6 @@ type ReturnData<T> = {
    message: string
 }
 
-async function handleFunction<T>(
-   operation: () => Promise<T>,
-   successMessage: string,
-   errorMessage: string,
-   functionName: string
-): Promise<ReturnData<T>> {
-   try {
-      const data = await operation()
-      if (!data) throw new Error(errorMessage)
-      const message = `${functionName} → ${successMessage}`
-      return { data, success: true, message }
-   } catch (error) {
-      const message = `${functionName} → ${error instanceof Error ? error.message : errorMessage}`
-      return { data: null, success: false, message }
-   }
-}
-
-// ----------------------
-// Clerk Management
-// ----------------------
-async function getClerkId(): Promise<ReturnData<string>> {
-   return handleFunction(
-      async () => {
-         const { userId: data } = await auth()
-         if (!data) throw new Error('Failed to retrieve Clerk user ID')
-         return data
-      },
-      'Clerk user ID successfully retrieved',
-      'Failed to retrieve Clerk user ID',
-      'getClerkID'
-   )
-}
-
-export const Clerk = { getClerkId }
-
 // ----------------------
 // Organ Management
 // ----------------------
@@ -52,7 +17,7 @@ interface OrganSchema {
 }
 
 async function pushOrgan(): Promise<ReturnData<OrganSchema>> {
-   return handleFunction(
+   return Util.Other.returnHandeler(
       async () => {
          const data = await prisma.organ.create({ data: {} })
          return data
@@ -64,7 +29,7 @@ async function pushOrgan(): Promise<ReturnData<OrganSchema>> {
 }
 
 async function popOrgan({ id }: OrganSchema): Promise<ReturnData<OrganSchema>> {
-   return handleFunction(
+   return Util.Other.returnHandeler(
       async () => {
          const organ = await prisma.organ.delete({ where: { id } })
          return organ
@@ -76,7 +41,7 @@ async function popOrgan({ id }: OrganSchema): Promise<ReturnData<OrganSchema>> {
 }
 
 async function getOrgans(): Promise<ReturnData<OrganSchema[]>> {
-   return handleFunction(
+   return Util.Other.returnHandeler(
       async () => {
          const organs = await prisma.organ.findMany()
          return organs
@@ -88,7 +53,7 @@ async function getOrgans(): Promise<ReturnData<OrganSchema[]>> {
 }
 
 async function popOrgans(): Promise<ReturnData<any>> {
-   return handleFunction(
+   return Util.Other.returnHandeler(
       async () => {
          const organs = await prisma.organ.deleteMany()
          return organs
@@ -113,7 +78,7 @@ interface LeadSchema {
 }
 
 async function pushLead(lead: LeadSchema): Promise<ReturnData<LeadSchema>> {
-   return handleFunction(
+   return Util.Other.returnHandeler(
       async () => {
          const newData = {
             organ: { connect: { id: lead.id } },
@@ -132,7 +97,7 @@ async function pushLead(lead: LeadSchema): Promise<ReturnData<LeadSchema>> {
 }
 
 async function getLead({ id }: Pick<LeadSchema, 'id'>): Promise<ReturnData<LeadSchema | null>> {
-   return handleFunction(
+   return Util.Other.returnHandeler(
       () => prisma.lead.findUnique({ where: { id } }),
       'Lead found',
       'Lead not found',
@@ -141,7 +106,7 @@ async function getLead({ id }: Pick<LeadSchema, 'id'>): Promise<ReturnData<LeadS
 }
 
 async function getLeads({ id }: Pick<LeadSchema, 'id'>): Promise<ReturnData<LeadSchema[]>> {
-   return handleFunction(
+   return Util.Other.returnHandeler(
       () => prisma.lead.findMany({ where: { organId: id } }),
       'Leads retrieved successfully',
       'Failed to retrieve leads',
@@ -150,7 +115,7 @@ async function getLeads({ id }: Pick<LeadSchema, 'id'>): Promise<ReturnData<Lead
 }
 
 async function popLead({ id }: Pick<LeadSchema, 'id'>): Promise<ReturnData<LeadSchema>> {
-   return handleFunction(
+   return Util.Other.returnHandeler(
       () => prisma.lead.delete({ where: { id } }),
       'Lead successfully popped',
       'Failed to pop lead',
@@ -159,7 +124,7 @@ async function popLead({ id }: Pick<LeadSchema, 'id'>): Promise<ReturnData<LeadS
 }
 
 async function popLeads({ id }: Pick<LeadSchema, 'id'>): Promise<ReturnData<any>> {
-   return handleFunction(
+   return Util.Other.returnHandeler(
       async () => {
          const deleteResult = await prisma.lead.deleteMany({ where: { organId: id } })
          return deleteResult
