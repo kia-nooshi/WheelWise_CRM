@@ -66,3 +66,68 @@ This version was made possible by the collaborative efforts of our development t
 -  ESLint Configuration for Next.js: 14.1.0
 
 We are committed to continuous improvement and eagerly anticipate your feedback on WheelWise CRM 2.0.0.
+
+# Test Plan for WheelWise CRM 2.0.0
+
+## Overview
+
+This test plan outlines the testing procedures for verifying the functionality and performance of WheelWise CRM 2.0.0. The testing focuses on three main functionalities: Clerk, Organ, and Lead, as outlined in the provided test files.
+
+## Test Cases
+
+### Test #1 - Clerk Functionality
+
+-  **Objective:** Verify the functionality of the Clerk module in retrieving Clerk ID.
+-  **Steps:**
+   1. Call the `getClerkId` function.
+   2. Verify if the Clerk ID is retrieved successfully.
+-  **Expected Result:** The Clerk ID should be successfully retrieved.
+
+### Test #2 - Organ Functionality
+
+-  **Objective:** Verify the functionality of the Organ module in pushing and popping organs.
+-  **Steps:**
+   1. Push three organs.
+   2. Verify if organs are pushed successfully.
+   3. Pop one organ.
+   4. Verify if the organ is popped successfully.
+-  **Expected Result:** Organs should be pushed and popped successfully without any errors.
+
+### Test #3 - Lead Functionality
+
+-  **Objective:** Verify the functionality of the Lead module in pushing, getting, and popping leads.
+-  **Steps:**
+   1. Push four leads with unique information.
+   2. Verify if leads are pushed successfully.
+   3. Attempt to push a duplicate lead (should fail).
+   4. Get a specific lead.
+   5. Verify if the lead is retrieved successfully.
+   6. Get all leads.
+   7. Verify if all leads are retrieved successfully.
+   8. Pop one lead.
+   9. Verify if the lead is popped successfully.
+   10. Get the lead again (should fail as it's popped).
+   11. Get all leads after popping one lead.
+   12. Verify if all leads are retrieved successfully after popping.
+   13. Pop all leads.
+   14. Verify if all leads are popped successfully.
+   15. Get all leads again after popping all leads.
+   16. Verify if no leads are retrieved after popping all.
+-  **Expected Result:** Leads should be pushed, retrieved, and popped successfully without any errors.
+
+## Test Execution
+
+-  Run each test case individually.
+-  Record the results including any failures or errors encountered during execution.
+-  Verify that each test case produces the expected outcome.
+-  Ensure that all tests are conducted in the specified order to maintain the integrity of the test plan.
+
+## Performance Evaluation
+
+-  Evaluate the performance of each functionality based on response times and resource utilization.
+-  Measure the time taken for each API call and compare it against defined performance thresholds.
+-  Monitor system resource consumption during test execution to identify any potential bottlenecks or performance issues.
+
+## Conclusion
+
+Upon successful completion of all test cases and performance evaluation, it can be concluded whether WheelWise CRM 2.0.0 meets the specified requirements and performance criteria. Any deviations from expected behavior or performance issues should be documented for further investigation and resolution.
