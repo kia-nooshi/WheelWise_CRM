@@ -1,24 +1,37 @@
-// --------------------------------
+// ----------
+// ----------
 // Provider
-// --------------------------------
+// ----------
+// ----------
 
 import { ClerkProvider } from '@clerk/nextjs'
 import { Theme as Radix } from '@radix-ui/themes'
 
 export const Provider = { Clerk: ClerkProvider, Radix }
 
-// --------------------------------
-// Auth
-// --------------------------------
-import { default as Signin } from '@/components/auth/signin'
-import { default as Signup } from '@/components/auth/signup'
-import { default as UserProfile } from '@/components/auth/userProfile'
+// ----------
+// ----------
+// Functions
+// ----------
+// ----------
 
-export const Auth = { Signin, Signup, UserProfile }
+// #1 - Util
 
-// --------------------------------
-// UI
-// --------------------------------
+import { default as Other } from '@/components/util/other'
+import { default as Clerk } from '@/components/util/clerk'
+import { default as DataBase } from '@/components/util/db'
+
+export const Util = { Other, Clerk, DataBase }
+
+// #2 - Do
+
+// ----------
+// ----------
+// Components
+// ----------
+// ----------
+
+// #1 - Ui
 
 import { default as Flex } from '@/components/ui/flex'
 import { default as Scroll } from '@/components/ui/scroll'
@@ -28,29 +41,29 @@ import { default as Logo } from '@/components/ui/logo'
 
 export const Ui = { Flex, Scroll, Icon, Font, Logo }
 
-// --------------------------------
-// Do
-// --------------------------------
+// #2 - Comp
 
-import { default as Other } from '@/components/Util/other'
-import { default as Clerk } from '@/components/Util/clerk'
+// #2.1 Auth
+import { default as Signin } from '@/components/auth/signin'
+import { default as Signup } from '@/components/auth/signup'
+import { default as UserProfile } from '@/components/auth/userProfile'
 
-export const Util = { Other, Clerk }
-
-// --------------------------------
-// IMPORT Component
-// --------------------------------
-
-// Private
+// #2.2 Private
 import { default as Nav } from '@/components/private/navigation'
 import { default as Footer } from '@/components/private/footer'
 import { default as Leads } from '@/components/private/lead/table'
-// Public
+
+// #2.3 Public
 import { default as Navigation_Pub } from '@/components/public/navigation'
 import { default as Intro_Pub } from '@/components/public/intro'
 import { default as Footer_Pub } from '@/components/public/footer'
 
 export const Comp = {
+   Auth: {
+      Signin,
+      Signup,
+      UserProfile,
+   },
    Public: {
       Nav: Navigation_Pub,
       Intro: Intro_Pub,
