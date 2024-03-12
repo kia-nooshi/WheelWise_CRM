@@ -16,12 +16,9 @@ export const Provider = { Clerk: ClerkProvider, Radix }
 // ----------
 
 // #1 - Util
-export { Util } from '@/components/do'
+export { Util, Do } from '@/components/do'
 // #2 - Do
 
-import { Lead } from './do'
-
-export const Do = { Lead }
 // ----------
 // ----------
 // Components

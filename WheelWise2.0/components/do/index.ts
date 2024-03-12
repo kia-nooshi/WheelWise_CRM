@@ -119,8 +119,8 @@ export const Util = {
                   // make data ready
                   const data = {
                      organ: { connect: { id: organId } },
-                     clerkId: clerkId,
-                     type: type,
+                     clerkId,
+                     type,
                   }
 
                   return await prisma.user.create({ data })
@@ -128,6 +128,16 @@ export const Util = {
                'User successfully pushed',
                'Failed to push user',
                '(U)pushUser'
+            )
+         },
+         getUser: async ({ clerkId }: { clerkId: string }) => {
+            return Util.Other.returnHandeler(
+               async () => {
+                  return await prisma.user.findUnique({ where: { clerkId } })
+               },
+               'User successfully retrieved',
+               'Failed to retrieve user',
+               '(U)getUser'
             )
          },
       },
@@ -354,6 +364,106 @@ const Helper = {
    },
 }
 
+// --------------------
+// Do
+// --------------------
+
+export const Do = {
+   User: {
+      /* Fast Version
+      Onboarding: async () => {
+         return Util.Other.returnHandeler(
+            async () => {
+               const { userId } = auth()
+
+               if (!userId) throw new Error('sss')
+
+               const User = await Util.DataBase.User.getUser({ clerkId: userId })
+
+               if (User.data) return User
+
+               const NewUser = await prisma.organ.create({
+                  data: {
+                     users: {
+                        create: {
+                           clerkId: userId,
+                           type: 'ADMIN',
+                        },
+                     },
+                  },
+                  include: {
+                     users: true,
+                  },
+               })
+
+               return NewUser
+            },
+            'Message successfully pushed',
+            'Failed to push message',
+            '(U)pushMessage'
+         )
+      },
+      */
+      Onboarding: async () => {
+         return Util.Other.returnHandeler(
+            async () => {
+               const ClerkId = await Util.Clerk.getClerkId()
+
+               if (!ClerkId.data) throw new Error(ClerkId.message)
+
+               const User = await Util.DataBase.User.getUser({ clerkId: ClerkId.data })
+
+               if (User.data) return User
+
+               const NewOrgan = await Util.DataBase.Organ.pushOrgan()
+
+               if (!NewOrgan.data) throw new Error(NewOrgan.message)
+
+               const NewUser = await Util.DataBase.User.pushUser({
+                  clerkId: ClerkId.data,
+                  organId: NewOrgan.data?.id,
+                  type: 'ADMIN',
+               })
+
+               return NewUser
+            },
+            'Message successfully pushed',
+            'Failed to push message',
+            '(U)pushMessage'
+         )
+      },
+   },
+}
+
+/*
+const Chat = {
+   sendGHL: async ({
+      message,
+      phone,
+      ogId,
+   }: {
+      message: string
+      phone: string
+      ogId: string | null
+   }) => {
+      const apiUrl =
+         'https://services.leadconnectorhq.com/hooks/uNyicEbw5vTcA79v8VKv/webhook-trigger/325f755d-cba4-426a-a1e7-e12332157afa'
+      const response = await fetch(apiUrl, {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({
+            message,
+            phone,
+            ogId,
+         }),
+      })
+
+      return null
+   },
+}*/
+
 async function SSSS({
    organId,
    firstName,
@@ -406,36 +516,3 @@ async function SSSS({
 }
 
 export const Lead = { SSSS }
-
-// --------------------
-// Do
-// --------------------
-
-/*
-const Chat = {
-   sendGHL: async ({
-      message,
-      phone,
-      ogId,
-   }: {
-      message: string
-      phone: string
-      ogId: string | null
-   }) => {
-      const apiUrl =
-         'https://services.leadconnectorhq.com/hooks/uNyicEbw5vTcA79v8VKv/webhook-trigger/325f755d-cba4-426a-a1e7-e12332157afa'
-      const response = await fetch(apiUrl, {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json',
-         },
-         body: JSON.stringify({
-            message,
-            phone,
-            ogId,
-         }),
-      })
-
-      return null
-   },
-}*/
