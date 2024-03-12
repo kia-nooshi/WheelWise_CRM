@@ -1,16 +1,19 @@
-import { Util } from '@/components'
+import { Ui, Util } from '@/components'
+import { LeadBadge } from './leadBadge'
+import { Card, Table, Text } from '@radix-ui/themes'
+import Link from 'next/link'
+import LeadRefresh from './leadRefresh'
 
 export default async function Leads() {
-   /*
-   const idd = await Do.Clerk.getClerkId()
+   const ClerkId = await Util.Clerk.getClerkId()
+   if (!ClerkId.data) throw new Error(ClerkId.message)
 
-   if(idd.data){
-      Do.Organ.
-   }
+   const User = await Util.DataBase.User.getUser({ clerkId: ClerkId.data })
+   if (!User.data) throw new Error(User.message)
 
-   const leads = await Do.Lead.getLeads()
+   const Leads = await Util.DataBase.Lead.getLeads({ organId: User.data.organId })
 
-   if (!leads.data) return <>Table is empty</>
+   if (!Leads.data) return <>Table is empty</>
 
    return (
       <Card
@@ -51,7 +54,7 @@ export default async function Leads() {
             </Table.Header>
 
             <Table.Body>
-               {leads.data.map((lead) => (
+               {Leads.data.map((lead) => (
                   <Table.Row key={lead.id}>
                      <Table.RowHeaderCell>
                         <Link
@@ -68,18 +71,18 @@ export default async function Leads() {
                      </Table.Cell>
                      <Table.Cell>
                         <div className='flex flex-row items-center gap-2 text-gray-600'>
-                           <C.UI.Icon name='Time' />
+                           <Ui.Icon name='Time' />
                            {lead.createdAt.toDateString()}
                         </div>
                      </Table.Cell>
                      <Table.Cell>
                         <div className='flex flex-row items-center gap-2 text-gray-600'>
                            <span>
-                              <C.UI.Icon name='Pen' />
+                              <Ui.Icon name='Pen' />
                            </span>
                            <span>D</span>
                            <span>
-                              <C.UI.Icon name='Dots_Vertical' />
+                              <Ui.Icon name='Dots_Vertical' />
                            </span>
                         </div>
                      </Table.Cell>
@@ -89,7 +92,4 @@ export default async function Leads() {
          </Table.Root>
       </Card>
    )
-   */
-
-   return <>{(await Util.Clerk.getClerkId()).data}</>
 }

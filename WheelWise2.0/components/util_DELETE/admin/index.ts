@@ -1,3 +1,5 @@
+/*
+
 import { Util } from '@/components'
 import prisma from '@/prisma/client'
 import { error } from 'console'
@@ -183,7 +185,7 @@ const Lead = { pushLead, popLead, getLead, getLeads, popLeads }
 
 const DataBase = { Organ, Lead, User }
 export default DataBase
-
+*/
 // ------------------------------
 // ------------------------------
 // TEST TRANSFER LATER

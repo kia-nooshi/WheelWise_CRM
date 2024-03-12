@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
          lastName: body.lastName,
          phone: body.phone,
          email: body.email,
+         message: body.message,
       })
 
       if (!lead.data) throw new Error(lead.message)

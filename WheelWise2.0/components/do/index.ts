@@ -410,7 +410,6 @@ export const Do = {
                const ClerkId = await Util.Clerk.getClerkId()
 
                if (!ClerkId.data) throw new Error(ClerkId.message)
-
                const User = await Util.DataBase.User.getUser({ clerkId: ClerkId.data })
 
                if (User.data) return User
@@ -430,6 +429,60 @@ export const Do = {
             'Message successfully pushed',
             'Failed to push message',
             '(U)pushMessage'
+         )
+      },
+   },
+   Lead: {
+      SSSS: async ({
+         organId,
+         firstName,
+         lastName,
+         phone,
+         email,
+         message,
+      }: {
+         organId: string
+         firstName: string
+         lastName: string
+         phone: string
+         email: string
+         message: string
+      }) => {
+         return Util.Other.returnHandeler(
+            async () => {
+               const Lead = await Util.DataBase.Lead.pushLead({
+                  organId,
+                  firstName,
+                  lastName,
+                  phone,
+                  email,
+               })
+
+               if (!Lead.data) throw new Error(Lead.message)
+
+               const Chat = await Util.DataBase.Chat.pushChat({ leadId: Lead.data.id })
+
+               if (!Chat.data) throw new Error(Chat.message)
+
+               const Message = await Util.DataBase.Message.pushMessage({
+                  chatId: Chat.data.id,
+                  content: message,
+                  fromLead: true,
+               })
+
+               if (!Message.data) throw new Error(Message.message)
+
+               const AiResponse = await Helper.Chat.getAiResponse({
+                  chatId: Chat.data.id,
+                  message: Message.data.content,
+                  threadId: Chat.data.threadId,
+               })
+
+               return { Chat, Lead, Message, AiResponse }
+            },
+            'Lead successfully pushed',
+            'Failed to push lead',
+            'pushLead'
          )
       },
    },
@@ -463,56 +516,3 @@ const Chat = {
       return null
    },
 }*/
-
-async function SSSS({
-   organId,
-   firstName,
-   lastName,
-   phone,
-   email,
-}: {
-   organId: string
-   firstName: string
-   lastName: string
-   phone: string
-   email: string
-}) {
-   return Util.Other.returnHandeler(
-      async () => {
-         const Lead = await Util.DataBase.Lead.pushLead({
-            organId,
-            firstName,
-            lastName,
-            phone,
-            email,
-         })
-
-         if (!Lead.data) throw new Error(Lead.message)
-
-         const Chat = await Util.DataBase.Chat.pushChat({ leadId: Lead.data.id })
-
-         if (!Chat.data) throw new Error(Chat.message)
-
-         const Message = await Util.DataBase.Message.pushMessage({
-            chatId: Chat.data.id,
-            content: 'sss',
-            fromLead: true,
-         })
-
-         if (!Message.data) throw new Error(Message.message)
-
-         const AiResponse = await Helper.Chat.getAiResponse({
-            chatId: Chat.data.id,
-            message: Message.data.content,
-            threadId: Chat.data.threadId,
-         })
-
-         return { Chat, Lead, Message, AiResponse }
-      },
-      'Lead successfully pushed',
-      'Failed to push lead',
-      'pushLead'
-   )
-}
-
-export const Lead = { SSSS }

@@ -32,8 +32,9 @@ import { default as Scroll } from '@/components/ui/scroll'
 import { default as Icon } from '@/components/ui/icon'
 import { default as Font } from '@/components/ui/font'
 import { default as Logo } from '@/components/ui/logo'
+import { default as Loading } from '@/components/ui/loading'
 
-export const Ui = { Flex, Scroll, Icon, Font, Logo }
+export const Ui = { Flex, Scroll, Icon, Font, Logo, Loading }
 
 // #2 - Comp
 

@@ -1,5 +1,9 @@
+import { RiLoader4Line } from 'react-icons/ri'
+import React from 'react'
+import { Ui } from '@/components'
+
 const loading = () => {
-   return <div className='h-full'>Loading ...</div>
+   return <Ui.Loading title='Geting you ready' />
 }
 
 export default loading

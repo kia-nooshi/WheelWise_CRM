@@ -1,9 +1,9 @@
-import { Ui, Comp } from '@/components'
+import { Ui, Comp, Do } from '@/components'
 import React from 'react'
 
-type P = { children: React.ReactNode }
+export default async function PrivateLayout({ children }: { children: React.ReactNode }) {
+   const u = await Do.User.Onboarding()
 
-export default async function PrivateLayout({ children }: P) {
    return (
       <Ui.Flex
          className='w-full h-screen overflow-hidden'
