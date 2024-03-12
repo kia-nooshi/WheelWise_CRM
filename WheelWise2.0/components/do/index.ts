@@ -9,7 +9,7 @@ export type ReturnData<T> = {
    message: string
 }
 
-async function returnHandeler<T>(
+async function returnHandle<T>(
    operation: () => Promise<T>,
    successMessage: string,
    errorMessage: string,
@@ -34,11 +34,11 @@ export const Util = {
    Other: {
       twJoin,
       twMerge,
-      returnHandeler,
+      returnHandle,
    },
    Clerk: {
       getClerkId: async () => {
-         return Util.Other.returnHandeler(
+         return Util.Other.returnHandle(
             async () => {
                const { userId } = auth()
                if (!userId) throw new Error('Failed to retrieve Clerk user ID')
@@ -53,7 +53,7 @@ export const Util = {
    DataBase: {
       Organ: {
          pushOrgan: async () => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.organ.create({ data: {} })
                },
@@ -63,7 +63,7 @@ export const Util = {
             )
          },
          popOrgan: async ({ organId }: { organId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.organ.delete({ where: { id: organId } })
                },
@@ -73,7 +73,7 @@ export const Util = {
             )
          },
          getOrgan: async ({ organId }: { organId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.organ.findUnique({ where: { id: organId } })
                },
@@ -83,7 +83,7 @@ export const Util = {
             )
          },
          popOrgans: async () => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.organ.deleteMany({})
                },
@@ -93,7 +93,7 @@ export const Util = {
             )
          },
          getOrgans: async () => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.organ.findMany()
                },
@@ -114,7 +114,7 @@ export const Util = {
             clerkId: string
             type: UserType
          }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   // make data ready
                   const data = {
@@ -131,7 +131,7 @@ export const Util = {
             )
          },
          getUser: async ({ clerkId }: { clerkId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.user.findUnique({ where: { clerkId } })
                },
@@ -156,7 +156,7 @@ export const Util = {
             phone: string
             email: string
          }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   // make data ready
                   const data = {
@@ -175,7 +175,7 @@ export const Util = {
             )
          },
          popLead: async ({ leadId }: { leadId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.lead.delete({ where: { id: leadId } })
                },
@@ -185,7 +185,7 @@ export const Util = {
             )
          },
          getLead: async ({ leadId }: { leadId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.lead.findUnique({ where: { id: leadId } })
                },
@@ -195,7 +195,7 @@ export const Util = {
             )
          },
          getLeads: async ({ organId }: { organId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.lead.findMany({ where: { organId } })
                },
@@ -205,7 +205,7 @@ export const Util = {
             )
          },
          popLeads: async ({ organId }: { organId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   const deleteResult = await prisma.lead.deleteMany({ where: { organId } })
                   return deleteResult
@@ -219,7 +219,7 @@ export const Util = {
 
       Chat: {
          pushChat: async ({ leadId }: { leadId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   // make data ready
                   const data = {
@@ -234,7 +234,7 @@ export const Util = {
             )
          },
          pushThreadId: async ({ chatId, threadId }: { chatId: string; threadId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   if (!threadId) throw new Error('threadId is required')
 
@@ -252,7 +252,7 @@ export const Util = {
             )
          },
          popChat: async ({ chatId }: { chatId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.chat.delete({
                      where: { id: chatId },
@@ -261,6 +261,21 @@ export const Util = {
                'Chat successfully deleted',
                'Failed to delete chat',
                '(U)popChat'
+            )
+         },
+         getChat: async ({ leadId }: { leadId: string }) => {
+            return Util.Other.returnHandle(
+               async () => {
+                  return await prisma.chat.findUnique({
+                     where: { leadId },
+                     include: {
+                        messages: true,
+                     },
+                  })
+               },
+               'Chat successfully retrieved',
+               'Failed to retrieve chat',
+               '(U)getChat'
             )
          },
       },
@@ -275,7 +290,7 @@ export const Util = {
             content: string
             fromLead: boolean
          }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   // make data ready
                   const data = {
@@ -292,7 +307,7 @@ export const Util = {
             )
          },
          popMessage: async ({ messageId }: { messageId: string }) => {
-            return Util.Other.returnHandeler(
+            return Util.Other.returnHandle(
                async () => {
                   return await prisma.message.delete({
                      where: { id: messageId },
@@ -322,7 +337,7 @@ const Helper = {
          message: string
          threadId: string | null
       }) => {
-         return Util.Other.returnHandeler(
+         return Util.Other.returnHandle(
             async () => {
                // fetch api
                if (!process.env.CHATGPT_API)
@@ -372,7 +387,7 @@ export const Do = {
    User: {
       /* Fast Version
       Onboarding: async () => {
-         return Util.Other.returnHandeler(
+         return Util.Other.returnHandle(
             async () => {
                const { userId } = auth()
 
@@ -405,7 +420,7 @@ export const Do = {
       },
       */
       Onboarding: async () => {
-         return Util.Other.returnHandeler(
+         return Util.Other.returnHandle(
             async () => {
                const ClerkId = await Util.Clerk.getClerkId()
 
@@ -433,7 +448,43 @@ export const Do = {
       },
    },
    Lead: {
-      SSSS: async ({
+      getLead: async ({ leadId }: { leadId: string }) => {
+         return Util.Other.returnHandle(
+            async () => {
+               const Lead = await Util.DataBase.Lead.getLead({
+                  leadId,
+               })
+
+               if (!Lead.data) throw new Error(Lead.message)
+
+               return Lead.data
+            },
+            'Leads successfully retrived',
+            'Failed to retrive leads',
+            'getLeads'
+         )
+      },
+      getLeads: async () => {
+         return Util.Other.returnHandle(
+            async () => {
+               const ClerkId = await Util.Clerk.getClerkId()
+               if (!ClerkId.data) throw new Error(ClerkId.message)
+
+               const User = await Util.DataBase.User.getUser({ clerkId: ClerkId.data })
+               if (!User.data) throw new Error(User.message)
+
+               const Leads = await Util.DataBase.Lead.getLeads({ organId: User.data.organId })
+
+               if (!Leads.data) throw new Error(Leads.message)
+
+               return Leads.data
+            },
+            'Leads successfully retrived',
+            'Failed to retrive leads',
+            'getLeads'
+         )
+      },
+      pushLeadsApi: async ({
          organId,
          firstName,
          lastName,
@@ -448,7 +499,7 @@ export const Do = {
          email: string
          message: string
       }) => {
-         return Util.Other.returnHandeler(
+         return Util.Other.returnHandle(
             async () => {
                const Lead = await Util.DataBase.Lead.pushLead({
                   organId,
@@ -482,7 +533,21 @@ export const Do = {
             },
             'Lead successfully pushed',
             'Failed to push lead',
-            'pushLead'
+            'getLeadsApi'
+         )
+      },
+   },
+   Chat: {
+      getChat: async ({ leadId }: { leadId: string }) => {
+         return Util.Other.returnHandle(
+            async () => {
+               const Chat = await Util.DataBase.Chat.getChat({ leadId: leadId })
+
+               return Chat.data
+            },
+            'Leads successfully retrived',
+            'Failed to retrive leads',
+            'getLeads'
          )
       },
    },

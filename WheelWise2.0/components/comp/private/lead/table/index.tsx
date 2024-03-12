@@ -1,19 +1,12 @@
-import { Ui, Util } from '@/components'
+import { Do, Ui } from '@/components'
 import { LeadBadge } from './leadBadge'
 import { Card, Table, Text } from '@radix-ui/themes'
 import Link from 'next/link'
 import LeadRefresh from './leadRefresh'
 
 export default async function Leads() {
-   const ClerkId = await Util.Clerk.getClerkId()
-   if (!ClerkId.data) throw new Error(ClerkId.message)
-
-   const User = await Util.DataBase.User.getUser({ clerkId: ClerkId.data })
-   if (!User.data) throw new Error(User.message)
-
-   const Leads = await Util.DataBase.Lead.getLeads({ organId: User.data.organId })
-
-   if (!Leads.data) return <>Table is empty</>
+   const Leads = await Do.Lead.getLeads()
+   if (!Leads.data) return <>leads empty</>
 
    return (
       <Card
@@ -27,33 +20,19 @@ export default async function Leads() {
          >
             Lead Table
          </Text>
-         <Text
-            as='div'
-            color='gray'
-            size='2'
-            className='p-2'
-         >
-            🔨 This part is still under development <br />
-            🕛 Fillters and Sorting comming soon
-            <LeadRefresh />
-         </Text>
-
          <Table.Root
             variant='surface'
             className='mt-5'
          >
             <Table.Header>
                <Table.Row>
-                  <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>Phone</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>Created</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
+                  {['Name', 'Phone', 'Email', 'Status', 'Created', ''].map((header) => (
+                     <Table.ColumnHeaderCell key={header}>{header}</Table.ColumnHeaderCell>
+                  ))}
                </Table.Row>
             </Table.Header>
-
             <Table.Body>
+               <LeadRefresh />
                {Leads.data.map((lead) => (
                   <Table.Row key={lead.id}>
                      <Table.RowHeaderCell>
@@ -61,7 +40,7 @@ export default async function Leads() {
                            href={`/dashboard/${lead.id}`}
                            className='text-indigo-500'
                         >
-                           {lead.firstName} {lead.lastName}
+                           {`${lead.firstName} ${lead.lastName}`}
                         </Link>
                      </Table.RowHeaderCell>
                      <Table.Cell>{lead.phone}</Table.Cell>
@@ -80,8 +59,10 @@ export default async function Leads() {
                            <span>
                               <Ui.Icon name='Pen' />
                            </span>
-                           <span>D</span>
                            <span>
+                              <Ui.Icon name='Trash' />
+                           </span>
+                           <span className='text-gray-100'>
                               <Ui.Icon name='Dots_Vertical' />
                            </span>
                         </div>

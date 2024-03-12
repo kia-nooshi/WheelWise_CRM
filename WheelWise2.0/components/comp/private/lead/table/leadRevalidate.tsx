@@ -3,6 +3,6 @@
 import { revalidatePath } from 'next/cache'
 
 export async function leadRevalidate() {
-   console.log('ReFetching Data 🔃')
+   //console.log('ReFetching Data 🔃')
    return revalidatePath('/dashboard')
 }

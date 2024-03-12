@@ -1,76 +1,34 @@
-import { Util } from '@/lib'
-import { Auth } from '@/components/lib/function'
-import prisma from '@/prisma/client'
+import { Do, Util } from '@/components'
 import { Card, Text } from '@radix-ui/themes'
 import Link from 'next/link'
 import LeadRefresh from './leadRefresh'
 
 const LeadPage = async ({ params }: { params: { slug: string } }) => {
-   const leadId = params.slug
-   const userExternId = await Auth.externalId()
+   const LeadId = params.slug
 
-   if (!userExternId.data) {
-      throw new Error(
-         'Clerk - User Authentication failed - Developer Code : 9999'
-      )
-   }
+   const Lead = await Do.Lead.getLead({ leadId: LeadId })
 
-   const organization = await prisma.user.findUnique({
-      where: {
-         externalId: userExternId.data,
-      },
-      select: {
-         organization: true,
-      },
-   })
-
-   const organizationId = organization?.organization.id
-
-   const lead = await prisma.lead.findUnique({
-      where: {
-         id: leadId,
-         organizationId: organizationId,
-      },
-      include: {
-         conversation: {
-            include: {
-               messages: true,
-            },
-         },
-      },
-   })
+   const Chat = await Do.Chat.getChat({ leadId: LeadId })
 
    return (
       <div>
          <LeadRefresh />
 
-         <Link href='/dashboard' className='m-5'>
+         <Link
+            href='/dashboard'
+            className='m-5'
+         >
             back
          </Link>
          <div className='mt-5 flex flex-row gap-5'>
             <div className='flex flex-col w-1/2'>
-               <Card variant='classic' className='mb-5 w-full'>
-                  <Text as='div' size='2' weight='bold' className='pb-5'>
-                     Debugging
-                  </Text>
+               <Card className='mb-5 w-full'>
                   <Text
                      as='div'
-                     color='gray'
                      size='2'
-                     className='flex flex-col gap-4'
+                     weight='bold'
+                     className='pb-5'
                   >
-                     <span>✅ Orgenization ID : {organizationId}</span>
-                     <span>✅ Admin Extern ID : {userExternId.data}</span>
-                     <span>✅ Lead ID : {lead?.id}</span>
-                     <span>✉️ Coversaion ID : {lead?.conversation?.id}</span>
-                     <span>
-                        ✉️ Ai Thread ID : {lead?.conversation?.threadId}
-                     </span>
-                  </Text>
-               </Card>
-
-               <Card className='mb-5 w-full'>
-                  <Text as='div' size='2' weight='bold' className='pb-5'>
                      Lead Information
                   </Text>
                   <Text
@@ -80,37 +38,51 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
                      className='flex flex-col gap-4'
                   >
                      <span>
-                        <b>Fist Name :</b> {lead?.firstName}
+                        <b>Fist Name :</b> {Lead.data?.firstName}
                      </span>
                      <span>
-                        <b>Last Name :</b> {lead?.lastName}
+                        <b>Last Name :</b> {Lead.data?.lastName}
                      </span>
                      <span>
-                        <b>Phone :</b> {lead?.phone}
+                        <b>Phone :</b> {Lead.data?.phone}
                      </span>
                      <span>
-                        <b>email :</b> {lead?.email}
+                        <b>email :</b> {Lead.data?.email}
                      </span>
                      <span>
-                        <b>Fist Name :</b> {lead?.firstName}
+                        <b>Fist Name :</b> {Lead.data?.firstName}
                      </span>
                   </Text>
                </Card>
             </div>
 
-            <Card variant='surface' className=''>
-               <Text as='div' size='2' weight='bold' className='m-5'>
+            <Card
+               variant='surface'
+               className=''
+            >
+               <Text
+                  as='div'
+                  size='2'
+                  weight='bold'
+                  className='m-5'
+               >
                   Chat History
                </Text>
-               <Text as='div' color='gray' size='1'>
-                  {lead?.conversation?.messages.map((msg) => (
-                     <div key={msg.id} className='flex flex-col gap-10'>
+               <Text
+                  as='div'
+                  color='gray'
+                  size='1'
+               >
+                  {Chat.data?.messages.map((msg) => (
+                     <div
+                        key={msg.id}
+                        className='flex flex-col gap-10'
+                     >
                         <div
-                           className={Util.tw.merge(
+                           className={Util.Other.twMerge(
                               'rounded-md p-5 my-2 shadow-sm w-2/3',
                               msg.fromLead && ' ml-auto bg-blue-500 text-white',
-                              !msg.fromLead &&
-                                 'mr-auto bg-gray-200 text-gray-800'
+                              !msg.fromLead && 'mr-auto bg-gray-200 text-gray-800'
                            )}
                         >
                            {msg.content}
