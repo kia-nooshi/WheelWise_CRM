@@ -91,6 +91,5 @@ export default async function Leads() {
    )
    */
 
-   console.log()
    return <>{(await Util.Clerk.getClerkId()).data}</>
 }

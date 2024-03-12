@@ -1,4 +1,4 @@
-import { Auth, Ui } from '@/components'
+import { Comp, Ui } from '@/components'
 
 export default function Navigation() {
    return (
@@ -7,7 +7,7 @@ export default function Navigation() {
          justify={'between'}
       >
          <Ui.Logo />
-         <Auth.UserProfile />
+         <Comp.Auth.UserProfile />
       </Ui.Flex>
    )
 }

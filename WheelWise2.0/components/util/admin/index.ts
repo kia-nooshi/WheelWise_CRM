@@ -1,13 +1,6 @@
 import { Util } from '@/components'
 import prisma from '@/prisma/client'
-
-// Helper Function
-
-type ReturnData<T> = {
-   data: T | null
-   success: boolean
-   message: string
-}
+import { error } from 'console'
 
 // ----------------------
 // Organ Management
@@ -67,6 +60,57 @@ async function popOrgans() {
 const Organ = { pushOrgan, popOrgan, getOrgans, popOrgans }
 
 // ----------------------
+// Organ Management
+// ----------------------
+
+async function pushAdmin() {
+   return Util.Other.returnHandeler(
+      async () => {
+         const { data: clerkId } = await Util.Clerk.getClerkId()
+
+         if (!clerkId) throw new Error('Failed to retrieve Clerk ID')
+
+         const newOrgan = await prisma.organ.create({
+            data: {},
+         })
+
+         const admin = await prisma.user.create({
+            data: {
+               clerkId,
+               organ: { connect: { id: newOrgan.id } },
+               type: 'ADMIN',
+            },
+         })
+
+         return { admin, organ: newOrgan }
+      },
+      'Admin and organization successfully created',
+      'Failed to create admin or organization',
+      'pushAdmin'
+   )
+}
+
+async function getUser({ clerkId }: { clerkId: string }) {
+   return Util.Other.returnHandeler(
+      async () => {
+         const user = await prisma.user.findUnique({
+            where: { clerkId },
+            include: { organ: true },
+         })
+
+         if (!user) throw new Error('User not found')
+
+         return user
+      },
+      'User successfully retrieved',
+      'Failed to retrieve user',
+      'getUser'
+   )
+}
+
+const User = { pushAdmin }
+
+// ----------------------
 // Lead Management
 // ----------------------
 interface LeadSchema {
@@ -105,9 +149,9 @@ async function getLead({ id }: Pick<LeadSchema, 'id'>) {
    )
 }
 
-async function getLeads({ id }: Pick<LeadSchema, 'id'>) {
+async function getLeads({ organId }: { organId: string }) {
    return Util.Other.returnHandeler(
-      () => prisma.lead.findMany({ where: { organId: id } }),
+      () => prisma.lead.findMany({ where: { organId } }),
       'Leads retrieved successfully',
       'Failed to retrieve leads',
       'getLeads'
@@ -137,5 +181,11 @@ async function popLeads({ id }: Pick<LeadSchema, 'id'>) {
 
 const Lead = { pushLead, popLead, getLead, getLeads, popLeads }
 
-const DataBase = { Organ, Lead }
+const DataBase = { Organ, Lead, User }
 export default DataBase
+
+// ------------------------------
+// ------------------------------
+// TEST TRANSFER LATER
+// ------------------------------
+// ------------------------------

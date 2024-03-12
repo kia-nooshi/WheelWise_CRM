@@ -16,15 +16,12 @@ export const Provider = { Clerk: ClerkProvider, Radix }
 // ----------
 
 // #1 - Util
-
-import { default as Other } from '@/components/util/other'
-import { default as Clerk } from '@/components/util/clerk'
-import { default as DataBase } from '@/components/util/db'
-
-export const Util = { Other, Clerk, DataBase }
-
+export { Util } from '@/components/do'
 // #2 - Do
 
+import { Lead } from './do'
+
+export const Do = { Lead }
 // ----------
 // ----------
 // Components

@@ -9,7 +9,7 @@ datasource db {
 
 enum UserType {
   ADMIN
-  MANAGER
+  USER
 }
 
 enum LeadBadge {
@@ -51,7 +51,7 @@ model Chat {
   lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
   leadId    String    @db.ObjectId
   threadId  String?
-  messages  Message[]
+  messages  Message[] // Adding the messages property
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 

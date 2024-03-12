@@ -1,20 +1,35 @@
-/**
- * TODO  NEED CLEAN UP
- * !     NEED BETER ERROR HANDELING
- */
-
-import { Chat, Lead } from '@/components/lib/function'
-import { revalidatePath } from 'next/cache'
-
+import { Do } from '@/components'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
+   /*
+
+   http://localhost:3004/api/leadReceiverTest
+
+   {
+      "organId":"65efab9413dc990eb182bf08",
+      "firstName":"Danin",
+      "lastName":"Namiri",
+      "phone":"9493573929",
+      "email":"danin@gmail.com"
+   }
+   */
+
    const body = await request.json()
 
    try {
-      const lead = await Lead.createLead(body)
+      const lead = await Do.Lead.SSSS({
+         organId: body.organId,
+         firstName: body.firstName,
+         lastName: body.lastName,
+         phone: body.phone,
+         email: body.email,
+      })
 
-      if (!lead.data) throw new Error(lead.error)
+      if (!lead.data) throw new Error(lead.message)
+
+      //lead.data.chat?.id
+      /*
       if (!lead.data.conversation?.id) throw new Error(lead.error)
 
       const C = await Chat.messageCreate({
@@ -34,14 +49,11 @@ export async function POST(request: NextRequest) {
       console.log(Ai.error)
 
       revalidatePath('dashboard/*')
-
-      return NextResponse.json(lead.data, { status: 200 })
+      */
+      return NextResponse.json(lead.message, { status: 200 })
    } catch (error) {
-      return NextResponse.json(
-         error instanceof Error ? error.message : 'Internal Server Error',
-         {
-            status: 407,
-         }
-      )
+      return NextResponse.json(error instanceof Error ? error.message : 'Internal Server Error', {
+         status: 407,
+      })
    }
 }
