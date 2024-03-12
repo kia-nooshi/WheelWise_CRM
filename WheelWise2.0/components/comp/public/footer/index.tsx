@@ -1,4 +1,4 @@
-import { C, Ui } from '@/components'
+import { Ui } from '@/components'
 import { SignOutButton, SignedIn, SignedOut } from '@clerk/nextjs'
 
 export default function Footer() {

@@ -1,5 +1,5 @@
-import { C } from '@/components'
+import { Comp } from '@/components'
 
 export default async function Home() {
-   return <C.Public.Intro />
+   return <Comp.Public.Intro />
 }

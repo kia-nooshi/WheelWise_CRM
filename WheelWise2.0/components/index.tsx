@@ -44,19 +44,19 @@ export const Ui = { Flex, Scroll, Icon, Font, Logo }
 // #2 - Comp
 
 // #2.1 Auth
-import { default as Signin } from '@/components/auth/signin'
-import { default as Signup } from '@/components/auth/signup'
-import { default as UserProfile } from '@/components/auth/userProfile'
+import { default as Signin } from '@/components/comp/auth/signin'
+import { default as Signup } from '@/components/comp/auth/signup'
+import { default as UserProfile } from '@/components/comp/auth/userProfile'
 
 // #2.2 Private
-import { default as Nav } from '@/components/private/navigation'
-import { default as Footer } from '@/components/private/footer'
-import { default as Leads } from '@/components/private/lead/table'
+import { default as Nav } from '@/components/comp/private/navigation'
+import { default as Footer } from '@/components/comp/private/footer'
+import { default as Leads } from '@/components/comp/private/lead/table'
 
 // #2.3 Public
-import { default as Navigation_Pub } from '@/components/public/navigation'
-import { default as Intro_Pub } from '@/components/public/intro'
-import { default as Footer_Pub } from '@/components/public/footer'
+import { default as Navigation_Pub } from '@/components/comp/public/navigation'
+import { default as Intro_Pub } from '@/components/comp/public/intro'
+import { default as Footer_Pub } from '@/components/comp/public/footer'
 
 export const Comp = {
    Auth: {

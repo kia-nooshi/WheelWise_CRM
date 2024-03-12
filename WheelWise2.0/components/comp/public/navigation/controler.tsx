@@ -1,8 +1,7 @@
 'use client'
 
-import { DropdownMenu, Button } from '@radix-ui/themes'
+import { Button, DropdownMenu } from '@radix-ui/themes'
 import Link from 'next/link'
-import React from 'react'
 
 export const Controler = () => {
    return (
@@ -18,14 +17,15 @@ export const Controler = () => {
                <Link href='/sign-up'>Register an account</Link>
             </DropdownMenu.Item>
             <DropdownMenu.Separator />
-            <DropdownMenu.Item shortcut='⌘ N' disabled>
+            <DropdownMenu.Item
+               shortcut='⌘ N'
+               disabled
+            >
                Archive
             </DropdownMenu.Item>
 
             <DropdownMenu.Item color='red'>
-               <Link href='https://github.com/UCR-Senior-Design/WheelWise_CRM'>
-                  Our Github
-               </Link>
+               <Link href='https://github.com/UCR-Senior-Design/WheelWise_CRM'>Our Github</Link>
             </DropdownMenu.Item>
          </DropdownMenu.Content>
       </DropdownMenu.Root>

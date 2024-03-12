@@ -1,5 +1,5 @@
-import { Auth } from '@/components'
+import { Comp } from '@/components'
 
 export default function signInPage() {
-   return <Auth.Signin />
+   return <Comp.Auth.Signin />
 }
