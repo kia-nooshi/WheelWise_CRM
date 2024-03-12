@@ -1,7 +1,6 @@
 import { Ui, Util } from '@/components'
 import { Text } from '@radix-ui/themes'
 import { SiVitest } from 'react-icons/si'
-import CodeBlockWithCopyButton from './sss'
 
 export default async function TestLeadImport() {
   const clerkId = await Util.Clerk.getClerkId()
@@ -61,9 +60,16 @@ export default async function TestLeadImport() {
       <Text as='div' size='2' className='flex flex-row gap-2 items-center'>
         <SiVitest className='text-orange-500' /> Test this CHAT
       </Text>
+      <Ui.Flex className=' bg-gray-950 opacity-50 text-xs p-2 whitespace-pre-wrap w-full gap-2'>
+        <span className='shrink-0 text-orange-400'>Copy this api address</span>
+        <Ui.Copy isCode={true} codeSnippet={'http://localhost:3005/api/leadhandle'} />
+      </Ui.Flex>
+
       <div className='grid grid-cols-2 gap-2'>
         {dataSamples.map((sample, index) => (
-          <CodeBlockWithCopyButton key={index} codeSnippet={JSON.stringify(sample, null, 2)} />
+          <div className=' bg-gray-950 opacity-50 text-xs p-2 whitespace-pre-wrap w-full gap-2'>
+            <Ui.Copy isCode={true} key={index} codeSnippet={JSON.stringify(sample, null, 2)} />
+          </div>
         ))}
       </div>
     </Ui.Flex>

@@ -33,8 +33,9 @@ import { default as Icon } from '@/components/ui/icon'
 import { default as Font } from '@/components/ui/font'
 import { default as Logo } from '@/components/ui/logo'
 import { default as Loading } from '@/components/ui/loading'
+import { default as Copy } from '@/components/ui/copy'
 
-export const Ui = { Flex, Scroll, Icon, Font, Logo, Loading }
+export const Ui = { Flex, Scroll, Icon, Font, Logo, Loading, Copy }
 
 // #2 - Comp
 
@@ -54,19 +55,19 @@ import { default as Intro_Pub } from '@/components/comp/public/intro'
 import { default as Footer_Pub } from '@/components/comp/public/footer'
 
 export const Comp = {
-   Auth: {
-      Signin,
-      Signup,
-      UserProfile,
-   },
-   Public: {
-      Nav: Navigation_Pub,
-      Intro: Intro_Pub,
-      Footer: Footer_Pub,
-   },
-   Private: {
-      Nav,
-      Footer,
-      Leads,
-   },
+  Auth: {
+    Signin,
+    Signup,
+    UserProfile,
+  },
+  Public: {
+    Nav: Navigation_Pub,
+    Intro: Intro_Pub,
+    Footer: Footer_Pub,
+  },
+  Private: {
+    Nav,
+    Footer,
+    Leads,
+  },
 }
