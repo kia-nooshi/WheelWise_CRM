@@ -14,9 +14,9 @@ export async function POST(request: NextRequest) {
       threadId: body.threadId,
     })
 
-    return NextResponse.json(revalidatePath('/dashboard/[slug]'), {
-      status: 200,
-    })
+    if (!Chat.data) throw new Error(Chat.message)
+
+    return NextResponse.json(Chat.message, { status: 200 })
   } catch (error) {
     return NextResponse.json(error instanceof Error ? error.message : 'Internal Server Error', {
       status: 407,

@@ -4,15 +4,15 @@ import { useEffect } from 'react'
 import { leadRevalidate } from './leadRevalidate'
 
 const LeadRefresh = () => {
-   useEffect(() => {
-      const interval = setInterval(() => {
-         leadRevalidate()
-      }, 5000)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      leadRevalidate()
+    }, 10000)
 
-      return () => clearInterval(interval)
-   }, [])
+    return () => clearInterval(interval)
+  }, [])
 
-   return <></>
+  return <></>
 }
 
 export default LeadRefresh

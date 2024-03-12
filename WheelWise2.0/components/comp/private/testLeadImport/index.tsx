@@ -1,48 +1,71 @@
-import React from 'react'
+import { Ui, Util } from '@/components'
+import { Text } from '@radix-ui/themes'
+import { SiVitest } from 'react-icons/si'
+import CodeBlockWithCopyButton from './sss'
 
-export default function TestLeadImport() {
-  const codeSnippets = [
+export default async function TestLeadImport() {
+  const clerkId = await Util.Clerk.getClerkId()
+  if (!clerkId.data) throw new Error('not loged in')
+  const idd = await Util.DataBase.User.getUser({ clerkId: clerkId.data })
+
+  const dataSamples = [
     {
-      organId: '65efab9413dc990eb182bf08',
-      firstName: 'Danin',
-      lastName: 'Namiri',
-      phone: '9493573929',
-      email: 'danin@gmail.com',
+      organId: `${idd.data?.organId}`,
+      firstName: 'Liam',
+      lastName: 'Smith',
+      phone: '3031234567',
+      email: 'liam.smith@example.com',
+      message:
+        'Inquiring about the availability and pricing for a Tesla Model Y. Interested in autopilot features.',
     },
     {
-      organId: '65f0090e13dc990eb182c083',
-      firstName: 'Jessica',
-      lastName: 'Gonzalez',
-      phone: '2125550198',
-      email: 'jessica.gonzalez@example.com',
-      message: 'Interested in leasing a BMW 3 Series.',
+      organId: `${idd.data?.organId}`,
+      firstName: 'Sophia',
+      lastName: 'Miller',
+      phone: '7209876543',
+      email: 'sophia.miller@example.com',
+      message:
+        'Looking for the latest deals on the Audi Q5. Would appreciate information on financing options.',
     },
     {
-      organId: '65f0090e13dc990eb182c083',
-      firstName: 'Michael',
-      lastName: 'Johnson',
-      phone: '7183336721',
-      email: 'michael.johnson@example.com',
-      message: 'Looking for financing options for a BMW M4.',
+      organId: `${idd.data?.organId}`,
+      firstName: 'Ethan',
+      lastName: 'Davis',
+      phone: '4157654321',
+      email: 'ethan.davis@example.com',
+      message:
+        'Interested in a Ford F-150 with eco-boost. Seeking details on towing capacity and fuel efficiency.',
     },
     {
-      organId: '65f0090e13dc990eb182c083',
-      firstName: 'Emily',
-      lastName: 'Anderson',
-      phone: '6467778345',
-      email: 'emily.anderson@example.com',
-      message: 'Interested in learning about BMW X7 safety features.',
+      organId: `${idd.data?.organId}`,
+      firstName: 'Olivia',
+      lastName: 'Garcia',
+      phone: '6191237890',
+      email: 'olivia.garcia@example.com',
+      message:
+        'Exploring options for a Honda Civic with advanced safety features. Curious about lease specials.',
+    },
+    {
+      organId: `${idd.data?.organId}`,
+      firstName: 'Noah',
+      lastName: 'Wilson',
+      phone: '3034567890',
+      email: 'noah.wilson@example.com',
+      message:
+        'Looking to test drive a Mercedes-Benz C-Class. Interested in performance packages and interior options.',
     },
   ]
 
   return (
-    <div>
-      <h2>Code Snippets</h2>
-      {codeSnippets.map((snippet, index) => (
-        <pre key={index}>
-          <code>{JSON.stringify(snippet, null, 2)}</code>
-        </pre>
-      ))}
-    </div>
+    <Ui.Flex className='mt-5' direction={'column'} gap={'2'}>
+      <Text as='div' size='2' className='flex flex-row gap-2 items-center'>
+        <SiVitest className='text-orange-500' /> Test this CHAT
+      </Text>
+      <div className='grid grid-cols-2 gap-2'>
+        {dataSamples.map((sample, index) => (
+          <CodeBlockWithCopyButton key={index} codeSnippet={JSON.stringify(sample, null, 2)} />
+        ))}
+      </div>
+    </Ui.Flex>
   )
 }
