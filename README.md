@@ -140,67 +140,51 @@ WheelWise CRM 2.0 ushers in a new era of car shopping, transforming traditional 
 
 We are committed to continuous improvement and eagerly anticipate your feedback on WheelWise CRM 2.0.0.
 
-# Test Plan for WheelWise CRM 2.0.0
+# 🧪 Test Cases
 
-## Overview
+## Test Group 1: Clerk Functionality Testing
 
-This test plan outlines the testing procedures for verifying the functionality and performance of WheelWise CRM 2.0.0. The testing focuses on three main functionalities: Clerk, Organ, and Lead, as outlined in the provided test files.
+This test group focuses on verifying the functionality of the Clerk service within the application. Specifically, it assesses the ability to retrieve a Clerk ID efficiently and accurately.
 
-## Test Cases
+-  **TEST #1 - Clerk Functionality**
+   -  **Function Tested**: `Clerk.getClerkId`
+   -  **Description**: Tests whether the application can successfully retrieve a Clerk ID.
+   -  **Execution Method**: The function is timed for performance analysis.
 
-### Test #1 - Clerk Functionality
+## Test Group 2: Organ Functionality Testing
 
--  **Objective:** Verify the functionality of the Clerk module in retrieving Clerk ID.
--  **Steps:**
-   1. Call the `getClerkId` function.
-   2. Verify if the Clerk ID is retrieved successfully.
--  **Expected Result:** The Clerk ID should be successfully retrieved.
+The second test group aims at evaluating the functionality related to organs within the database, encompassing the creation, retrieval, and deletion of organ entries.
 
-### Test #2 - Organ Functionality
+-  **TEST #2 - Organ Functionality**
+   -  **Functions Tested**:
+      -  `Organ.pushOrgan` for adding new organ entries.
+      -  `Organ.getOrgans` for retrieving a list of all organ entries.
+      -  `Organ.popOrgan` for removing a specific organ entry.
+      -  `Organ.popOrgans` for removing all organ entries.
+   -  **Description**: This series of tests checks the application's ability to manage organ data within the database, including adding new entries, retrieving existing ones, and deleting entries both individually and in bulk.
 
--  **Objective:** Verify the functionality of the Organ module in pushing and popping organs.
--  **Steps:**
-   1. Push three organs.
-   2. Verify if organs are pushed successfully.
-   3. Pop one organ.
-   4. Verify if the organ is popped successfully.
--  **Expected Result:** Organs should be pushed and popped successfully without any errors.
+## Test Group 3: Lead Functionality Testing
 
-### Test #3 - Lead Functionality
+Test group three assesses the application's lead management capabilities, including adding new leads, retrieving specific leads or all leads, and deleting leads.
 
--  **Objective:** Verify the functionality of the Lead module in pushing, getting, and popping leads.
--  **Steps:**
-   1. Push four leads with unique information.
-   2. Verify if leads are pushed successfully.
-   3. Attempt to push a duplicate lead (should fail).
-   4. Get a specific lead.
-   5. Verify if the lead is retrieved successfully.
-   6. Get all leads.
-   7. Verify if all leads are retrieved successfully.
-   8. Pop one lead.
-   9. Verify if the lead is popped successfully.
-   10.   Get the lead again (should fail as it's popped).
-   11.   Get all leads after popping one lead.
-   12.   Verify if all leads are retrieved successfully after popping.
-   13.   Pop all leads.
-   14.   Verify if all leads are popped successfully.
-   15.   Get all leads again after popping all leads.
-   16.   Verify if no leads are retrieved after popping all.
--  **Expected Result:** Leads should be pushed, retrieved, and popped successfully without any errors.
+-  **TEST #3 - Lead Functionality**
+   -  **Functions Tested**:
+      -  `Lead.pushLead` for adding new lead entries.
+      -  `Lead.getLead` for retrieving details of a specific lead.
+      -  `Lead.getLeads` for fetching all leads associated with an organ.
+      -  `Lead.popLead` for removing a specific lead entry.
+      -  `Lead.popLeads` for removing all leads associated with an organ.
+   -  **Description**: This test verifies the application's functionality related to lead management, ensuring leads can be added, retrieved, and deleted as expected.
 
-## Test Execution
+## Test Group 4: Delete onCascade Testing
 
--  Run each test case individually.
--  Record the results including any failures or errors encountered during execution.
--  Verify that each test case produces the expected outcome.
--  Ensure that all tests are conducted in the specified order to maintain the integrity of the test plan.
+The fourth test group is designed to verify the cascading delete functionality, ensuring that deleting an organ also removes all associated leads.
 
-## Performance Evaluation
+-  **TEST #4 - Delete onCascade**
+   -  **Functions Tested**:
+      -  `Organ.pushOrgan` and `Lead.pushLead` to set up the initial data state.
+      -  `Organ.popOrgan` to trigger the cascading delete.
+      -  `Lead.getLeads` to verify the result of the cascading delete.
+   -  **Description**: This test checks if deleting an organ entry correctly triggers the deletion of all associated lead entries, testing the integrity of the cascading delete functionality within the database.
 
--  Evaluate the performance of each functionality based on response times and resource utilization.
--  Measure the time taken for each API call and compare it against defined performance thresholds.
--  Monitor system resource consumption during test execution to identify any potential bottlenecks or performance issues.
-
-## Conclusion
-
-Upon successful completion of all test cases and performance evaluation, it can be concluded whether WheelWise CRM 2.0.0 meets the specified requirements and performance criteria. Any deviations from expected behavior or performance issues should be documented for further investigation and resolution.
+Each test group is designed to validate specific functionalities within the application, ensuring robustness and reliability of the system's data management capabilities.
