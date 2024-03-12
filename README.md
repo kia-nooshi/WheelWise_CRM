@@ -188,3 +188,85 @@ The fourth test group is designed to verify the cascading delete functionality, 
    -  **Description**: This test checks if deleting an organ entry correctly triggers the deletion of all associated lead entries, testing the integrity of the cascading delete functionality within the database.
 
 Each test group is designed to validate specific functionalities within the application, ensuring robustness and reliability of the system's data management capabilities.
+
+# 📃 Functions Library Documentation
+
+This documentation outlines the structure and functionality of the custom functions library used in the application. The library is divided into three main segments: `Util`, `Helper`, and `Do`. Each segment targets different aspects of the application, from utility functions to specialized helpers and direct action methods.
+
+## Util
+
+The `Util` segment is designed to provide utility functions that simplify common operations, such as database interactions and data manipulation.
+
+### Other
+
+-  **`twJoin` and `twMerge`**: Utility functions from `tailwind-merge` for handling Tailwind CSS class mergers and conditionals.
+-  **`returnHandle`**: A higher-order function designed to streamline asynchronous operations, handling both the success and error paths with custom messages.
+
+### Clerk
+
+-  **`getClerkId`**: Retrieves the Clerk user ID, ensuring the user is authenticated.
+
+### DataBase
+
+Provides a set of functions to interact with the database entities like `Organ`, `User`, `Lead`, `Chat`, and `Message`.
+
+#### Organ
+
+-  **`pushOrgan`**: Creates a new organ entry in the database.
+-  **`popOrgan`**: Deletes a specified organ entry by its ID.
+-  **`getOrgan`**: Retrieves a specific organ entry by its ID.
+-  **`popOrgans`**: Deletes all organ entries.
+-  **`getOrgans`**: Fetches all organ entries.
+
+#### User
+
+-  **`pushUser`**: Adds a new user to the database, linking it to an organ.
+-  **`getUser`**: Retrieves a user by their Clerk ID.
+
+#### Lead
+
+-  **`pushLead`**: Adds a new lead, optionally linking it to an organ and including contact information.
+-  **`popLead`**: Removes a specified lead by ID.
+-  **`getLead`**: Fetches a specific lead by ID.
+-  **`getLeads`**: Retrieves all leads linked to a specified organ.
+-  **`popLeads`**: Deletes all leads associated with a specific organ.
+
+#### Chat
+
+-  **`pushChat`**: Creates a new chat session linked to a lead.
+-  **`pushThreadId`**: Associates a chat with a thread ID.
+-  **`popChat`**: Deletes a specific chat by ID.
+-  **`getChat`**: Retrieves chat details by lead ID, including messages.
+
+#### Message
+
+-  **`pushMessage`**: Adds a new message to a chat.
+-  **`popMessage`**: Deletes a specific message by ID.
+
+## Helper
+
+The `Helper` segment is focused on providing support functions that integrate external services or complex logic not directly related to database operations.
+
+### Chat
+
+-  **`getAiResponse`**: Interacts with an AI service to get responses based on a lead's message. It handles thread creation and message logging within the chat.
+
+## Do
+
+`Do` includes functions that perform specific actions or business logic, often combining multiple utility functions to achieve a task.
+
+### User
+
+-  **`Onboarding`**: Handles the onboarding process for new users, ensuring they are registered and linked to a new organ if necessary.
+
+### Lead
+
+-  **`getLead`**: Retrieves details for a specific lead.
+-  **`getLeads`**: Fetches all leads associated with the user's organ.
+-  **`pushLeadsApi`**: A comprehensive function that manages the creation of a lead, initializes a chat, logs a message, and fetches an AI response.
+
+### Chat
+
+-  **`getChat`**: Retrieves chat details, focusing on interaction with a specific lead.
+
+This library centralizes and abstracts many of the repetitive tasks involved in managing database entities and interacting with external services, promoting cleaner and more maintainable code throughout the application.
