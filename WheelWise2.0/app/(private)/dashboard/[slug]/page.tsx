@@ -73,8 +73,8 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
                     <Box
                       className={Util.Other.twMerge(
                         ' p-5 my-2 shadow-sm w-2/3',
-                        msg.fromLead && ' ml-auto text-right border-r-4 border-indigo-600',
-                        !msg.fromLead && 'mr-auto text-left border-l-4 border-blue-400'
+                        !msg.fromLead && ' ml-auto text-right border-r-4 border-indigo-600',
+                        msg.fromLead && 'mr-auto text-left border-l-4 border-blue-400'
                       )}
                     >
                       {msg.content}
@@ -86,7 +86,7 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
               </Text>
             </ScrollArea>
           </Card>
-          <ChatBox />
+          <ChatBox chatId={Chat.data?.id as string} />
         </div>
       </div>
     </div>
