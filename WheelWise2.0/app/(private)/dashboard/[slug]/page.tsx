@@ -1,5 +1,5 @@
-import { Do, Util } from '@/components'
-import { Box, Card, Separator, Text } from '@radix-ui/themes'
+import { Do, Ui, Util } from '@/components'
+import { Box, Card, Flex, Heading, ScrollArea, Separator, Text } from '@radix-ui/themes'
 import Link from 'next/link'
 import LeadRefresh from './leadRefresh'
 import sbItem from './sidebar_item'
@@ -60,29 +60,32 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
             </Text>
           </Card>
         </div>
-
-        <Card variant='surface' className='py-5'>
-          <Text as='div' size='2' weight='bold' className='m-5'>
-            Chat History
-          </Text>
-          <Text as='div' color='gray' size='1'>
-            {Chat.data?.messages.map((msg) => (
-              <div key={msg.id} className='flex flex-col gap-10'>
-                <Box
-                  className={Util.Other.twMerge(
-                    ' p-5 my-2 shadow-sm w-2/3',
-                    msg.fromLead && ' ml-auto text-right border-r-4 border-indigo-600',
-                    !msg.fromLead && 'mr-auto text-left border-l-4 border-blue-400'
-                  )}
-                >
-                  {msg.content}
-                  <br />
-                  <span className='text-xs text-gray-500'>{msg.createdAt.toDateString()}</span>
-                </Box>
-              </div>
-            ))}
-          </Text>
-        </Card>
+        <div className=''>
+          <Card variant='surface' className='py-5'>
+            <ScrollArea className='max-h-[720px] p-5'>
+              <Text as='div' size='2' weight='bold' className='m-5'>
+                Chat History
+              </Text>
+              <Text as='div' color='gray' size='1'>
+                {Chat.data?.messages.map((msg) => (
+                  <div key={msg.id} className='flex flex-col gap-10'>
+                    <Box
+                      className={Util.Other.twMerge(
+                        ' p-5 my-2 shadow-sm w-2/3',
+                        msg.fromLead && ' ml-auto text-right border-r-4 border-indigo-600',
+                        !msg.fromLead && 'mr-auto text-left border-l-4 border-blue-400'
+                      )}
+                    >
+                      {msg.content}
+                      <br />
+                      <span className='text-xs text-gray-500'>{msg.createdAt.toDateString()}</span>
+                    </Box>
+                  </div>
+                ))}
+              </Text>
+            </ScrollArea>
+          </Card>
+        </div>
       </div>
     </div>
   )
