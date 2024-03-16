@@ -1,4 +1,5 @@
 import { Util } from '@/components'
+import { revalidatePath } from 'next/cache'
 import React from 'react'
 
 export default async function ChatBox({ chatId }: { chatId: string }) {
@@ -10,6 +11,8 @@ export default async function ChatBox({ chatId }: { chatId: string }) {
       content: formData.get('message') as string,
       fromLead: false,
     })
+
+    revalidatePath(`'./dashboard/${chatId}'`)
   }
 
   return (
