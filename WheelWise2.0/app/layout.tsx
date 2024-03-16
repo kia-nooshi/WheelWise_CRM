@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
    return (
       <html lang='en'>
-         <body>
+         <body suppressHydrationWarning>
             <Provider.Clerk>
                <Provider.Radix appearance='dark'>
                   <Ui.Font name='Inter'>{children}</Ui.Font>

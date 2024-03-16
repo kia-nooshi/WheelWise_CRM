@@ -5,6 +5,7 @@ import LeadRefresh from './leadRefresh'
 import sbItem from './sidebar_item'
 import SubItem from './sidebar_item'
 import { SiVitest } from 'react-icons/si'
+import ChatBox from './chatBox'
 
 const LeadPage = async ({ params }: { params: { slug: string } }) => {
   const Lead = await Do.Lead.getLead({ leadId: params.slug })
@@ -60,9 +61,9 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
             </Text>
           </Card>
         </div>
-        <div className=''>
+        <div className='flex flex-col gap-5'>
           <Card variant='surface' className='py-5'>
-            <ScrollArea className='max-h-[720px] p-5'>
+            <ScrollArea className='max-h-[700px] p-5'>
               <Text as='div' size='2' weight='bold' className='m-5'>
                 Chat History
               </Text>
@@ -85,6 +86,7 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
               </Text>
             </ScrollArea>
           </Card>
+          <ChatBox />
         </div>
       </div>
     </div>
