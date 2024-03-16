@@ -1,12 +1,12 @@
 import { Util } from '@/components'
 import React from 'react'
 
-export default async function ChatBox() {
+export default async function ChatBox({ chatId }: { chatId: string }) {
   const addMessage = async (formData: FormData) => {
     'use server'
 
     Util.DataBase.Message.pushMessage({
-      chatId: '65f622e683822359eec5965a',
+      chatId,
       content: formData.get('message') as string,
       fromLead: false,
     })
@@ -18,9 +18,9 @@ export default async function ChatBox() {
         name='message'
         required
         placeholder='Type your message here ...'
-        className='w-full rounded-lg p-2'
+        className='py-2 px-5 w-full rounded-full '
       />
-      <button>Send</button>
+      <button className='py-2 px-5 bg-blue-600 rounded-full'>Send</button>
     </form>
   )
 }
