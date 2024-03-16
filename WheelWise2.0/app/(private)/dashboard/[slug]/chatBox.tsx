@@ -1,12 +1,15 @@
+import { Util } from '@/components'
 import React from 'react'
 
 export default async function ChatBox() {
   const addMessage = async (formData: FormData) => {
     'use server'
 
-    const ss = formData.get('message')
-
-    console.log(ss)
+    Util.DataBase.Message.pushMessage({
+      chatId: '65f622e683822359eec5965a',
+      content: formData.get('message') as string,
+      fromLead: false,
+    })
   }
 
   return (
