@@ -3,7 +3,7 @@ import { Controler } from './nav_control'
 
 export default function Navigation() {
   return (
-    <nav className='fixed w-full max-w-3xl top-10 z-50'>
+    <nav className='w-full max-w-3xl py-10'>
       <Ui.Flex>
         <Ui.Flex align={'center'} justify={'center'} gap={'medium'}>
           <Ui.Logo />

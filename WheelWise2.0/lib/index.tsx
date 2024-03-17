@@ -41,9 +41,9 @@ export const Ui = { Flex, Icon, Style, Logo, Loading, Copy, Dropd, Button }
 // ----------------------------------------
 
 // #2.1 Auth
-import { default as Signin } from '@/lib/components/comp/auth/signin'
-import { default as Signup } from '@/lib/components/comp/auth/signup'
-import { default as UserProfile } from '@/lib/components/comp/auth/userProfile'
+import { default as Signin } from '@/lib/components/comp/public/auth/signin'
+import { default as Signup } from '@/lib/components/comp/public/auth/signup'
+import { default as UserProfile } from '@/lib/components/comp/public/auth/profile'
 
 // #2.2 Private
 import { default as Nav } from '@/lib/components/comp/private/navigation'

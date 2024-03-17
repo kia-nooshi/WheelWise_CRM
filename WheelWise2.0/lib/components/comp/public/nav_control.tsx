@@ -11,10 +11,10 @@ export function Controler() {
         <Ui.Dropd.Label>My Account</Ui.Dropd.Label>
         <Ui.Dropd.Separator />
         <Ui.Dropd.Group>
-          <Link href={'./signin'}>
+          <Link href={'./sign-in'}>
             <Ui.Dropd.Item>Sign In</Ui.Dropd.Item>
           </Link>
-          <Link href={'./signup'}>
+          <Link href={'./sign-up'}>
             <Ui.Dropd.Item>Sign Up</Ui.Dropd.Item>
           </Link>
         </Ui.Dropd.Group>
