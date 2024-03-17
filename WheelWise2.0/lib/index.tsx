@@ -23,6 +23,7 @@ export { Util, Do } from '@/lib/do'
 
 // #1 - ui_shadcn
 import * as Dropd from '@/lib/components/ui/ui_shadcn/dropdown-menu'
+import * as Card from '@/lib/components/ui/ui_shadcn/card'
 import { Button } from '@/lib/components/ui/ui_shadcn/button'
 
 // #2 - ui_danin

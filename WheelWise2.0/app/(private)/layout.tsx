@@ -5,17 +5,20 @@ export default async function PrivateLayout({ children }: { children: React.Reac
   const u = await Do.User.Onboarding()
 
   return (
-    <Ui.Flex className='w-full h-screen overflow-hidden' direction={'column'}>
-      <Ui.Flex direction={'column'} align={'center'}>
+    <Ui.Flex
+      className='w-full h-screen gap-0'
+      align={'center'}
+      justify={'center'}
+      direction={'column'}
+    >
+      <Ui.Flex className=' w-full' align={'center'}>
         <Comp.Private.Nav />
       </Ui.Flex>
-      <Ui.Flex className='h-full overflow-hidden' align={'center'} justify={'center'}>
-        <Ui.Scroll className='w-full'>
-          <div className='w-full pr-56 pl-56'>{children}</div>
-        </Ui.Scroll>
+      <Ui.Flex className='w-full h-full' align={'center'} justify={'center'}>
+        {children}
       </Ui.Flex>
-      <Ui.Flex direction={'column'} align={'center'}>
-        <Comp.Private.Footer />
+      <Ui.Flex className='dark:bg-zinc-950 w-full' align={'center'} justify={'center'}>
+        <Comp.Public.Footer />
       </Ui.Flex>
     </Ui.Flex>
   )
