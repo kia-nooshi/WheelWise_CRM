@@ -1,8 +1,8 @@
-import { Do } from '@/components'
+import { Do } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
-   /*
+  /*
 
    http://localhost:3004/api/leadReceiverTest
 
@@ -43,24 +43,24 @@ export async function POST(request: NextRequest) {
 
    */
 
-   const body = await request.json()
+  const body = await request.json()
 
-   try {
-      const lead = await Do.Lead.pushLeadsApi({
-         organId: body.organId,
-         firstName: body.firstName,
-         lastName: body.lastName,
-         phone: body.phone,
-         email: body.email,
-         message: body.message,
-      })
+  try {
+    const lead = await Do.Lead.pushLeadsApi({
+      organId: body.organId,
+      firstName: body.firstName,
+      lastName: body.lastName,
+      phone: body.phone,
+      email: body.email,
+      message: body.message,
+    })
 
-      if (!lead.data) throw new Error(lead.message)
+    if (!lead.data) throw new Error(lead.message)
 
-      return NextResponse.json(lead.message, { status: 200 })
-   } catch (error) {
-      return NextResponse.json(error instanceof Error ? error.message : 'Internal Server Error', {
-         status: 407,
-      })
-   }
+    return NextResponse.json(lead.message, { status: 200 })
+  } catch (error) {
+    return NextResponse.json(error instanceof Error ? error.message : 'Internal Server Error', {
+      status: 407,
+    })
+  }
 }

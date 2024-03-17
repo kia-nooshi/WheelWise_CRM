@@ -1,4 +1,4 @@
-import { Util } from '@/components'
+import { Util } from '@/lib'
 import { revalidatePath } from 'next/cache'
 import React from 'react'
 

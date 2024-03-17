@@ -1,4 +1,4 @@
-import { Do } from '@/components'
+import { Do } from '@/lib'
 import { revalidatePath } from 'next/cache'
 
 import { NextRequest, NextResponse } from 'next/server'

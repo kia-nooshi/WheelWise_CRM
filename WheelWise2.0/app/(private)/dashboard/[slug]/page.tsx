@@ -1,4 +1,4 @@
-import { Do, Ui, Util } from '@/components'
+import { Do, Ui, Util } from '@/lib'
 import { Box, Card, Flex, Heading, ScrollArea, Separator, Text } from '@radix-ui/themes'
 import Link from 'next/link'
 import LeadRefresh from './leadRefresh'
