@@ -30,12 +30,12 @@ import { Button } from '@/lib/components/ui/ui_shadcn/button'
 
 // #2 - ui_danin
 
-import { default as Flex } from '@/lib/components/ui/ui_danin/flex'
-import { default as Icon } from '@/lib/components/ui/ui_danin/icon'
-import { default as Style } from '@/lib/components/ui/ui_danin/style'
-import { default as Logo } from '@/lib/components/ui/ui_danin/logo'
-import { default as Loading } from '@/lib/components/ui/ui_danin/loading'
-import { default as Copy } from '@/lib/components/ui/ui_danin/copy'
+import { default as Flex } from '@/lib/components/ui/ui_gen/flex'
+import { default as Icon } from '@/lib/components/ui/ui_gen/icon'
+import { default as Style } from '@/lib/components/ui/ui_gen/style'
+import { default as Logo } from '@/lib/components/ui/ui_gen/logo'
+import { default as Loading } from '@/lib/components/ui/ui_gen/loading'
+import { default as Copy } from '@/lib/components/ui/ui_gen/copy'
 
 export const Ui = { Flex, Icon, Style, Logo, Loading, Copy, Dropd, Button, Card, Scroll, Table }
 
