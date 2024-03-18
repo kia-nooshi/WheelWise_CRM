@@ -1,5 +1,4 @@
-import { Comp, Do, Util } from '@/lib'
-import delay from 'delay'
+import { Comp } from '@/lib'
 
 const Dashboard = async () => {
   return <Comp.Private.Leads />

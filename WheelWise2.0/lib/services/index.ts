@@ -4,6 +4,7 @@ import { UserType } from '@prisma/client'
 import { twJoin, twMerge } from 'tailwind-merge'
 
 import { clsx, type ClassValue } from 'clsx'
+import { revalidatePath } from 'next/cache'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -45,6 +46,7 @@ export const Util = {
   },
   Clerk: {
     getClerkId: async () => {
+      console.log('🧪 getClerkId')
       return Util.Other.returnHandle(
         async () => {
           const { userId } = auth()

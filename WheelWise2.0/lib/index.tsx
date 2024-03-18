@@ -13,8 +13,12 @@ export const Provider = { Clerk: ClerkProvider, Radix }
 // Functions
 // ----------------------------------------
 
+import { Auth, DataBase } from '@/lib/services/newIndex'
+
+export const TEST = { Auth, DataBase }
+
 // #1 - Util
-export { Util, Do } from '@/lib/services'
+export { Do, Util } from '@/lib/services'
 // #2 - Do
 
 // ----------------------------------------
@@ -44,9 +48,9 @@ export const Ui = { Flex, Icon, Style, Logo, Loading, Copy, Dropd, Button, Card,
 // ----------------------------------------
 
 // #2.1 Auth
-import { default as Signin } from '@/lib/components/comp/public/auth/signin'
-import { default as Signup } from '@/lib/components/comp/public/auth/signup'
-import { default as UserProfile } from '@/lib/components/comp/public/auth/profile'
+import { default as Signin } from '@/lib/components/comp/public/signin'
+import { default as Signup } from '@/lib/components/comp/public/signup'
+import { default as UserProfile } from '@/lib/components/comp/public/profile'
 
 // #2.2 Private
 import { default as Nav } from '@/lib/components/comp/private/nav'
