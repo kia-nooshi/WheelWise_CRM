@@ -1,6 +1,7 @@
 import { Ui, Util } from '@/lib'
 import { Text } from '@radix-ui/themes'
 import { SiVitest } from 'react-icons/si'
+import Leads from './leads'
 
 export default async function TestLeadImport() {
   const clerkId = await Util.Clerk.getClerkId()
@@ -56,22 +57,32 @@ export default async function TestLeadImport() {
   ]
 
   return (
-    <Ui.Flex className='mt-5' direction={'column'} gap={'2'}>
-      <Text as='div' size='2' className='flex flex-row gap-2 items-center'>
-        <SiVitest className='text-orange-500' /> Test this CHAT
-      </Text>
-      <Ui.Flex className=' bg-gray-950 opacity-50 text-xs p-2 whitespace-pre-wrap w-full gap-2'>
-        <span className='shrink-0 text-orange-400'>Copy this api address</span>
-        <Ui.Copy isCode={true} codeSnippet={'http://localhost:3005/api/leadhandle'} />
-      </Ui.Flex>
+    <>
+      <Ui.Card.main>
+        <Ui.Card.Header>
+          <Ui.Card.Title className='flex flex-row items-center gap-2'>
+            <SiVitest className='text-orange-500' /> Test APIs
+          </Ui.Card.Title>
+          <Ui.Card.Description>here is the list of the all of the newst leads</Ui.Card.Description>
+        </Ui.Card.Header>
+        <Ui.Card.Content className='flex flex-col gap-2'>
+          <Ui.Flex className=' bg-gray-950 opacity-50 text-xs p-2 whitespace-pre-wrap w-full gap-2'>
+            <span className='shrink-0 text-orange-400'>Copy this api address</span>
+            <Ui.Copy isCode={true} codeSnippet={'http://localhost:3005/api/leadhandle'} />
+          </Ui.Flex>
 
-      <div className='grid grid-cols-2 gap-2'>
-        {dataSamples.map((sample, index) => (
-          <div className=' bg-gray-950 opacity-50 text-xs p-2 whitespace-pre-wrap w-full gap-2'>
-            <Ui.Copy isCode={true} key={index} codeSnippet={JSON.stringify(sample, null, 2)} />
+          <div className='grid grid-cols-2 gap-2'>
+            {dataSamples.map((sample, index) => (
+              <div
+                key={index}
+                className=' bg-gray-950 opacity-50 text-xs p-2 whitespace-pre-wrap w-full gap-2'
+              >
+                <Ui.Copy isCode={true} codeSnippet={JSON.stringify(sample, null, 2)} />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </Ui.Flex>
+        </Ui.Card.Content>
+      </Ui.Card.main>
+    </>
   )
 }
