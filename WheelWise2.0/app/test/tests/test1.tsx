@@ -1,7 +1,7 @@
 import React from 'react'
 import Test_Section from '../comps/section'
 import Test_Render from '../comps/render'
-import { Util } from '@/lib/do'
+import { Util } from '@/lib'
 import timer from '../comps/timer'
 
 export async function Test_1() {

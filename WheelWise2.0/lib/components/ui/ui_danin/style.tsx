@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { Inter, Poppins } from 'next/font/google'
+import { Util } from '@/lib' // Assuming a similar utility exists for classnames
 import { cva, type VariantProps } from 'class-variance-authority'
-import { Util } from '@/lib/do' // Assuming a similar utility exists for classnames
+import { Inter, Poppins } from 'next/font/google'
+import * as React from 'react'
 
 // Assuming FontInter and FontPoppins usage as class names directly is a desired approach
 const FontInter = Inter({ subsets: ['latin'], weight: ['300'] })

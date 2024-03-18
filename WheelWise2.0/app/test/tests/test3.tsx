@@ -1,6 +1,6 @@
 import React from 'react'
 import Test_Section from '../comps/section'
-import { Util } from '@/lib/do'
+import { Util } from '@/lib'
 import Test_Render from '../comps/render'
 import timer from '../comps/timer'
 
