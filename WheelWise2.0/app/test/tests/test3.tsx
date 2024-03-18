@@ -1,18 +1,17 @@
-import React from 'react'
-import Test_Section from '../comps/section'
-import { Util } from '@/lib'
+import { TEST } from '@/lib'
 import Test_Render from '../comps/render'
+import Test_Section from '../comps/section'
 import timer from '../comps/timer'
 
 export async function Test_3() {
   const { result: pushOrgan_1, executionTime: pushOrgan_1_executionTime } = await timer(
-    Util.DataBase.Organ.pushOrgan
+    TEST.DataBase.Organ.pushOrgan
   )
 
   if (!pushOrgan_1.data) return <>TEST 3 - FAILED FOR UNKNOWN REASON.</>
 
   const { result: pushLead_1, executionTime: pushLead_1_executionTime } = await timer(() =>
-    Util.DataBase.Lead.pushLead({
+    TEST.DataBase.Lead.pushLead({
       organId: pushOrgan_1.data.id,
       firstName: 'John',
       lastName: 'Doe',
@@ -23,7 +22,7 @@ export async function Test_3() {
 
   const { result: pushLead_1Again, executionTime: pushLead_1Again_executionTime } = await timer(
     () =>
-      Util.DataBase.Lead.pushLead({
+      TEST.DataBase.Lead.pushLead({
         organId: pushOrgan_1.data.id,
         firstName: 'John',
         lastName: 'Doe',
@@ -33,7 +32,7 @@ export async function Test_3() {
   )
 
   const { result: pushLead_2, executionTime: pushLead_2_executionTime } = await timer(() =>
-    Util.DataBase.Lead.pushLead({
+    TEST.DataBase.Lead.pushLead({
       organId: pushOrgan_1.data.id,
       firstName: 'Jane',
       lastName: 'Smith',
@@ -43,7 +42,7 @@ export async function Test_3() {
   )
 
   const { result: pushLead_3, executionTime: pushLead_3_executionTime } = await timer(() =>
-    Util.DataBase.Lead.pushLead({
+    TEST.DataBase.Lead.pushLead({
       organId: pushOrgan_1.data.id,
       firstName: 'Alice',
       lastName: 'Johnson',
@@ -53,7 +52,7 @@ export async function Test_3() {
   )
 
   const { result: pushLead_4, executionTime: pushLead_4_executionTime } = await timer(() =>
-    Util.DataBase.Lead.pushLead({
+    TEST.DataBase.Lead.pushLead({
       organId: pushOrgan_1.data.id,
       firstName: 'Bob',
       lastName: 'Brown',
@@ -65,34 +64,34 @@ export async function Test_3() {
   if (!!!pushLead_3.data) return <>{pushLead_3.message}</>
 
   const { result: getLead_2, executionTime: getLead_2_executionTime } = await timer(() =>
-    Util.DataBase.Lead.getLead({ leadId: pushLead_2.data.id })
+    TEST.DataBase.Lead.getLead({ leadId: pushLead_2.data.id })
   )
 
   const { result: getLeads, executionTime: getLeads_executionTime } = await timer(() =>
-    Util.DataBase.Lead.getLeads({ organId: pushOrgan_1.data.id })
+    TEST.DataBase.Lead.getLeads({ organId: pushOrgan_1.data.id })
   )
 
   const { result: popLead_3, executionTime: popLead_3_executionTime } = await timer(() =>
-    Util.DataBase.Lead.popLead({ leadId: pushLead_3.data.id })
+    TEST.DataBase.Lead.popLead({ leadId: pushLead_3.data.id })
   )
 
   const { result: getLead_3, executionTime: getLead_3_executionTime } = await timer(() =>
-    Util.DataBase.Lead.getLead({ leadId: pushLead_3.data.id })
+    TEST.DataBase.Lead.getLead({ leadId: pushLead_3.data.id })
   )
 
   const { result: getLeads_AfterPop, executionTime: getLeads_AfterPop_executionTime } = await timer(
-    () => Util.DataBase.Lead.getLeads({ organId: pushOrgan_1.data.id })
+    () => TEST.DataBase.Lead.getLeads({ organId: pushOrgan_1.data.id })
   )
 
   const { result: popLeads, executionTime: popLeads_executionTime } = await timer(() =>
-    Util.DataBase.Lead.popLeads({ organId: pushOrgan_1.data.id })
+    TEST.DataBase.Lead.popLeads({ organId: pushOrgan_1.data.id })
   )
 
   const { result: getLeads_AfterPopLeads, executionTime: getLeads_AfterPopLeads_executionTime } =
-    await timer(() => Util.DataBase.Lead.getLeads({ organId: pushOrgan_1.data.id }))
+    await timer(() => TEST.DataBase.Lead.getLeads({ organId: pushOrgan_1.data.id }))
 
   const { result: clear, executionTime: clear_executionTime } = await timer(() =>
-    Util.DataBase.Organ.popOrgan({ organId: pushOrgan_1.data.id })
+    TEST.DataBase.Organ.popOrgan({ organId: pushOrgan_1.data.id })
   )
   return (
     <Test_Section title='TEST #3 - Lead Functionality'>

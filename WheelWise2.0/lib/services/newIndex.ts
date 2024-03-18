@@ -80,7 +80,7 @@ export const DataBase = {
         async () => {
           return await prisma.organ.create({ data: {} })
         },
-        'Sucess',
+        'Successed',
         'Failed',
         '(DataBase) pushOrgan'
       )
@@ -90,7 +90,7 @@ export const DataBase = {
         async () => {
           return await prisma.organ.delete({ where: { id: organId } })
         },
-        'Sucess',
+        'Successed',
         'Failed',
         '(DataBase) popOrgan'
       )
@@ -100,7 +100,7 @@ export const DataBase = {
         async () => {
           return await prisma.organ.findUnique({ where: { id: organId } })
         },
-        'Sucess',
+        'Successed',
         'Failed',
         '(DataBase) getOrgan'
       )
@@ -110,7 +110,7 @@ export const DataBase = {
         async () => {
           return await prisma.organ.deleteMany({})
         },
-        'Sucess',
+        'Successed',
         'Failed',
         '(DataBase) popOrgans'
       )
@@ -120,13 +120,13 @@ export const DataBase = {
         async () => {
           return await prisma.organ.findMany()
         },
-        'Sucess',
+        'Successed',
         'Failed',
-        '( DataBase ) getOrgans'
+        '(DataBase) getOrgans'
       )
     },
   },
-  /*
+
   User: {
     pushUser: async ({
       organId,
@@ -139,18 +139,17 @@ export const DataBase = {
     }) => {
       return Handler.tryCatch(
         async () => {
-          // make data ready
-          const data = {
-            organ: { connect: { id: organId } },
-            clerkId,
-            type,
-          }
-
-          return await prisma.user.create({ data })
+          return await prisma.user.create({
+            data: {
+              organ: { connect: { id: organId } },
+              clerkId,
+              type,
+            },
+          })
         },
-        'User successfully pushed',
-        'Failed to push user',
-        '(U)pushUser'
+        'Successed',
+        'Failed',
+        '(DataBase) pushUser'
       )
     },
     getUser: async ({ clerkId }: { clerkId: string }) => {
@@ -158,13 +157,14 @@ export const DataBase = {
         async () => {
           return await prisma.user.findUnique({ where: { clerkId } })
         },
-        'User successfully retrieved',
-        'Failed to retrieve user',
-        '(U)getUser'
+        'Successed',
+        'Failed',
+        '(DataBase) getUser'
       )
     },
   },
 
+  /*
   Lead: {
     pushLead: async ({
       organId,
