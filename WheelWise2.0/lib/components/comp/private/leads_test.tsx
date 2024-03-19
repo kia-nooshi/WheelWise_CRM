@@ -1,12 +1,12 @@
-import { Ui, Util } from '@/lib'
+import { Do, Ui } from '@/lib'
 import { Text } from '@radix-ui/themes'
 import { SiVitest } from 'react-icons/si'
 import Leads from './leads'
 
 export default async function TestLeadImport() {
-  const clerkId = await Util.Clerk.getClerkId()
+  const clerkId = await Do.Auth.Clerk.getClerkId()
   if (!clerkId.data) throw new Error('not loged in')
-  const idd = await Util.DataBase.User.getUser({ clerkId: clerkId.data })
+  const idd = await Do.DataBase.User.getUser({ clerkId: clerkId.data })
 
   const dataSamples = [
     {

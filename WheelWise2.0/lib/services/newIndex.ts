@@ -332,6 +332,45 @@ export const DataBase = {
   },
 }
 
+// ----------------------------------------
+// Service
+// ----------------------------------------
+
+import delay from 'delay'
+
+export const Service = {
+  onboarding: async () => {
+    return Handler.tryCatch(
+      async () => {
+        //await delay(50000)
+
+        // Make sure user logedin
+        const ClerkId = await Auth.Clerk.getClerkId()
+        if (!ClerkId.data) throw new Error(ClerkId.message)
+
+        // If user Exist - return user
+        const User = await DataBase.User.getUser({ clerkId: ClerkId.data })
+        if (User.data) return User
+
+        // If user NOT Exist - create Organ
+        const NewOrgan = await DataBase.Organ.pushOrgan()
+        if (!NewOrgan.data) throw new Error(NewOrgan.message)
+
+        // If user NOT Exist - create User - return user
+        const NewUser = await DataBase.User.pushUser({
+          clerkId: ClerkId.data,
+          organId: NewOrgan.data?.id,
+          type: 'ADMIN',
+        })
+        return NewUser
+      },
+      'Successed',
+      'Failed',
+      '(Service) onboarding'
+    )
+  },
+}
+
 // --------------------
 // Helper
 // --------------------
@@ -394,69 +433,7 @@ const Helper = {
 
 export const Do = {
   User: {
-    /* Fast Version
-      Onboarding: async () => {
-         return Handler.tryCatch(
-            async () => {
-               const { userId } = auth()
 
-               if (!userId) throw new Error('sss')
-
-               const User = await Util.DataBase.User.getUser({ clerkId: userId })
-
-               if (User.data) return User
-
-               const NewUser = await prisma.organ.create({
-                  data: {
-                     users: {
-                        create: {
-                           clerkId: userId,
-                           type: 'ADMIN',
-                        },
-                     },
-                  },
-                  include: {
-                     users: true,
-                  },
-               })
-
-               return NewUser
-            },
-            'Message successfully pushed',
-            'Failed to push message',
-            '(U)pushMessage'
-         )
-      },
-
-    Onboarding: async () => {
-      return Handler.tryCatch(
-        async () => {
-          console.log('❌ Onboarding')
-          const ClerkId = await Util.Clerk.getClerkId()
-
-          if (!ClerkId.data) throw new Error(ClerkId.message)
-          const User = await Util.DataBase.User.getUser({ clerkId: ClerkId.data })
-
-          if (User.data) return User
-
-          const NewOrgan = await Util.DataBase.Organ.pushOrgan()
-
-          if (!NewOrgan.data) throw new Error(NewOrgan.message)
-
-          const NewUser = await Util.DataBase.User.pushUser({
-            clerkId: ClerkId.data,
-            organId: NewOrgan.data?.id,
-            type: 'ADMIN',
-          })
-
-          return NewUser
-        },
-        'Message successfully pushed',
-        'Failed to push message',
-        '(U)pushMessage'
-      )
-    },
-  },
   Lead: {
     getLead: async ({ leadId }: { leadId: string }) => {
       return Handler.tryCatch(
