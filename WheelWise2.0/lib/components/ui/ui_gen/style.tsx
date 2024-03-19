@@ -14,3 +14,9 @@ const fontVariants = cva('', {
     },
   },
 })
+
+interface FontProps
+  extends React.HTMLAttributes<HTMLSpanElement>,
+    VariantProps<typeof fontVariants> {
+  asDiv?: boolean
+}
