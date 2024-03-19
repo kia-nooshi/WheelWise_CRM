@@ -1,7 +1,7 @@
 import { Do, Ui } from '@/lib'
 
 export default async function Leads_Table() {
-  const Leads = await Do.Lead.getLeads()
+  const Leads = await Do.Service.Lead.getLeads()
 
   return (
     <Ui.Card.main>

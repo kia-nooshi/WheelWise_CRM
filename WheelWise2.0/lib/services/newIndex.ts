@@ -336,14 +336,71 @@ export const DataBase = {
 // Service
 // ----------------------------------------
 
-import delay from 'delay'
+const Helper = {
+  Chat: {
+    pushAiResponse: async ({
+      chatId,
+      message,
+      threadId,
+    }: {
+      chatId: string
+      message: string
+      threadId: string | null
+    }) => {
+      return Handler.tryCatch(
+        async () => {
+          // Sanitize message
+          const sanitizedMessage = message
+            .trim()
+            .replace(/\s\s+/g, ' ')
+            .replace(/(\r\n|\n|\r)/gm, '')
+
+          // Fetch ChatGPT API for response
+          if (!process.env.CHATGPT_API) throw new Error('CHATGPT_API URL is not defined in .env')
+
+          const res = await fetch(process.env.CHATGPT_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: sanitizedMessage,
+              threadId,
+            }),
+          })
+          if (!res.ok) throw new Error('ChatGPT - OpenAI servers are overloaded')
+          const api = await res.json()
+
+          // if ThreadId NOT exist - push ThreadId from ChatGPT
+          if (!threadId) {
+            const UpdateTreadId = await DataBase.Chat.pushThreadId({
+              chatId,
+              threadId: api.threadId,
+            })
+            if (!UpdateTreadId.success) throw new Error(UpdateTreadId.message)
+          }
+
+          // save ChatGPT response in database
+          return await DataBase.Message.pushMessage({
+            chatId: chatId,
+            content: api.respond,
+            fromLead: false,
+          })
+        },
+        'Successed',
+        'Failed',
+        '(Helper) pushAiResponse'
+      )
+    },
+  },
+}
+
+// ----------------------------------------
+// Service
+// ----------------------------------------
 
 export const Service = {
   onboarding: async () => {
     return Handler.tryCatch(
       async () => {
-        //await delay(50000)
-
         // Make sure user logedin
         const ClerkId = await Auth.Clerk.getClerkId()
         if (!ClerkId.data) throw new Error(ClerkId.message)
@@ -369,110 +426,7 @@ export const Service = {
       '(Service) onboarding'
     )
   },
-}
-
-// --------------------
-// Helper
-// --------------------
-/*
-const Helper = {
-  Chat: {
-    getAiResponse: async ({
-      chatId,
-      message,
-      threadId,
-    }: {
-      chatId: string
-      message: string
-      threadId: string | null
-    }) => {
-      return Handler.tryCatch(
-        async () => {
-          // fetch api
-          if (!process.env.CHATGPT_API) throw new Error('CHATGPT_API URL is not defined in .env')
-
-          const res = await fetch(process.env.CHATGPT_API, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              message,
-              threadId,
-            }),
-          })
-          if (!res.ok) throw new Error('Make.com API error')
-          const api = await res.json()
-
-          // pushThreadId
-          if (!threadId) {
-            const UpdateTreadId = await Util.DataBase.Chat.pushThreadId({
-              chatId,
-              threadId: api.threadId,
-            })
-            console.log(UpdateTreadId.message)
-            if (!UpdateTreadId.success) throw new Error(UpdateTreadId.message)
-          }
-
-          // pushMessage
-          return await Util.DataBase.Message.pushMessage({
-            chatId: chatId,
-            content: api.respond,
-            fromLead: false,
-          })
-        },
-        'successfully get AiResponse',
-        'Failed to get AiResponse',
-        '(H)getAiResponse'
-      )
-    },
-  },
-}
-
-// --------------------
-// Do
-// --------------------
-
-export const Do = {
-  User: {
-
-  Lead: {
-    getLead: async ({ leadId }: { leadId: string }) => {
-      return Handler.tryCatch(
-        async () => {
-          console.log('❌ GetLead')
-          const Lead = await Util.DataBase.Lead.getLead({
-            leadId,
-          })
-
-          if (!Lead.data) throw new Error(Lead.message)
-
-          return Lead.data
-        },
-        'Leads successfully retrived',
-        'Failed to retrive leads',
-        'getLeads'
-      )
-    },
-    getLeads: async () => {
-      return Handler.tryCatch(
-        async () => {
-          console.log('🧪 GetLeadss')
-          const ClerkId = await Util.Clerk.getClerkId()
-          if (!ClerkId.data) throw new Error(ClerkId.message)
-
-          const User = await Util.DataBase.User.getUser({ clerkId: ClerkId.data })
-          if (!User.data) throw new Error(User.message)
-
-          const Leads = await Util.DataBase.Lead.getLeads({ organId: User.data.organId })
-
-          if (!Leads.data) throw new Error(Leads.message)
-
-          return Leads.data
-        },
-        'Leads successfully retrived',
-        'Failed to retrive leads',
-        'getLeads'
-      )
-    },
+  API: {
     pushLeadsApi: async ({
       organId,
       firstName,
@@ -490,7 +444,7 @@ export const Do = {
     }) => {
       return Handler.tryCatch(
         async () => {
-          const Lead = await Util.DataBase.Lead.pushLead({
+          const Lead = await DataBase.Lead.pushLead({
             organId,
             firstName,
             lastName,
@@ -500,11 +454,11 @@ export const Do = {
 
           if (!Lead.data) throw new Error(Lead.message)
 
-          const Chat = await Util.DataBase.Chat.pushChat({ leadId: Lead.data.id })
+          const Chat = await DataBase.Chat.pushChat({ leadId: Lead.data.id })
 
           if (!Chat.data) throw new Error(Chat.message)
 
-          const Message = await Util.DataBase.Message.pushMessage({
+          const Message = await DataBase.Message.pushMessage({
             chatId: Chat.data.id,
             content: message,
             fromLead: true,
@@ -526,11 +480,50 @@ export const Do = {
       )
     },
   },
+  Lead: {
+    getLeads: async () => {
+      return Handler.tryCatch(
+        async () => {
+          // Make sure user logedin
+          const ClerkId = await Auth.Clerk.getClerkId()
+          if (!ClerkId.data) throw new Error(ClerkId.message)
+
+          // Get Logedin User
+          const User = await DataBase.User.getUser({ clerkId: ClerkId.data })
+          if (!User.data) throw new Error(User.message)
+
+          // Get Logedin User - Leads
+          const Leads = await DataBase.Lead.getLeads({ organId: User.data.organId })
+          if (!Leads.data) throw new Error(Leads.message)
+          return Leads.data
+        },
+        'Successed',
+        'Failed',
+        '(Service) getLeads'
+      )
+    },
+  },
+}
+
+/*
+
+// --------------------
+// Do
+// --------------------
+
+export const Do = {
+  User: {
+
+  Lead: {
+    
+   
+  },
   Chat: {
     getChat: async ({ leadId }: { leadId: string }) => {
       return Handler.tryCatch(
         async () => {
           console.log('🧪 nooooooo')
+          // ! NO LEAD ID ANYMORE - ChatId
           const Chat = await Util.DataBase.Chat.getChat({ leadId: leadId })
 
           return Chat.data
