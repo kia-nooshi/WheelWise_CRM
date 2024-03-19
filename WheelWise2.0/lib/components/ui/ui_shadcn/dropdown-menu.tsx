@@ -171,3 +171,21 @@ const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTML
   )
 }
 DropdownMenuShortcut.displayName = 'DropdownMenuShortcut'
+
+export {
+    DropdownMenuCheckboxItem as CheckboxItem,
+    DropdownMenuContent as Content,
+    DropdownMenuGroup as Group,
+    DropdownMenuItem as Item,
+    DropdownMenuLabel as Label,
+    DropdownMenu as Menu,
+    DropdownMenuPortal as Portal,
+    DropdownMenuRadioGroup as RadioGroup,
+    DropdownMenuRadioItem as RadioItem,
+    DropdownMenuSeparator as Separator,
+    DropdownMenuShortcut as Shortcut,
+    DropdownMenuSub as Sub,
+    DropdownMenuSubContent as SubContent,
+    DropdownMenuSubTrigger as SubTrigger,
+    DropdownMenuTrigger as Trigger,
+  }
