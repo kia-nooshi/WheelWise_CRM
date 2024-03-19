@@ -1,10 +1,10 @@
 import { Do, Ui } from '@/lib'
-import { Box, Card, ScrollArea, Separator, Text } from '@radix-ui/themes'
+import { Separator, Text } from '@radix-ui/themes'
 import Link from 'next/link'
 import { SiVitest } from 'react-icons/si'
 import ChatBox from './chatBox'
-import LeadRefresh from './leadRefresh'
 import SubItem from './sidebar_item'
+import Reval from './reval'
 
 const LeadPage = async ({ params }: { params: { slug: string } }) => {
   const Lead = await Do.DataBase.Lead.getLead({ leadId: params.slug })
@@ -20,7 +20,7 @@ const LeadPage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div>
-      <LeadRefresh revalpath={Lead.data?.id as string} />
+      <Reval revalpath={`/dashboard/${Lead.data?.id as string}`} sec={5} />
 
       <Link href='/dashboard' className='m-5'>
         back
