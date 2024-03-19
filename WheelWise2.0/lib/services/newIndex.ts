@@ -76,7 +76,6 @@ import { UserType } from '@prisma/client'
 export const DataBase = {
   Organ: {
     pushOrgan: async () => {
-      // 3 suc
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.create({ data: {} })
@@ -87,7 +86,6 @@ export const DataBase = {
       )
     },
     popOrgan: async ({ organId }: { organId: string }) => {
-      //1 suc // 1 fail
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.delete({ where: { id: organId } })
@@ -98,7 +96,6 @@ export const DataBase = {
       )
     },
     getOrgan: async ({ organId }: { organId: string }) => {
-      // 1 suc // 1 fail
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.findUnique({ where: { id: organId } })
@@ -109,7 +106,6 @@ export const DataBase = {
       )
     },
     popOrgans: async () => {
-      // 1
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.deleteMany({})
@@ -120,7 +116,6 @@ export const DataBase = {
       )
     },
     getOrgans: async () => {
-      // 3 suc
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.findMany()
@@ -196,9 +191,9 @@ export const DataBase = {
 
           return await prisma.lead.create({ data })
         },
-        'Lead & chat successfully pushed',
-        'Failed to push Lead & chat successfully',
-        '(U)pushLead'
+        'Successed',
+        'Failed',
+        '(DataBase) pushLead'
       )
     },
     popLead: async ({ leadId }: { leadId: string }) => {
@@ -206,9 +201,9 @@ export const DataBase = {
         async () => {
           return await prisma.lead.delete({ where: { id: leadId } })
         },
-        'Lead successfully popped',
-        'Failed to pop lead',
-        '(U)popLead'
+        'Successed',
+        'Failed',
+        '(DataBase) popLead'
       )
     },
     getLead: async ({ leadId }: { leadId: string }) => {
@@ -216,9 +211,9 @@ export const DataBase = {
         async () => {
           return await prisma.lead.findUnique({ where: { id: leadId } })
         },
-        'Lead found',
-        'Lead not found',
-        '(U)getLead'
+        'Successed',
+        'Failed',
+        '(DataBase) getLead'
       )
     },
     getLeads: async ({ organId }: { organId: string }) => {
@@ -226,9 +221,9 @@ export const DataBase = {
         async () => {
           return await prisma.lead.findMany({ where: { organId } })
         },
-        'Leads retrieved successfully',
-        'Failed to retrieve leads',
-        '(U)getLeads'
+        'Successed',
+        'Failed',
+        '(DataBase) getLeads'
       )
     },
     popLeads: async ({ organId }: { organId: string }) => {
@@ -237,9 +232,9 @@ export const DataBase = {
           const deleteResult = await prisma.lead.deleteMany({ where: { organId } })
           return deleteResult
         },
-        'Leads successfully popped',
-        'Failed to pop leads',
-        '(U)popLeads'
+        'Successed',
+        'Failed',
+        '(DataBase) popLeads'
       )
     },
   },

@@ -1,90 +1,187 @@
-import React from 'react'
-import { Util } from '@/lib'
+import { TEST } from '@/lib'
 import Test_Render from '../comps/render'
 import Test_Section from '../comps/section'
 import timer from '../comps/timer'
 
 export async function Test_4() {
-  const { result: createdOrgan, executionTime: createOrgan_executionTime } = await timer(
-    Util.DataBase.Organ.pushOrgan
+  // Step 1: Create an organ
+  const { result: createOrgan, executionTime: createOrgan_executionTime } = await timer(
+    TEST.DataBase.Organ.pushOrgan
   )
 
-  if (!createdOrgan.data) return <>TEST 4 - FAILED FOR UNKNOWN REASON.</>
+  // Steps 2-4: Add leads 1-3 to the created organ
+  const leadDetails = [
+    { firstName: 'Lead1', lastName: 'LastName1', phone: '1234567891', email: 'lead1@example.com' },
+    { firstName: 'Lead2', lastName: 'LastName2', phone: '1234567892', email: 'lead2@example.com' },
+    { firstName: 'Lead3', lastName: 'LastName3', phone: '1234567893', email: 'lead3@example.com' },
+  ]
 
-  const { result: pushedLead1, executionTime: pushLead1_executionTime } = await timer(() =>
-    Util.DataBase.Lead.pushLead({
-      organId: createdOrgan.data.id,
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'lead1@gmail.com',
-      phone: '111111111',
-    })
+  const leads = await Promise.all(
+    leadDetails.map((detail) =>
+      timer(() => TEST.DataBase.Lead.pushLead({ organId: createOrgan.data.id, ...detail }))
+    )
   )
 
-  const { result: pushedLead2, executionTime: pushLead2_executionTime } = await timer(() =>
-    Util.DataBase.Lead.pushLead({
-      organId: createdOrgan.data.id,
-      firstName: 'Jane',
-      lastName: 'Smith',
-      email: 'lead2@gmail.com',
-      phone: '222222222',
-    })
+  // Step 5: Try to add lead 1 to organ again (Expect to fail)
+  const { result: addLead1Again, executionTime: addLead1Again_executionTime } = await timer(() =>
+    TEST.DataBase.Lead.pushLead({ organId: createOrgan.data.id, ...leadDetails[0] })
   )
 
-  const { result: pushedLead3, executionTime: pushLead3_executionTime } = await timer(() =>
-    Util.DataBase.Lead.pushLead({
-      organId: createdOrgan.data.id,
-      firstName: 'Alice',
-      lastName: 'Johnson',
-      email: 'lead3@gmail.com',
-      phone: '333333333',
-    })
+  // Step 6: Try to add lead 1 to an organ that does not exist (Expect to fail)
+  const {
+    result: addLeadToNonExistentOrgan,
+    executionTime: addLeadToNonExistentOrgan_executionTime,
+  } = await timer(() =>
+    TEST.DataBase.Lead.pushLead({ organId: 'NonExistentOrganId', ...leadDetails[0] })
   )
 
-  const { result: deletedOrgan, executionTime: deleteOrgan_executionTime } = await timer(() =>
-    Util.DataBase.Organ.popOrgan({ organId: createdOrgan.data.id })
+  // Step 7: Pop lead 2
+  const { result: popLead2, executionTime: popLead2_executionTime } = await timer(() =>
+    TEST.DataBase.Lead.popLead({ leadId: leads[1].result.data.id })
   )
 
-  const { result: allLeads, executionTime: getAllLeads_executionTime } = await timer(() =>
-    Util.DataBase.Lead.getLeads({ organId: createdOrgan.data.id })
+  // Step 8: Try to pop lead 2 again (Expect to fail)
+  const { result: popLead2Again, executionTime: popLead2Again_executionTime } = await timer(() =>
+    TEST.DataBase.Lead.popLead({ leadId: leads[1].result.data.id })
   )
+
+  // Step 9: Attempt to get Lead 2 (Expect to fail)
+  const { result: getLead2Failed, executionTime: getLead2Failed_executionTime } = await timer(() =>
+    TEST.DataBase.Lead.getLead({ leadId: leads[1].result.data.id })
+  )
+
+  // Step 10: Get Lead 1
+  const { result: getLead1, executionTime: getLead1_executionTime } = await timer(() =>
+    TEST.DataBase.Lead.getLead({ leadId: leads[0].result.data.id })
+  )
+
+  // Step 11: Get all leads
+  const { result: getAllLeads, executionTime: getAllLeads_executionTime } = await timer(() =>
+    TEST.DataBase.Lead.getLeads({ organId: createOrgan.data.id })
+  )
+
+  // Step 12: Attempt to get all leads from an organ that does not exist (Expect to fail)
+  const { result: getAllLeadsNonExistent, executionTime: getAllLeadsNonExistent_executionTime } =
+    await timer(() => TEST.DataBase.Lead.getLeads({ organId: 'NonExistentOrganId' }))
+
+  // Step 13: Pop all leads
+  const { result: popAllLeads, executionTime: popAllLeads_executionTime } = await timer(() =>
+    TEST.DataBase.Lead.popLeads({ organId: createOrgan.data.id })
+  )
+
+  // Step 14: Attempt to pop all leads from an organ that does not exist (Expect to fail)
+  const { result: popAllLeadsNonExistent, executionTime: popAllLeadsNonExistent_executionTime } =
+    await timer(() => TEST.DataBase.Lead.popLeads({ organId: 'NonExistentOrganId' }))
+
+  // Step 15: Get all leads after popping all to verify
+  const { result: getAllLeadsFinalCheck, executionTime: getAllLeadsFinalCheck_executionTime } =
+    await timer(() => TEST.DataBase.Lead.getLeads({ organId: createOrgan.data.id }))
+
   return (
-    <Test_Section title='TEST #4 - Delete onCascade'>
+    <Test_Section title='TEST - Improved Lead Series'>
+      {/* Create Organ */}
       <Test_Render
-        label='Organ.pushOrgan'
-        description='Push Organ'
-        data={createdOrgan}
+        description='Create Organ'
+        data={createOrgan}
         executionTime={createOrgan_executionTime}
       />
+
+      {/* Add Lead 1 to Organ */}
       <Test_Render
-        label='Lead.pushLead (1)'
-        description='Push Lead #1'
-        data={pushedLead1}
-        executionTime={pushLead1_executionTime}
+        description='Add Lead 1 to Organ'
+        data={leads[0].result}
+        executionTime={leads[0].executionTime}
       />
+
+      {/* Add Lead 2 to Organ */}
       <Test_Render
-        label='Lead.pushLead (2)'
-        description='Push Lead #2'
-        data={pushedLead2}
-        executionTime={pushLead2_executionTime}
+        description='Add Lead 2 to Organ'
+        data={leads[1].result}
+        executionTime={leads[1].executionTime}
       />
+
+      {/* Add Lead 3 to Organ */}
       <Test_Render
-        label='Lead.pushLead (3)'
-        description='Push Lead #3'
-        data={pushedLead3}
-        executionTime={pushLead3_executionTime}
+        description='Add Lead 3 to Organ'
+        data={leads[2].result}
+        executionTime={leads[2].executionTime}
       />
+
+      {/* Try to Add Lead 1 to Organ Again (Expect to Fail) */}
       <Test_Render
-        label='Organ.popOrgan'
-        description='Pop Organ (Cascade)'
-        data={deletedOrgan}
-        executionTime={deleteOrgan_executionTime}
+        description='Try to Add Lead 1 to Organ Again (Expect to Fail)'
+        data={addLead1Again}
+        executionTime={addLead1Again_executionTime}
       />
+
+      {/* Try to Add Lead 1 to an Organ That Does Not Exist (Expect to Fail) */}
       <Test_Render
-        label='Lead.getLeads'
-        description='Get All Leads (After Deletion the Organ)'
-        data={allLeads}
+        description='Try to Add Lead 1 to an Organ That Does Not Exist (Expect to Fail)'
+        data={addLeadToNonExistentOrgan}
+        executionTime={addLeadToNonExistentOrgan_executionTime}
+      />
+
+      {/* Pop Lead 2 */}
+      <Test_Render
+        description='Pop Lead 2'
+        data={popLead2}
+        executionTime={popLead2_executionTime}
+      />
+
+      {/* Try to Pop Lead 2 Again (Expect to Fail) */}
+      <Test_Render
+        description='Try to Pop Lead 2 Again (Expect to Fail)'
+        data={popLead2Again}
+        executionTime={popLead2Again_executionTime}
+      />
+
+      {/* Attempt to Get Lead 2 (Expect to Fail) */}
+      <Test_Render
+        description='Attempt to Get Lead 2 (Expect to Fail)'
+        data={getLead2Failed}
+        executionTime={getLead2Failed_executionTime}
+      />
+
+      {/* Get Lead 1 */}
+      <Test_Render
+        description='Get Lead 1'
+        data={getLead1}
+        executionTime={getLead1_executionTime}
+      />
+
+      {/* Get All Leads */}
+      <Test_Render
+        description='Get All Leads'
+        data={getAllLeads}
         executionTime={getAllLeads_executionTime}
+      />
+
+      {/* Attempt to Get All Leads from an Organ That Does Not Exist (Expect to Fail) */}
+      <Test_Render
+        description='Attempt to Get All Leads from an Organ That Does Not Exist (Expect to Fail)'
+        data={getAllLeadsNonExistent}
+        executionTime={getAllLeadsNonExistent_executionTime}
+      />
+
+      {/* Pop All Leads */}
+      <Test_Render
+        description='Pop All Leads'
+        data={popAllLeads}
+        executionTime={popAllLeads_executionTime}
+      />
+
+      {/* Attempt to Pop All Leads from an Organ That Does Not Exist (Expect to Fail) */}
+      <Test_Render
+        description='Attempt to Pop All Leads from an Organ That Does Not Exist (Expect to Fail)'
+        data={popAllLeadsNonExistent}
+        executionTime={popAllLeadsNonExistent_executionTime}
+      />
+
+      {/* Get All Leads After Popping All to Verify */}
+      <Test_Render
+        description='Get All Leads After Popping All to Verify'
+        data={getAllLeadsFinalCheck}
+        executionTime={getAllLeadsFinalCheck_executionTime}
       />
     </Test_Section>
   )
