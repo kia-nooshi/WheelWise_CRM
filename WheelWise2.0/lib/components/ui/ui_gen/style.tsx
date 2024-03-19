@@ -20,3 +20,15 @@ interface FontProps
     VariantProps<typeof fontVariants> {
   asDiv?: boolean
 }
+
+const Style = ({ font, children, className, asDiv = false, ...props }: FontProps) => {
+  const Comp = asDiv ? 'div' : 'span'
+
+  return (
+    <Comp className={Util.Other.cn(fontVariants({ font, className }))} {...props}>
+      {children}
+    </Comp>
+  )
+}
+
+export default Style
