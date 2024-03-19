@@ -378,10 +378,16 @@ const Helper = {
             if (!UpdateTreadId.success) throw new Error(UpdateTreadId.message)
           }
 
+          // Sanitize API response
+          const sanitizedApiRespond = api.respond
+            .trim()
+            .replace(/\s\s+/g, ' ')
+            .replace(/(\r\n|\n|\r)/gm, '')
+
           // save ChatGPT response in database
           return await DataBase.Message.pushMessage({
             chatId: chatId,
-            content: api.respond,
+            content: sanitizedApiRespond,
             fromLead: false,
           })
         },
@@ -427,7 +433,7 @@ export const Service = {
     )
   },
   API: {
-    pushLeadsApi: async ({
+    pushLead: async ({
       organId,
       firstName,
       lastName,
@@ -444,39 +450,87 @@ export const Service = {
     }) => {
       return Handler.tryCatch(
         async () => {
-          const Lead = await DataBase.Lead.pushLead({
+          // Sanitize message
+          const sanitizedMessage = message
+            .trim()
+            .replace(/\s\s+/g, ' ')
+            .replace(/(\r\n|\n|\r)/gm, '')
+
+          // push new Lead to Organ
+          const lead = await DataBase.Lead.pushLead({
             organId,
             firstName,
             lastName,
             phone,
             email,
           })
+          if (!lead.data) throw new Error(lead.message)
 
-          if (!Lead.data) throw new Error(Lead.message)
+          // push new Chat to Lead
+          const chat = await DataBase.Chat.pushChat({ leadId: lead.data.id })
+          if (!chat.data) throw new Error(chat.message)
 
-          const Chat = await DataBase.Chat.pushChat({ leadId: Lead.data.id })
-
-          if (!Chat.data) throw new Error(Chat.message)
-
+          // push new Message to Chat
           const Message = await DataBase.Message.pushMessage({
-            chatId: Chat.data.id,
-            content: message,
+            chatId: chat.data.id,
+            content: sanitizedMessage,
             fromLead: true,
           })
-
           if (!Message.data) throw new Error(Message.message)
 
-          const AiResponse = await Helper.Chat.getAiResponse({
-            chatId: Chat.data.id,
+          // push new AiMessage to Chat
+          const AiResponse = await Helper.Chat.pushAiResponse({
+            chatId: chat.data.id,
             message: Message.data.content,
-            threadId: Chat.data.threadId,
+            threadId: chat.data.threadId,
           })
 
-          return { Chat, Lead, Message, AiResponse }
+          return { lead, chat, Message, AiResponse }
         },
-        'Lead successfully pushed',
-        'Failed to push lead',
-        'getLeadsApi'
+        'Successed',
+        'Failed',
+        '(Service) API.pushLead'
+      )
+    },
+    pushChat: async ({
+      chatId,
+      content,
+      fromLead,
+      threadId,
+    }: {
+      chatId: string
+      content: string
+      fromLead: boolean
+      threadId: string
+    }) => {
+      return Handler.tryCatch(
+        async () => {
+          // Sanitize message
+          const sanitizedMessage = content
+            .trim()
+            .replace(/\s\s+/g, ' ')
+            .replace(/(\r\n|\n|\r)/gm, '')
+
+          // Push Message to Chat
+          const Message = await DataBase.Message.pushMessage({
+            chatId,
+            content: sanitizedMessage,
+            fromLead,
+          })
+          if (!Message.data) throw new Error(Message.message)
+
+          // push new AiMessage to Chat
+          const AiResponse = await Helper.Chat.pushAiResponse({
+            chatId,
+            message: sanitizedMessage,
+            threadId,
+          })
+
+          return { Message, AiResponse }
+        },
+        'Successed',
+        'Failed',
+        '(Service) API.pushChat'
       )
     },
   },
@@ -533,36 +587,7 @@ export const Do = {
         'getLeads'
       )
     },
-    pushChatApi: async ({
-      chatId,
-      content,
-      fromLead,
-      threadId,
-    }: {
-      chatId: string
-      content: string
-      fromLead: boolean
-      threadId: string
-    }) => {
-      return Handler.tryCatch(
-        async () => {
-          const Chat = await Util.DataBase.Message.pushMessage({
-            chatId,
-            content,
-            fromLead,
-          })
-
-          const Reply = await Helper.Chat.getAiResponse({
-            chatId,
-            message: content,
-            threadId,
-          })
-        },
-        'Leads successfully retrived',
-        'Failed to retrive leads',
-        'getLeads'
-      )
-    },
+   
   },
 }
 

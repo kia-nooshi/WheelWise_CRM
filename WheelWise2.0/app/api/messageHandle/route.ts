@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json()
 
   try {
-    const Chat = await Do.Chat.pushChatApi({
+    const Chat = await Do.Service.API.pushChat({
       chatId: body.chatId,
       content: body.content,
       fromLead: true,
