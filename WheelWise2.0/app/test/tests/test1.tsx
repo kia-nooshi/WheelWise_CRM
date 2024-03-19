@@ -5,6 +5,10 @@ import { TEST, Util } from '@/lib'
 import timer from '../comps/timer'
 
 export async function Test_1() {
+  // Step 0: Clean
+  await TEST.DataBase.Organ.popOrgans()
+
+  // Step 1 - Clerk ID
   const { result, executionTime: getClerkId_executionTime } = await timer(
     TEST.Auth.Clerk.getClerkId
   )

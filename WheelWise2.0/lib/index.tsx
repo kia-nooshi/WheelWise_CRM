@@ -13,12 +13,13 @@ export const Provider = { Clerk: ClerkProvider, Radix }
 // Functions
 // ----------------------------------------
 
-import { Auth, DataBase } from '@/lib/services/newIndex'
+import { Util, Auth, DataBase } from '@/lib/services/newIndex'
 
 export const TEST = { Auth, DataBase }
+export const Do = { Util, Auth, DataBase }
 
 // #1 - Util
-export { Do, Util } from '@/lib/services'
+export { Do as ss } from '@/lib/services'
 // #2 - Do
 
 // ----------------------------------------

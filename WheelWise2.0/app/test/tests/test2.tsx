@@ -4,6 +4,9 @@ import Test_Section from '../comps/section'
 import timer from '../comps/timer'
 
 export async function Test_2() {
+  // Step 0: Clean
+  await TEST.DataBase.Organ.popOrgans()
+
   // Create Organs
   const { result: createOrgan1, executionTime: createOrgan1_executionTime } = await timer(
     TEST.DataBase.Organ.pushOrgan

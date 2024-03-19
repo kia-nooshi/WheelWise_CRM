@@ -1,4 +1,4 @@
-import { Util } from '@/lib'
+import { Do } from '@/lib'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { Inter, Poppins } from 'next/font/google'
 import * as React from 'react'
@@ -25,7 +25,7 @@ const Style = ({ font, children, className, asDiv = false, ...props }: FontProps
   const Comp = asDiv ? 'div' : 'span'
 
   return (
-    <Comp className={Util.Other.cn(fontVariants({ font, className }))} {...props}>
+    <Comp className={Do.Util.cn(fontVariants({ font, className }))} {...props}>
       {children}
     </Comp>
   )

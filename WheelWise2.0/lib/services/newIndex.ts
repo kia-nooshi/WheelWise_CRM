@@ -126,7 +126,6 @@ export const DataBase = {
       )
     },
   },
-
   User: {
     pushUser: async ({
       organId,
@@ -163,7 +162,6 @@ export const DataBase = {
       )
     },
   },
-
   Lead: {
     pushLead: async ({
       organId,
@@ -238,40 +236,19 @@ export const DataBase = {
       )
     },
   },
-
-  /*
   Chat: {
     pushChat: async ({ leadId }: { leadId: string }) => {
       return Handler.tryCatch(
         async () => {
-          // make data ready
-          const data = {
-            lead: { connect: { id: leadId } },
-          }
-
-          return await prisma.chat.create({ data })
+          return await prisma.chat.create({
+            data: {
+              lead: { connect: { id: leadId } },
+            },
+          })
         },
-        'Chat successfully created',
-        'Failed to create chat',
-        '(U)pushChat'
-      )
-    },
-    pushThreadId: async ({ chatId, threadId }: { chatId: string; threadId: string }) => {
-      return Handler.tryCatch(
-        async () => {
-          if (!threadId) throw new Error('threadId is required')
-
-          // make data ready
-          const data = {
-            where: { id: chatId },
-            data: { threadId },
-          }
-
-          return await prisma.chat.update(data)
-        },
-        'Thread ID successfully pushed to chat',
-        'Failed to push thread ID to chat',
-        '(U)pushThreadId'
+        'Succeeded',
+        'Failed',
+        '(DataBase) pushChat'
       )
     },
     popChat: async ({ chatId }: { chatId: string }) => {
@@ -281,24 +258,36 @@ export const DataBase = {
             where: { id: chatId },
           })
         },
-        'Chat successfully deleted',
-        'Failed to delete chat',
-        '(U)popChat'
+        'Succeeded',
+        'Failed',
+        '(DataBase) popChat'
       )
     },
-    getChat: async ({ leadId }: { leadId: string }) => {
+    getChat: async ({ chatId }: { chatId: string }) => {
       return Handler.tryCatch(
         async () => {
           return await prisma.chat.findUnique({
-            where: { leadId },
-            include: {
-              messages: true,
-            },
+            where: { id: chatId },
           })
         },
-        'Chat successfully retrieved',
-        'Failed to retrieve chat',
-        '(U)getChat'
+        'Succeeded',
+        'Failed',
+        '(DataBase) getChat'
+      )
+    },
+    pushThreadId: async ({ chatId, threadId }: { chatId: string; threadId: string }) => {
+      return Handler.tryCatch(
+        async () => {
+          if (!threadId) throw new Error('threadId is required')
+
+          return await prisma.chat.update({
+            where: { id: chatId },
+            data: { threadId },
+          })
+        },
+        'Succeeded',
+        'Failed',
+        '(DataBase) pushThreadId'
       )
     },
   },
@@ -315,18 +304,17 @@ export const DataBase = {
     }) => {
       return Handler.tryCatch(
         async () => {
-          // make data ready
-          const data = {
-            chat: { connect: { id: chatId } },
-            content,
-            fromLead,
-          }
-
-          return await prisma.message.create({ data })
+          return await prisma.message.create({
+            data: {
+              chat: { connect: { id: chatId } },
+              content,
+              fromLead,
+            },
+          })
         },
-        'Message successfully pushed',
-        'Failed to push message',
-        '(U)pushMessage'
+        'Succeeded',
+        'Failed',
+        '(DataBase) pushMessage'
       )
     },
     popMessage: async ({ messageId }: { messageId: string }) => {
@@ -336,13 +324,12 @@ export const DataBase = {
             where: { id: messageId },
           })
         },
-        'Message successfully deleted',
-        'Failed to delete message',
-        '(U)popMessage'
+        'Succeeded',
+        'Failed',
+        '(DataBase)popMessage'
       )
     },
   },
-  */
 }
 
 // --------------------
