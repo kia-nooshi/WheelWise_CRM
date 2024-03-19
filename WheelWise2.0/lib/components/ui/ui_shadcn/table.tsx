@@ -99,3 +99,13 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
   ))
   TableCaption.displayName = 'TableCaption'
   
+  export {
+    Table as main,
+    TableHeader as Header,
+    TableBody as Body,
+    TableFooter as Footer,
+    TableHead as Head,
+    TableRow as Row,
+    TableCell as Cell,
+    TableCaption as Caption,
+  }
