@@ -15,7 +15,7 @@ export default async function PrivateLayout({ children }: { children: React.Reac
         <Comp.Private.Nav />
       </Ui.Flex>
       <Ui.Flex className='w-full h-full overflow-hidden' align={'center'} justify={'center'}>
-        <Ui.Scroll.Area className='w-full h-full'>{children}</Ui.Scroll.Area>
+        <Ui.Scroll.Area className='w-full h-full px-36 py-10'>{children}</Ui.Scroll.Area>
       </Ui.Flex>
       <Ui.Flex className='dark:bg-zinc-950 w-full' align={'center'} justify={'center'}>
         <Comp.Public.Footer />

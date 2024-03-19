@@ -5,7 +5,7 @@ export function Controler() {
   return (
     <Ui.Dropd.Menu>
       <Ui.Dropd.Trigger asChild>
-        <Ui.Button variant={'outline'}>Get Started Here</Ui.Button>
+        <Ui.Button.Button variant={'outline'}>Get Started Here</Ui.Button.Button>
       </Ui.Dropd.Trigger>
       <Ui.Dropd.Content className='w-56'>
         <Ui.Dropd.Label>My Account</Ui.Dropd.Label>

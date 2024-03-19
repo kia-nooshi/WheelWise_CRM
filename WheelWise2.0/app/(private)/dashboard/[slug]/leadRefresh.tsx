@@ -3,10 +3,10 @@
 import { useEffect } from 'react'
 import { leadRevalidate } from './leadRevalidate'
 
-const LeadRefresh = () => {
+const LeadRefresh = ({ revalpath }: { revalpath: string }) => {
   useEffect(() => {
     const interval = setInterval(() => {
-      leadRevalidate()
+      leadRevalidate({ revalpath })
     }, 10000)
 
     return () => clearInterval(interval)

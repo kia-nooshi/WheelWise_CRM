@@ -1,4 +1,4 @@
-import { Util } from '@/lib'
+import { Do } from '@/lib'
 import { revalidatePath } from 'next/cache'
 import React from 'react'
 
@@ -6,7 +6,7 @@ export default async function ChatBox({ chatId }: { chatId: string }) {
   const addMessage = async (formData: FormData) => {
     'use server'
 
-    Util.DataBase.Message.pushMessage({
+    Do.DataBase.Message.pushMessage({
       chatId,
       content: formData.get('message') as string,
       fromLead: false,

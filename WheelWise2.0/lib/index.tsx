@@ -31,7 +31,8 @@ import * as Dropd from '@/lib/components/ui/ui_shadcn/dropdown-menu'
 import * as Card from '@/lib/components/ui/ui_shadcn/card'
 import * as Scroll from '@/lib/components/ui/ui_shadcn/scroll'
 import * as Table from '@/lib/components/ui/ui_shadcn/table'
-import { Button } from '@/lib/components/ui/ui_shadcn/button'
+import * as Badge from '@/lib/components/ui/ui_shadcn/badge'
+import * as Button from '@/lib/components/ui/ui_shadcn/button'
 
 // #2 - ui_danin
 
@@ -42,7 +43,20 @@ import { default as Logo } from '@/lib/components/ui/ui_gen/logo'
 import { default as Loading } from '@/lib/components/ui/ui_gen/loading'
 import { default as Copy } from '@/lib/components/ui/ui_gen/copy'
 
-export const Ui = { Flex, Icon, Style, Logo, Loading, Copy, Dropd, Button, Card, Scroll, Table }
+export const Ui = {
+  Flex,
+  Icon,
+  Style,
+  Logo,
+  Loading,
+  Copy,
+  Dropd,
+  Button,
+  Card,
+  Scroll,
+  Table,
+  Badge,
+}
 
 // ----------------------------------------
 // Components - Comp

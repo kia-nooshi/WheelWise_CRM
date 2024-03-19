@@ -2,7 +2,7 @@ import { Comp, Ui } from '@/lib'
 
 export default function Navigation() {
   return (
-    <nav className='w-full max-w-3xl py-10'>
+    <nav className='w-full max-w-3xl py-5'>
       <Ui.Flex align={'center'} justify={'between'} gap={'medium'}>
         <Ui.Logo />
         <div>

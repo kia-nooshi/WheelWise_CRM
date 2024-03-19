@@ -72,6 +72,7 @@ export const Auth = {
 
 import prisma from '@/prisma/client'
 import { UserType } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
 
 export const DataBase = {
   Organ: {
@@ -207,7 +208,7 @@ export const DataBase = {
     getLead: async ({ leadId }: { leadId: string }) => {
       return Handler.tryCatch(
         async () => {
-          return await prisma.lead.findUnique({ where: { id: leadId } })
+          return await prisma.lead.findUnique({ where: { id: leadId }, include: { chat: true } })
         },
         'Successed',
         'Failed',
@@ -268,6 +269,7 @@ export const DataBase = {
         async () => {
           return await prisma.chat.findUnique({
             where: { id: chatId },
+            include: { messages: true },
           })
         },
         'Succeeded',

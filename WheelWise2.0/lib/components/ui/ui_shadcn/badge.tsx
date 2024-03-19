@@ -30,4 +30,4 @@ function Badge({ className, variant, ...props }: BadgeProps) {
   return <div className={Do.Util.cn(badgeVariants({ variant }), className)} {...props} />
 }
 
-export { Badge, badgeVariants }
+export { Badge as main, badgeVariants as variant }

@@ -14,6 +14,9 @@ export async function POST(request: NextRequest) {
       threadId: body.threadId,
     })
 
+    console.log(Chat.data?.AiResponse.message)
+    console.log(Chat.data?.Message.message)
+
     if (!Chat.data) throw new Error(Chat.message)
 
     return NextResponse.json(Chat.message, { status: 200 })
