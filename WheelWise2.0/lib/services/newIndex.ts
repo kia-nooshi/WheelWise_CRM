@@ -76,6 +76,7 @@ import { UserType } from '@prisma/client'
 export const DataBase = {
   Organ: {
     pushOrgan: async () => {
+      // 3 suc
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.create({ data: {} })
@@ -86,6 +87,7 @@ export const DataBase = {
       )
     },
     popOrgan: async ({ organId }: { organId: string }) => {
+      //1 suc // 1 fail
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.delete({ where: { id: organId } })
@@ -96,6 +98,7 @@ export const DataBase = {
       )
     },
     getOrgan: async ({ organId }: { organId: string }) => {
+      // 1 suc // 1 fail
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.findUnique({ where: { id: organId } })
@@ -106,6 +109,7 @@ export const DataBase = {
       )
     },
     popOrgans: async () => {
+      // 1
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.deleteMany({})
@@ -116,6 +120,7 @@ export const DataBase = {
       )
     },
     getOrgans: async () => {
+      // 3 suc
       return Handler.tryCatch(
         async () => {
           return await prisma.organ.findMany()
@@ -164,7 +169,6 @@ export const DataBase = {
     },
   },
 
-  /*
   Lead: {
     pushLead: async ({
       organId,
@@ -240,6 +244,7 @@ export const DataBase = {
     },
   },
 
+  /*
   Chat: {
     pushChat: async ({ leadId }: { leadId: string }) => {
       return Handler.tryCatch(

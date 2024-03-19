@@ -4,180 +4,93 @@ import Test_Section from '../comps/section'
 import timer from '../comps/timer'
 
 export async function Test_3() {
-  const { result: pushOrgan_1, executionTime: pushOrgan_1_executionTime } = await timer(
+  // Step 1: Create Organ 1
+  const { result: createOrgan1, executionTime: createOrgan1_executionTime } = await timer(
     TEST.DataBase.Organ.pushOrgan
   )
 
-  if (!pushOrgan_1.data) return <>TEST 3 - FAILED FOR UNKNOWN REASON.</>
-
-  const { result: pushLead_1, executionTime: pushLead_1_executionTime } = await timer(() =>
-    TEST.DataBase.Lead.pushLead({
-      organId: pushOrgan_1.data.id,
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'test1@gmail.com',
-      phone: '123456789',
+  // Step 2: Create User 1 and add to Organ 1
+  const { result: createUser1, executionTime: createUser1_executionTime } = await timer(() =>
+    TEST.DataBase.User.pushUser({
+      organId: createOrgan1.data.id,
+      clerkId: 'clerk1',
+      type: 'USER',
     })
   )
 
-  const { result: pushLead_1Again, executionTime: pushLead_1Again_executionTime } = await timer(
-    () =>
-      TEST.DataBase.Lead.pushLead({
-        organId: pushOrgan_1.data.id,
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'test1@gmail.com',
-        phone: '123456789',
-      })
-  )
-
-  const { result: pushLead_2, executionTime: pushLead_2_executionTime } = await timer(() =>
-    TEST.DataBase.Lead.pushLead({
-      organId: pushOrgan_1.data.id,
-      firstName: 'Jane',
-      lastName: 'Smith',
-      email: 'test2@gmail.com',
-      phone: '987654321',
+  // Step 3: Attempt to create User 2 and add to an Organ that does not exist (expect to fail)
+  const { result: createUser2, executionTime: createUser2_executionTime } = await timer(() =>
+    TEST.DataBase.User.pushUser({
+      organId: 'NonExistentOrganId',
+      clerkId: 'clerk2',
+      type: 'ADMIN',
     })
   )
 
-  const { result: pushLead_3, executionTime: pushLead_3_executionTime } = await timer(() =>
-    TEST.DataBase.Lead.pushLead({
-      organId: pushOrgan_1.data.id,
-      firstName: 'Alice',
-      lastName: 'Johnson',
-      email: 'test3@gmail.com',
-      phone: '555555555',
+  // Additional step: Create User 3 with specific Organ ID
+  const { result: createUser3, executionTime: createUser3_executionTime } = await timer(() =>
+    TEST.DataBase.User.pushUser({
+      organId: '65f8e06224f370e186588257',
+      clerkId: 'clerk3',
+      type: 'ADMIN',
     })
   )
 
-  const { result: pushLead_4, executionTime: pushLead_4_executionTime } = await timer(() =>
-    TEST.DataBase.Lead.pushLead({
-      organId: pushOrgan_1.data.id,
-      firstName: 'Bob',
-      lastName: 'Brown',
-      email: 'test4@gmail.com',
-      phone: '666666666',
+  // Step 4: Get User 1 using Clerk ID
+  const { result: getUser1, executionTime: getUser1_executionTime } = await timer(() =>
+    TEST.DataBase.User.getUser({
+      clerkId: 'clerk1',
     })
   )
-  if (!!!pushLead_2.data) return <>{pushLead_2.message}</>
-  if (!!!pushLead_3.data) return <>{pushLead_3.message}</>
 
-  const { result: getLead_2, executionTime: getLead_2_executionTime } = await timer(() =>
-    TEST.DataBase.Lead.getLead({ leadId: pushLead_2.data.id })
+  // Step 5: Attempt to get a User with an ID that does not exist (expect to fail)
+  const { result: getUserInvalid, executionTime: getUserInvalid_executionTime } = await timer(() =>
+    TEST.DataBase.User.getUser({
+      clerkId: 'NonExistentClerkId',
+    })
   )
 
-  const { result: getLeads, executionTime: getLeads_executionTime } = await timer(() =>
-    TEST.DataBase.Lead.getLeads({ organId: pushOrgan_1.data.id })
+  // Step 6: Pop Organ 1
+  const { result: popOrgan1, executionTime: popOrgan1_executionTime } = await timer(() =>
+    TEST.DataBase.Organ.popOrgan({ organId: createOrgan1.data.id })
   )
 
-  const { result: popLead_3, executionTime: popLead_3_executionTime } = await timer(() =>
-    TEST.DataBase.Lead.popLead({ leadId: pushLead_3.data.id })
-  )
-
-  const { result: getLead_3, executionTime: getLead_3_executionTime } = await timer(() =>
-    TEST.DataBase.Lead.getLead({ leadId: pushLead_3.data.id })
-  )
-
-  const { result: getLeads_AfterPop, executionTime: getLeads_AfterPop_executionTime } = await timer(
-    () => TEST.DataBase.Lead.getLeads({ organId: pushOrgan_1.data.id })
-  )
-
-  const { result: popLeads, executionTime: popLeads_executionTime } = await timer(() =>
-    TEST.DataBase.Lead.popLeads({ organId: pushOrgan_1.data.id })
-  )
-
-  const { result: getLeads_AfterPopLeads, executionTime: getLeads_AfterPopLeads_executionTime } =
-    await timer(() => TEST.DataBase.Lead.getLeads({ organId: pushOrgan_1.data.id }))
-
-  const { result: clear, executionTime: clear_executionTime } = await timer(() =>
-    TEST.DataBase.Organ.popOrgan({ organId: pushOrgan_1.data.id })
-  )
   return (
-    <Test_Section title='TEST #3 - Lead Functionality'>
+    <Test_Section title='TEST - User Series'>
       <Test_Render
-        label='Organ.pushOrgan'
-        description='Push Organ #1'
-        data={pushOrgan_1}
-        executionTime={pushOrgan_1_executionTime}
+        description='Create Organ #1'
+        data={createOrgan1}
+        executionTime={createOrgan1_executionTime}
       />
       <Test_Render
-        label='Lead.pushLead'
-        description='Push Lead #1'
-        data={pushLead_1}
-        executionTime={pushLead_1_executionTime}
+        description='Create User #1 and Add to Organ #1'
+        data={createUser1}
+        executionTime={createUser1_executionTime}
       />
       <Test_Render
-        label='Lead.pushLead (Duplicate)'
-        description='Try Pushing Lead #1 Again (Expected to Fail)'
-        data={pushLead_1Again}
-        executionTime={pushLead_1Again_executionTime}
+        description='Attempt to Create User #2 and Add to Non-Existent Organ (Expect to Fail)'
+        data={createUser2}
+        executionTime={createUser2_executionTime}
       />
       <Test_Render
-        label='Lead.pushLead'
-        description='Push Lead #2'
-        data={pushLead_2}
-        executionTime={pushLead_2_executionTime}
+        description='Attempt to Create User #3 with Non-Existent Organ ID (Expect to Fail)'
+        data={createUser3}
+        executionTime={createUser3_executionTime}
       />
       <Test_Render
-        label='Lead.pushLead'
-        description='Push Lead #3'
-        data={pushLead_3}
-        executionTime={pushLead_3_executionTime}
+        description='Get User #1 using Clerk ID'
+        data={getUser1}
+        executionTime={getUser1_executionTime}
       />
       <Test_Render
-        label='Lead.pushLead'
-        description='Push Lead #4'
-        data={pushLead_4}
-        executionTime={pushLead_4_executionTime}
+        description='Attempt to Get a User with an ID that does not exist (Expect to Fail)'
+        data={getUserInvalid}
+        executionTime={getUserInvalid_executionTime}
       />
       <Test_Render
-        label='Lead.getLead'
-        description='Get Lead #2'
-        data={getLead_2}
-        executionTime={getLead_2_executionTime}
-      />
-      <Test_Render
-        label='Lead.getAllLeads'
-        description='Get All Leads'
-        data={getLeads}
-        executionTime={getLeads_executionTime}
-      />
-      <Test_Render
-        label='Lead.popLead'
-        description='Pop Lead #3'
-        data={popLead_3}
-        executionTime={popLead_3_executionTime}
-      />
-      <Test_Render
-        label='Lead.getLead'
-        description='Get Lead #3 (After Pop)'
-        data={getLead_3}
-        executionTime={getLead_3_executionTime}
-      />
-      <Test_Render
-        label='Lead.getAllLeads (After Pop)'
-        description='Get All Leads (After Pop)'
-        data={getLeads_AfterPop}
-        executionTime={getLeads_AfterPop_executionTime}
-      />
-      <Test_Render
-        label='Lead.popAllLeads'
-        description='Pop All Leads'
-        data={popLeads}
-        executionTime={popLeads_executionTime}
-      />
-      <Test_Render
-        label='Lead.getAllLeads (After Pop All)'
-        description='Get All Leads (After Pop All)'
-        data={getLeads_AfterPopLeads}
-        executionTime={getLeads_AfterPopLeads_executionTime}
-      />
-      <Test_Render
-        label='Organ.popOrgan'
-        description='Clear Organs'
-        data={clear}
-        executionTime={clear_executionTime}
+        description='Pop Organ #1'
+        data={popOrgan1}
+        executionTime={popOrgan1_executionTime}
       />
     </Test_Section>
   )
