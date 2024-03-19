@@ -1,15 +1,15 @@
 import { Do } from '@/lib'
-import { revalidatePath } from 'next/cache'
-import React from 'react'
+import { FiSend } from 'react-icons/fi'
 
-export default async function ChatBox({ chatId }: { chatId: string }) {
+export default async function ChatBox({ chatId, threadId }: { chatId: string; threadId: string }) {
   const addMessage = async (formData: FormData) => {
     'use server'
 
-    Do.DataBase.Message.pushMessage({
+    const Chat = await Do.Service.API.pushChat({
       chatId,
       content: formData.get('message') as string,
-      fromLead: false,
+      fromLead: true,
+      threadId,
     })
   }
 
@@ -21,7 +21,9 @@ export default async function ChatBox({ chatId }: { chatId: string }) {
         placeholder='Type your message here ...'
         className='py-2 px-5 w-full rounded-full '
       />
-      <button className='py-2 px-5 bg-blue-600 rounded-full'>Send</button>
+      <button className='py-2 px-5 w-[50px] h-[50px] bg-blue-600 rounded-full'>
+        <FiSend />
+      </button>
     </form>
   )
 }

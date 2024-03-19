@@ -2,6 +2,7 @@ import { Do, Ui } from '@/lib'
 import React from 'react'
 import Image from 'next/image'
 import Reval from './reval'
+import ChatBox from './chat'
 
 export default async function page({ params }: { params: { slug: string } }) {
   const Lead = await Do.DataBase.Lead.getLead({ leadId: params.slug })
@@ -21,7 +22,10 @@ export default async function page({ params }: { params: { slug: string } }) {
           src='/images/mb2.png'
           className='absolute left-0 top-0 z-10'
         />
-        <Ui.Scroll.Area className='text-black w-full h-full p-5 z-20 relative'>
+        <div className='px-12 absolute bottom-10 left-0 right-0 w-full z-30'>
+          <ChatBox chatId={Chat.data?.id as string} threadId={Chat.data?.threadId as string} />
+        </div>
+        <Ui.Scroll.Area className='text-black w-full h-full p-5 pb-16 z-20 relative'>
           {Chat.data?.messages.map((msg) => (
             <div key={msg.id} className='flex flex-col gap-10'>
               <div
