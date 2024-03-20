@@ -1,3 +1,45 @@
+# 🐢 Team Turtles
+
+## Developers and Contributions
+
+### Danin Namiranian
+
+- **GitHub**: [danin1993](https://github.com/danin1993)
+- **Contributions**:
+  - Authentication (Login/Register)
+  - MongoDB and Prisma (Real-time database)
+  - AI Responses
+  - APIs (Auth, Organ, User, Lead, Chat, Message)
+  - Functions Library (Auth, Organ, User, Lead, Chat, Message)
+
+### Will Huang
+
+- **GitHub**: [whuan126](https://github.com/whuan126)
+- **Contributions**:
+  - Chat Conversation Takeover
+  - API Integration
+  - Environment Setup
+
+### Kianoosh Nooshi
+
+- **GitHub**: [kia-nooshi](https://github.com/kia-nooshi)
+- **Contributions**:
+  - Testing API (Clerk Authentication, Organ, User (Admin/Manager))
+  - Component Creation
+  - Environment Setup
+
+### Omair Shafi
+
+- **GitHub**: [Omair-Shafi](https://github.com/Omair-Shafi)
+- **Contributions**:
+  - Component Creation (Flex, Icon, Loading, etc.)
+
+### Siddharta Dutta
+
+- **GitHub**: [SiddhartaDutta](https://github.com/SiddhartaDutta)
+- **Contributions**:
+  - Component Creation (Alert, Badge, Card, etc.)
+
 # 🤖 WheelWise CRM 2.0.0 Release Notes
 
 # WheelWise CRM 2.0
