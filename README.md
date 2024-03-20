@@ -189,52 +189,83 @@ We are committed to continuous improvement and eagerly anticipate your feedback 
 
 # 🧪 Test Cases
 
-## Test Group 1: Clerk Functionality Testing
+## Detailed Test Cases Implementation and Expectations
 
-This test group focuses on verifying the functionality of the Clerk service within the application. Specifically, it assesses the ability to retrieve a Clerk ID efficiently and accurately.
+This document outlines the detailed test cases designed to validate the functionality and robustness of our application. Each test case is implemented with specific functions and aims to test various aspects of the application, including data manipulation, performance, and error handling.
 
-- **TEST #1 - Clerk Functionality**
-  - **Function Tested**: `Clerk.getClerkId`
-  - **Description**: Tests whether the application can successfully retrieve a Clerk ID.
-  - **Execution Method**: The function is timed for performance analysis.
+### Test Group 1: Clerk Functionality Testing
 
-## Test Group 2: Organ Functionality Testing
+#### TEST #1 - Clerk Functionality
 
-The second test group aims at evaluating the functionality related to organs within the database, encompassing the creation, retrieval, and deletion of organ entries.
+- **Function Tested**: `Clerk.getClerkId`
+- **Description**: Ensures the application can retrieve a Clerk ID successfully.
+- **Execution Method**: The function is executed and its performance is timed.
+- **Detailed Steps**:
+  - **Step 0: Clean-up**: Initial database clean-up is performed to ensure a clean state.
+  - **Step 1: Retrieve Clerk ID**: The `Clerk.getClerkId` function is called, and its execution time is measured.
+  - **Expected Outcome**: The Clerk ID is retrieved successfully within an acceptable time frame.
+  - **Implementation Code**: `Test_1` function.
 
-- **TEST #2 - Organ Functionality**
-  - **Functions Tested**:
-    - `Organ.pushOrgan` for adding new organ entries.
-    - `Organ.getOrgans` for retrieving a list of all organ entries.
-    - `Organ.popOrgan` for removing a specific organ entry.
-    - `Organ.popOrgans` for removing all organ entries.
-  - **Description**: This series of tests checks the application's ability to manage organ data within the database, including adding new entries, retrieving existing ones, and deleting entries both individually and in bulk.
+### Test Group 2: Organ Functionality Testing
 
-## Test Group 3: Lead Functionality Testing
+#### TEST #2 - Organ Functionality
 
-Test group three assesses the application's lead management capabilities, including adding new leads, retrieving specific leads or all leads, and deleting leads.
+- **Functions Tested**:
+  - `Organ.pushOrgan` for adding new organ entries.
+  - `Organ.getOrgans` for retrieving a list of all organ entries.
+  - `Organ.popOrgan` for removing a specific organ entry.
+  - `Organ.popOrgans` for removing all organ entries.
+- **Description**: Tests the application's ability to manage organ data within the database.
+- **Detailed Steps**:
+  - **Step 0: Clean-up**: Ensure no organ entries exist before the test begins.
+  - **Create Organs**: Multiple organs are added, and their creation times are measured.
+  - **Retrieve Organs**: Tests retrieval of all organ entries after creation.
+  - **Delete Specific Organ**: Removes a specific organ and tests deletion performance.
+  - **Delete All Organs**: Tests the removal of all organ entries and ensures the operation's success.
+  - **Expected Outcomes**: Each function performs as expected, with organ data being accurately manipulated and retrieved.
+  - **Implementation Code**: `Test_2` function.
 
-- **TEST #3 - Lead Functionality**
-  - **Functions Tested**:
-    - `Lead.pushLead` for adding new lead entries.
-    - `Lead.getLead` for retrieving details of a specific lead.
-    - `Lead.getLeads` for fetching all leads associated with an organ.
-    - `Lead.popLead` for removing a specific lead entry.
-    - `Lead.popLeads` for removing all leads associated with an organ.
-  - **Description**: This test verifies the application's functionality related to lead management, ensuring leads can be added, retrieved, and deleted as expected.
+### Test Group 3: Lead Functionality Testing
 
-## Test Group 4: Delete onCascade Testing
+#### TEST #3 - Lead Functionality
 
-The fourth test group is designed to verify the cascading delete functionality, ensuring that deleting an organ also removes all associated leads.
+- **Functions Tested**:
+  - `Lead.pushLead` for adding new lead entries.
+  - `Lead.getLead` for retrieving details of a specific lead.
+  - `Lead.getLeads` for fetching all leads associated with an organ.
+  - `Lead.popLead` for removing a specific lead entry.
+  - `Lead.popLeads` for removing all leads associated with an organ.
+- **Description**: Verifies lead management functionality, including addition, retrieval, and deletion.
+- **Detailed Steps**:
+  - Similar to the organ functionality test, this test involves cleaning up lead entries, creating new leads, testing retrieval of lead information, and assessing the deletion of leads both individually and in bulk.
+  - **Implementation Code**: `Test_3` function.
 
-- **TEST #4 - Delete onCascade**
-  - **Functions Tested**:
-    - `Organ.pushOrgan` and `Lead.pushLead` to set up the initial data state.
-    - `Organ.popOrgan` to trigger the cascading delete.
-    - `Lead.getLeads` to verify the result of the cascading delete.
-  - **Description**: This test checks if deleting an organ entry correctly triggers the deletion of all associated lead entries, testing the integrity of the cascading delete functionality within the database.
+### Test Group 4: Delete onCascade Testing
 
-Each test group is designed to validate specific functionalities within the application, ensuring robustness and reliability of the system's data management capabilities.
+#### TEST #4 - Delete onCascade
+
+- **Functions Tested**:
+  - Combination of `Organ.pushOrgan`, `Lead.pushLead`, and `Organ.popOrgan`.
+- **Description**: Tests the cascading delete functionality to ensure that deleting an organ also deletes all associated leads.
+- **Detailed Steps**:
+  - An organ is created along with associated leads. The deletion of the organ triggers a cascading delete operation to remove all associated leads.
+  - **Expected Outcome**: Upon organ deletion, all linked lead entries are also removed, confirming the integrity of the cascading delete functionality.
+  - **Implementation Code**: `Test_4` function.
+
+### Test Group 5: Chat and Message Functionality Testing
+
+#### TEST #5 - Chat and Message Functionality
+
+- **Functions Tested**:
+  - `Chat.pushChat` for starting new chat sessions.
+  - `Chat.popChat` for ending chat sessions.
+  - `Message.pushMessage` for sending messages within chats.
+  - `Chat.getChat` for retrieving chat sessions along with messages.
+- **Description**: Ensures that chat sessions can be correctly initiated, messages sent and received, and sessions concluded.
+- **Detailed Steps**:
+  - This test involves creating a chat session, sending messages within the session, attempting to send messages to non-existent sessions, and finally, retrieving the chat session to verify the messages.
+  - **Expected Outcomes**: Each operation related to chat and message functionality executes as expected, demonstrating the system's ability to handle real-time communication effectively.
+  - **Implementation Code**: `
 
 # 📃 Functions Library Documentation
 
